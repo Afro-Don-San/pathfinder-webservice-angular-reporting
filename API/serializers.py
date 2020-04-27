@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Client
+from .models import Client, Event
 
 
 class ClientSerializer(serializers.ModelSerializer):
@@ -9,8 +9,9 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 
-class ClientChartSerializer(serializers.Serializer):
-    gender = serializers.CharField()
-    value = serializers.IntegerField()
+class EventSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = Event
+        fields = '__all__'
 
