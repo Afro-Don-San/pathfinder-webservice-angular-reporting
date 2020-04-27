@@ -9,5 +9,8 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 
+class ClientChartSerializer(serializers.Serializer):
+    gender = serializers.CharField()
+    value = serializers.IntegerField()
 
 
