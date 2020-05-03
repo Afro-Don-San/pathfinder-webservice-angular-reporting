@@ -14,16 +14,16 @@ class Client(models.Model):
         (Male, 'Male')
     )
 
-    first_name = models.CharField(max_length=255)
-    middle_name =  models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    gender = models.CharField(max_length=30, choices=GENDER_TYPE_CHOICES)
-    date_of_birth = models.DateField(auto_now_add=True)
-    date_created = models.DateTimeField(auto_now_add=True)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    middle_name =  models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
+    gender = models.CharField(max_length=30, choices=GENDER_TYPE_CHOICES, null=True, blank=True)
+    date_of_birth = models.DateField(auto_now_add=True, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     date_edited = models.DateTimeField(null=True, blank=True)
-    city_village = models.CharField(max_length=255, default='unknown')
-    landmark = models.CharField(max_length=255, default='unknown')
-    type = models.CharField(max_length=100, default='Client')
+    city_village = models.CharField(max_length=255, default='unknown', null=True, blank=True)
+    landmark = models.CharField(max_length=255, default='unknown', null=True, blank=True)
+    type = models.CharField(max_length=100, default='Client', null=True, blank=True)
 
     class Meta:
         db_table = 'Client'
@@ -34,11 +34,15 @@ class Event(models.Model):
         return '%d' % self.id
 
     referral = 'Referral'
-    family_planning = 'Family Planning'
+    family_registration = 'Family Registration'
+    family_planning_registration = 'Family Planning Registration'
+    family_member_registration = 'Family Member Registration'
 
     EVENT_TYPE_CHOICES = (
         (referral, 'Referral'),
-        (family_planning, 'Family Planning')
+        (family_registration, 'Family Registration'),
+        (family_planning_registration, 'Family Planning Registration'),
+        (family_member_registration, 'Family Member Registration')
     )
 
     event_type = models.CharField(max_length=30, choices=EVENT_TYPE_CHOICES)
