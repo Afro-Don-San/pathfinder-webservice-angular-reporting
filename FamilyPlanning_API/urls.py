@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from API import views as api_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api_', include('API.urls')),
+    path('superset_', include('Superset.urls'))
 ]

@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,IsAdminUser, AllowAny
 from django.db.models import Count
 from django.conf import settings
-from .serializers import ReferralSerializer, FamilyPlanningRegistrationSerializer
-from .models import Referral, FamilyPlanningRegistration
+from .serializers import EventsSerializer, FamilyPlanningRegistrationSerializer
+from .models import Event, Client
 import json
 from rest_framework.decorators import action
 import requests
@@ -18,35 +18,39 @@ def check_permission():
 
 
 class FPRegistrationSummaryView(viewsets.ModelViewSet):
-    queryset = FamilyPlanningRegistration.objects.all()
+    queryset = Client.objects.all()
     serializer_class = FamilyPlanningRegistrationSerializer
     permission_classes = ()
 
     def list(self, request):
-        queryset = FamilyPlanningRegistration.objects.all()
+        queryset = Client.objects.all()
         serializer = FamilyPlanningRegistrationSerializer(queryset, many=True)
-        total_aggregate = FamilyPlanningRegistration.objects.values('gender').annotate(value=Count('gender'))
+        total_aggregate = Client.objects.values('gender').annotate(value=Count('gender'))
         content = {'total_family_planning_registrations': queryset.count(),'total_aggregate':total_aggregate, 'records': serializer.data}
         return Response(content)
 
-
-class ReferralsSummaryView(viewsets.ModelViewSet):
-    queryset = Referral.objects.all()
-    serializer_class = ReferralSerializer
+''
+class EventsSummaryView(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventsSerializer
     permission_classes = ()
 
     def list(self, request):
-        queryset = Referral.objects.all()
-        total_family_planning_referrals_by_team = Referral.objects.filter(referral_type='Family Planning Referral').\
+        queryset = Event.objects.all()
+        total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning')
+        total_family_planning_discontinuation = Event.objects.filter(event_type='Family Planning Discontinuation')
+        total_family_planning_registrations_by_team = Event.objects.filter(event_type='Family Planning Registration').\
             values('team').annotate(value=Count('team'))
-        total_issued_referrals_by_team = Referral.objects.all(). \
+        total_issued_services_by_team = Event.objects.all(). \
             values('team').annotate(value=Count('team'))
-        serializer = ReferralSerializer(queryset, many=True)
-        total_aggregate = Referral.objects.values('referral_type').annotate(value=Count('referral_type'))
-        content = {'total_referrals': queryset.count(),
-                   'total_aggregate': total_aggregate,
-                   'total_family_planning_referral_by_team': total_family_planning_referrals_by_team,
-                   'total_issued_referrals_by_team': total_issued_referrals_by_team,
+        serializer = EventsSerializer(queryset, many=True)
+        total_services_aggregate = Event.objects.values('event_type').annotate(value=Count('event_type'))
+        content = {'total_events': queryset.count(),
+                   'total_family_planning_initiations':total_family_planning_initiations.count(),
+                   'total_family_planning_discontinuations': total_family_planning_discontinuation.count(),
+                   'total_services_aggregate': total_services_aggregate,
+                   'total_family_planning_registrations_by_team':     total_family_planning_registrations_by_team,
+                   'total_issued_services_by_team': total_issued_services_by_team,
                    'records': serializer.data}
         return Response(content)
 

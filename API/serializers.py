@@ -1,16 +1,16 @@
 from rest_framework import serializers
-from .models import FamilyPlanningRegistration, Referral
+from .models import Client, Event
 
 
 class FamilyPlanningRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = FamilyPlanningRegistration
+        model = Client
         fields = '__all__'
 
 
-class ReferralSerializer(serializers.ModelSerializer):
+class EventsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Referral
+        model = Event
         fields = '__all__'

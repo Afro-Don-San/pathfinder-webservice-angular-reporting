@@ -4,7 +4,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('family_planning_registration_summary', views.FPRegistrationSummaryView)
-router.register('referral_summary', views.ReferralsSummaryView)
+router.register('events_summary', views.EventsSummaryView)
 
 urlpatterns = [
     path('', include(router.urls)),
