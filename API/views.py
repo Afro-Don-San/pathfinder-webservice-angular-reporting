@@ -29,7 +29,29 @@ class FPRegistrationSummaryView(viewsets.ModelViewSet):
         content = {'total_family_planning_registrations': queryset.count(),'total_aggregate':total_aggregate, 'records': serializer.data}
         return Response(content)
 
-''
+    def create(self, request):
+        from_date = request.data["from_date"]
+        to_date = request.data["to_date"]
+        facilities = request.data["facilities"]
+
+        print(from_date)
+        print(to_date)
+        print(facilities)
+
+        data = request.data
+
+        if isinstance(data, list):
+            serializer = self.get_serializer(data=request.data, many=True)
+        else:
+            serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED,
+                        headers=headers)
+
+
 class EventsSummaryView(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventsSerializer
@@ -53,4 +75,27 @@ class EventsSummaryView(viewsets.ModelViewSet):
                    'total_issued_services_by_team': total_issued_services_by_team,
                    'records': serializer.data}
         return Response(content)
+
+    def create(self, request):
+        data = request.data
+
+        from_date = request.data["from_date"]
+        to_date = request.data["to_date"]
+        facilities = request.data["facilities"]
+
+        print(from_date)
+        print(to_date)
+        print(facilities)
+
+        if isinstance(data, list):
+            serializer = self.get_serializer(data=request.data, many=True)
+        else:
+            serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED,
+                        headers=headers)
+
 
