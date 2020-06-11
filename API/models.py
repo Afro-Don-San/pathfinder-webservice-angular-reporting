@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 
 # Create your models here.
@@ -19,9 +20,9 @@ class Client(models.Model):
     middle_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255, null=True, blank=True)
     gender = models.CharField(max_length=30, choices=GENDER_TYPE_CHOICES, null=True, blank=True)
-    date_of_birth = models.CharField(max_length=255, null=True, blank=True)
-    date_created = models.CharField(max_length=255, null=True, blank=True)
-    date_edited = models.CharField(max_length=255, null=True, blank=True)
+    birth_date = models.DateTimeField(null=True, blank=True)
+    date_created = models.DateTimeField(null=True, blank=True)
+    date_edited = models.DateTimeField(null=True, blank=True)
     city_village = models.CharField(max_length=255, default='unknown', null=True, blank=True)
     landmark = models.CharField(max_length=255, default='unknown', null=True, blank=True)
     type = models.CharField(max_length=100, default='Client', null=True, blank=True)
@@ -71,17 +72,15 @@ class Event(models.Model):
 
     _id = models.CharField(max_length=255, null=True, blank=True)
     provider_id = models.CharField(max_length=255, null=True, blank=True)
-    event_date = models.CharField(max_length=255, null=True, blank=True)
+    event_date = models.DateTimeField(null=True, blank=True)
     event_type = models.CharField(max_length=100, choices=EVENT_TYPE_CHOICES, null=True, blank=True)
     entity_type = models.CharField(max_length=255, null=True, blank=True)
     team = models.CharField(max_length=255, null=True, blank=True)
     team_id = models.CharField(max_length=255, null=True, blank=True)
     location_id = models.CharField(max_length=255, null=True, blank=True)
-    date_created = models.CharField(max_length=255, null=True, blank=True)
+    date_created = models.DateTimeField(null=True, blank=True)
     type = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         db_table = 'Events'
-
-
 

@@ -9,6 +9,7 @@ from .models import Event, Client
 import json
 from rest_framework.decorators import action
 import requests
+from datetime import datetime
 
 
 def check_permission():
@@ -30,26 +31,23 @@ class FPRegistrationSummaryView(viewsets.ModelViewSet):
         return Response(content)
 
     def create(self, request):
-        from_date = request.data["from_date"]
-        to_date = request.data["to_date"]
+        format_str = '%Y/%m/%d'  # The format
+
+        from_date = datetime.strptime(request.data["from_date"], format_str).date()
+        to_date = datetime.strptime(request.data["to_date"], format_str).date()
         facilities = request.data["facilities"]
 
         print(from_date)
         print(to_date)
-        print(facilities)
 
-        data = request.data
-
-        if isinstance(data, list):
-            serializer = self.get_serializer(data=request.data, many=True)
-        else:
-            serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
-                        headers=headers)
+        queryset = Client.objects.filter(date_created__gte=from_date,
+                                         date_created__lte=to_date)
+        serializer = FamilyPlanningRegistrationSerializer(queryset, many=True)
+        total_aggregate = Client.objects.filter(date_created__gte=from_date,
+                                                date_created__lte=to_date).values('gender').annotate(value=Count('gender'))
+        content = {'total_family_planning_registrations': queryset.count(), 'total_aggregate': total_aggregate,
+                   'records': serializer.data}
+        return Response(content)
 
 
 class EventsSummaryView(viewsets.ModelViewSet):
@@ -59,6 +57,7 @@ class EventsSummaryView(viewsets.ModelViewSet):
 
     def list(self, request):
         queryset = Event.objects.all()
+        query_service_providers = Event.objects.values('team').distinct()
         total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning')
         total_family_planning_discontinuation = Event.objects.filter(event_type='Family Planning Discontinuation')
         total_family_planning_registrations_by_team = Event.objects.filter(event_type='Family Planning Registration').\
@@ -68,6 +67,7 @@ class EventsSummaryView(viewsets.ModelViewSet):
         serializer = EventsSerializer(queryset, many=True)
         total_services_aggregate = Event.objects.values('event_type').annotate(value=Count('event_type'))
         content = {'total_events': queryset.count(),
+                   'query_service_providers': query_service_providers,
                    'total_family_planning_initiations':total_family_planning_initiations.count(),
                    'total_family_planning_discontinuations': total_family_planning_discontinuation.count(),
                    'total_services_aggregate': total_services_aggregate,
@@ -77,25 +77,45 @@ class EventsSummaryView(viewsets.ModelViewSet):
         return Response(content)
 
     def create(self, request):
-        data = request.data
+        format_str = '%Y/%m/%d'  # The format
 
-        from_date = request.data["from_date"]
-        to_date = request.data["to_date"]
+        from_date = datetime.strptime(request.data["from_date"], format_str).date()
+        to_date = datetime.strptime(request.data["to_date"], format_str).date()
         facilities = request.data["facilities"]
 
         print(from_date)
         print(to_date)
-        print(facilities)
 
-        if isinstance(data, list):
-            serializer = self.get_serializer(data=request.data, many=True)
-        else:
-            serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
-                        headers=headers)
+        queryset = Event.objects.filter(event_date__gte=from_date,
+                                        event_date__lte=to_date)
+        query_service_providers = Event.objects.filter(event_date__gte=from_date,
+                                                       event_date__lte=to_date).values('team').distinct()
+        total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning',
+                                                                 event_date__gte=from_date,
+                                                                 event_date__lte=to_date)
+        total_family_planning_discontinuation = Event.objects.filter(event_type='Family Planning Discontinuation',
+                                                                     event_date__gte=from_date,
+                                                                     event_date__lte=to_date)
+        total_family_planning_registrations_by_team = Event.objects.filter(event_type='Family Planning Registration',
+                                                                           event_date__gte=from_date,
+                                                                           event_date__lte=to_date
+                                                                           ). \
+            values('team').annotate(value=Count('team'))
+        total_issued_services_by_team = Event.objects.filter(event_date__gte=from_date,
+                                                             event_date__lte=to_date).\
+                                                                values('team').annotate(value=Count('team'))
+        serializer = EventsSerializer(queryset, many=True)
+        total_services_aggregate = Event.objects.filter(event_date__gte=from_date,
+                                                        event_date__lte=to_date).\
+                                                            values('event_type').annotate(value=Count('event_type'))
+        content = {'total_events': queryset.count(),
+                   'query_service_providers': query_service_providers,
+                   'total_family_planning_initiations': total_family_planning_initiations.count(),
+                   'total_family_planning_discontinuations': total_family_planning_discontinuation.count(),
+                   'total_services_aggregate': total_services_aggregate,
+                   'total_family_planning_registrations_by_team': total_family_planning_registrations_by_team,
+                   'total_issued_services_by_team': total_issued_services_by_team,
+                   'records': serializer.data}
+        return Response(content)
 
 
