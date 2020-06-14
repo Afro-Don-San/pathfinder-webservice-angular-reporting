@@ -96,7 +96,10 @@ WSGI_APPLICATION = 'FamilyPlanning_API.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'opensrp_nifi',
+        'OPTIONS': {
+          'options': '-c search_path=django,core'
+        },
+        'NAME': 'opensrp',
         'USER': 'postgres',
         'PASSWORD': 'UnifiedPostgresPass2020',
         'HOST': '172.105.87.198',

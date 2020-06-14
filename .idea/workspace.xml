@@ -3,18 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="aa88748a-5906-422b-85f8-3d6f92f972f2" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0002_auto_20200605_1729.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CustomDashboardElements/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CustomDashboardElements/admin.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CustomDashboardElements/apps.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CustomDashboardElements/migrations/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CustomDashboardElements/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CustomDashboardElements/tests.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CustomDashboardElements/urls.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CustomDashboardElements/views.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0002_auto_20200609_0851.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0003_auto_20200609_0854.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0004_client_created.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0005_auto_20200609_0859.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0006_auto_20200609_1037.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0007_auto_20200609_1057.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0008_auto_20200610_0709.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0009_auto_20200610_0906.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0010_auto_20200611_1210.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/models.py" afterPath="$PROJECT_DIR$/API/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/urls.py" afterPath="$PROJECT_DIR$/API/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/views.py" afterPath="$PROJECT_DIR$/API/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FamilyPlanning_API/settings.py" afterPath="$PROJECT_DIR$/FamilyPlanning_API/settings.py" />
     </list>
     <ignored path="FamilyPlanning_API.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,8 +59,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FamilyPlanning_API/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1860">
-              <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+            <state relative-caret-position="401">
+              <caret line="99" column="48" selection-start-line="99" selection-start-column="48" selection-end-line="99" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -67,11 +69,9 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/API/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1200">
-              <caret line="80" column="39" selection-start-line="80" selection-start-column="39" selection-end-line="80" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="270">
+              <caret line="21" column="71" selection-start-line="21" selection-start-column="71" selection-end-line="21" selection-end-column="71" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -79,10 +79,22 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/API/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="95" column="45" selection-start-line="95" selection-start-column="8" selection-end-line="95" selection-end-column="45" />
+            <state relative-caret-position="329">
+              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
                 <element signature="e#0#66#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/API/serializers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,8 +125,8 @@
         <option value="$PROJECT_DIR$/FamilyPlanning_API/urls.py" />
         <option value="$PROJECT_DIR$/API/migrations/0006_auto_20200607_2212.py" />
         <option value="$PROJECT_DIR$/FamilyPlanning_API/settings.py" />
-        <option value="$PROJECT_DIR$/API/models.py" />
         <option value="$PROJECT_DIR$/API/views.py" />
+        <option value="$PROJECT_DIR$/API/models.py" />
       </list>
     </option>
   </component>
@@ -152,8 +164,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -220,6 +230,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -530,17 +542,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33882785" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34737486" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914045" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29874215" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35849056" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -620,9 +632,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -694,9 +704,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -753,9 +761,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -812,9 +818,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -864,13 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/API/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/API/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -879,6 +876,24 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CustomDashboardElements/urls.py" />
+    <entry file="file://$PROJECT_DIR$/CustomDashboardElements/views.py" />
+    <entry file="file://$PROJECT_DIR$/CustomDashboardElements/models.py" />
+    <entry file="file://$PROJECT_DIR$/API/migrations/0008_auto_20200609_0836.py" />
+    <entry file="file://$PROJECT_DIR$/API/migrations/0004_auto_20200607_1956.py" />
+    <entry file="file://$PROJECT_DIR$/API/migrations/0005_auto_20200607_2006.py" />
+    <entry file="file://$PROJECT_DIR$/API/migrations/0006_auto_20200607_2212.py" />
+    <entry file="file://$PROJECT_DIR$/API/migrations/0007_auto_20200609_0836.py" />
+    <entry file="file://$PROJECT_DIR$/API/migrations/0007_auto_20200609_0838.py" />
+    <entry file="file://$PROJECT_DIR$/API/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FamilyPlanning_API/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -889,36 +904,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CustomDashboardElements/views.py" />
-    <entry file="file://$PROJECT_DIR$/CustomDashboardElements/models.py" />
-    <entry file="file://$PROJECT_DIR$/API/migrations/0008_auto_20200609_0836.py" />
-    <entry file="file://$PROJECT_DIR$/API/migrations/0004_auto_20200607_1956.py" />
-    <entry file="file://$PROJECT_DIR$/API/migrations/0005_auto_20200607_2006.py" />
-    <entry file="file://$PROJECT_DIR$/API/migrations/0006_auto_20200607_2212.py" />
-    <entry file="file://$PROJECT_DIR$/API/migrations/0007_auto_20200609_0836.py" />
-    <entry file="file://$PROJECT_DIR$/API/migrations/0007_auto_20200609_0838.py" />
     <entry file="file://$PROJECT_DIR$/FamilyPlanning_API/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1860">
-          <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+        <state relative-caret-position="401">
+          <caret line="99" column="48" selection-start-line="99" selection-start-column="48" selection-end-line="99" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/API/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="80" column="39" selection-start-line="80" selection-start-column="39" selection-end-line="80" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="270">
+          <caret line="21" column="71" selection-start-line="21" selection-start-column="71" selection-end-line="21" selection-end-column="71" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/API/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="95" column="45" selection-start-line="95" selection-start-column="8" selection-end-line="95" selection-end-column="45" />
+        <state relative-caret-position="329">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding>
             <element signature="e#0#66#0" expanded="true" />
           </folding>
