@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,IsAdminUser, AllowAny
 from django.db.models import Count
 from django.conf import settings
-from .serializers import EventsSerializer, FamilyPlanningRegistrationSerializer
-from .models import Event, Client
+from .serializers import EventsSerializer, ClientExtendedSerializer
+from .models import Event, Client, ClientExtended
 import json
 from rest_framework.decorators import action
 import requests
@@ -19,14 +19,14 @@ def check_permission():
 
 
 class ClientsSummaryView(viewsets.ModelViewSet):
-    queryset = Client.objects.all()
-    serializer_class = FamilyPlanningRegistrationSerializer
+    queryset = ClientExtended.objects.select_related()
+    serializer_class = ClientExtendedSerializer
     permission_classes = ()
 
     def list(self, request):
-        queryset = Client.objects.all()
-        serializer = FamilyPlanningRegistrationSerializer(queryset, many=True)
-        total_aggregate = Client.objects.values('gender').annotate(value=Count('gender'))
+        queryset = ClientExtended.objects.all()
+        serializer = ClientExtendedSerializer(queryset, many=True)
+        total_aggregate = ClientExtended.objects.select_related().values('gender').annotate(value=Count('gender'))
         content = {'total_family_planning_registrations': queryset.count(),'total_aggregate':total_aggregate, 'records': serializer.data}
         return Response(content)
 
@@ -37,9 +37,10 @@ class ClientsSummaryView(viewsets.ModelViewSet):
         to_date = datetime.strptime(request.data["to_date"], format_str).date()
         facilities = request.data["facilities"]
 
-        queryset = Client.objects.filter(date_time_created__gte=from_date, date_time_created__lte=to_date)
-        serializer = FamilyPlanningRegistrationSerializer(queryset, many=True)
-        total_aggregate = Client.objects.all().values('gender').annotate(value=Count('gender'))
+        queryset = ClientExtended.objects.filter(date_time_created__gte=from_date, date_time_created__lte=to_date)
+        serializer = ClientExtendedSerializer(queryset, many=True)
+        total_aggregate = ClientExtended.objects.filter(date_time_created__gte=from_date, date_time_created__lte=to_date).all()\
+            .values('gender').annotate(value=Count('gender'))
         content = {'total_family_planning_registrations': queryset.count(), 'total_aggregate': total_aggregate,
                    'records': serializer.data}
         return Response(content)
@@ -91,8 +92,8 @@ class EventsSummaryView(viewsets.ModelViewSet):
                                                                  event_date__gte=from_date,
                                                                  event_date__lte=to_date)
         total_family_planning_discontinuations = Event.objects.filter(event_type='Family Planning Discontinuation',
-                                                                     event_date__gte=from_date,
-                                                                     event_date__lte=to_date)
+                                                                      event_date__gte=from_date,
+                                                                      event_date__lte=to_date)
         total_family_planning_registrations_by_team = Event.objects.filter(event_type='Family Planning Registration',
                                                                            event_date__gte=from_date,
                                                                            event_date__lte=to_date

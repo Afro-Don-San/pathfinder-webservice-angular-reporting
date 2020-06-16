@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 # Create your models here.
@@ -7,7 +9,6 @@ class Client(models.Model):
         return '%d' % self.id
 
     id = models.BigIntegerField(db_column="id", primary_key=True)
-    date_time_created = models.DateTimeField(auto_now_add=True)
     client_id = models.CharField(db_column="client_id", max_length=255)
     base_entity_id = models.CharField(db_column="base_entity_id", max_length=255)
     relational_id = models.CharField(db_column="relational_id", max_length=255)
@@ -22,7 +23,7 @@ class Client(models.Model):
     residence = models.CharField(db_column="residence", max_length=255)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'client_metadata'
 
 
@@ -52,3 +53,32 @@ class Event(models.Model):
         managed = False
         db_table = 'event_metadata'
 
+
+class ClientExtended(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    Female = 'Female'
+    Male = 'Male'
+
+    GENDER_TYPE_CHOICES = (
+        (Female, 'Female'),
+        (Male, 'Male')
+    )
+
+    date_time_created = models.DateTimeField(auto_now_add=True)
+    client_id = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
+    gender = models.CharField(max_length=30, choices=GENDER_TYPE_CHOICES)
+
+    class Meta:
+        db_table = 'clients_extended'
+
+
+class EventExtended(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    date_time_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'events_extended'
