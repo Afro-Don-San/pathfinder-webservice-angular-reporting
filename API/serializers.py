@@ -21,3 +21,12 @@ class EventsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = '__all__'
+
+
+class DashboardSummarySerializer(serializers.Serializer):
+
+    total_services = serializers.IntegerField()
+    total_clients = serializers.IntegerField()
+    total_family_planning_registrations = serializers.IntegerField()
+    total_family_planning_initiations = serializers.IntegerField()
+    total_family_planning_discontinuations = serializers.IntegerField()

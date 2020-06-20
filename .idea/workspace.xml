@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa88748a-5906-422b-85f8-3d6f92f972f2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0001_initial.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/models.py" afterPath="$PROJECT_DIR$/API/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/serializers.py" afterPath="$PROJECT_DIR$/API/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/urls.py" afterPath="$PROJECT_DIR$/API/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/views.py" afterPath="$PROJECT_DIR$/API/views.py" />
     </list>
     <ignored path="FamilyPlanning_API.iws" />
@@ -49,7 +49,7 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FamilyPlanning_API/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
+            <state relative-caret-position="1590">
               <caret line="106" column="5" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
               <folding />
             </state>
@@ -59,8 +59,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/API/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="68" column="63" selection-start-line="68" selection-start-column="63" selection-end-line="68" selection-end-column="63" />
+            <state relative-caret-position="990">
+              <caret line="68" column="85" selection-start-line="68" selection-start-column="85" selection-end-line="68" selection-end-column="85" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -71,8 +71,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/API/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="88" column="93" selection-start-line="88" selection-start-column="93" selection-end-line="88" selection-end-column="93" />
+            <state relative-caret-position="1245">
+              <caret line="159" column="56" selection-start-line="159" selection-start-column="56" selection-end-line="159" selection-end-column="56" />
               <folding>
                 <element signature="e#0#66#0" expanded="true" />
               </folding>
@@ -80,11 +80,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/API/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="5" column="79" selection-start-line="5" selection-start-column="79" selection-end-line="5" selection-end-column="79" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/API/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state relative-caret-position="360">
+              <caret line="25" column="32" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="32" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -110,14 +120,14 @@
         <option value="$PROJECT_DIR$/FamilyPlanning_API/views.py" />
         <option value="$PROJECT_DIR$/Superset/urls.py" />
         <option value="$PROJECT_DIR$/Superset/views.py" />
-        <option value="$PROJECT_DIR$/API/urls.py" />
         <option value="$PROJECT_DIR$/CustomDashboardElements/urls.py" />
         <option value="$PROJECT_DIR$/CustomDashboardElements/views.py" />
         <option value="$PROJECT_DIR$/FamilyPlanning_API/urls.py" />
         <option value="$PROJECT_DIR$/API/migrations/0006_auto_20200607_2212.py" />
         <option value="$PROJECT_DIR$/FamilyPlanning_API/settings.py" />
-        <option value="$PROJECT_DIR$/API/serializers.py" />
         <option value="$PROJECT_DIR$/API/models.py" />
+        <option value="$PROJECT_DIR$/API/serializers.py" />
+        <option value="$PROJECT_DIR$/API/urls.py" />
         <option value="$PROJECT_DIR$/API/views.py" />
       </list>
     </option>
@@ -156,6 +166,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -222,7 +233,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -534,17 +544,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20818071" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24358974" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914045" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35849056" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41509435" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -868,13 +878,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/API/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CustomDashboardElements/urls.py" />
     <entry file="file://$PROJECT_DIR$/CustomDashboardElements/views.py" />
     <entry file="file://$PROJECT_DIR$/CustomDashboardElements/models.py" />
@@ -884,6 +887,34 @@
     <entry file="file://$PROJECT_DIR$/API/migrations/0006_auto_20200607_2212.py" />
     <entry file="file://$PROJECT_DIR$/API/migrations/0007_auto_20200609_0836.py" />
     <entry file="file://$PROJECT_DIR$/API/migrations/0007_auto_20200609_0838.py" />
+    <entry file="file://$PROJECT_DIR$/FamilyPlanning_API/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1590">
+          <caret line="106" column="5" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/API/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="68" column="85" selection-start-line="68" selection-start-column="85" selection-end-line="68" selection-end-column="85" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/API/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="25" column="32" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FamilyPlanning_API/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -894,38 +925,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FamilyPlanning_API/settings.py">
+    <entry file="file://$PROJECT_DIR$/API/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="106" column="5" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
+        <state relative-caret-position="45">
+          <caret line="5" column="79" selection-start-line="5" selection-start-column="79" selection-end-line="5" selection-end-column="79" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/API/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/API/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="68" column="63" selection-start-line="68" selection-start-column="63" selection-end-line="68" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/API/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="88" column="93" selection-start-line="88" selection-start-column="93" selection-end-line="88" selection-end-column="93" />
+        <state relative-caret-position="1245">
+          <caret line="159" column="56" selection-start-line="159" selection-start-column="56" selection-end-line="159" selection-end-column="56" />
           <folding>
             <element signature="e#0#66#0" expanded="true" />
           </folding>

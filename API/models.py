@@ -66,8 +66,8 @@ class ClientExtended(models.Model):
         (Male, 'Male')
     )
 
-    date_time_created = models.DateTimeField(auto_now_add=True)
-    client_id = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
+    date_time_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
     gender = models.CharField(max_length=30, choices=GENDER_TYPE_CHOICES)
 
     class Meta:
