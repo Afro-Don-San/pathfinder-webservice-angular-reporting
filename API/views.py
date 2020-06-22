@@ -106,36 +106,42 @@ class EventsSummaryView(viewsets.ModelViewSet):
         to_date = datetime.strptime(request.data["to_date"], format_str).date()
         facilities = request.data["facilities"]
 
+        for x in facilities:
+            print(x)
+
         queryset = Event.objects.filter(event_date__gte=from_date,
-                                        event_date__lte=to_date)
+                                        event_date__lte=to_date, location_id__in=facilities)
         query_service_providers = Event.objects.filter(event_date__gte=from_date,
-                                                       event_date__lte=to_date).values('team').distinct()
+                                                       event_date__lte=to_date, location_id__in=facilities).values('team').distinct()
         total_family_planning_registrations = Event.objects.filter(event_type='Family Planning Registration',
                                                                    event_date__gte=from_date,
-                                                                   event_date__lte=to_date)
+                                                                   event_date__lte=to_date, location_id__in=facilities)
         total_family_planning_referrals = Event.objects.filter(event_type='Family Planning Referral',
-                                                                   event_date__gte=from_date,
-                                                                   event_date__lte=to_date)
+                                                               event_date__gte=from_date,
+                                                               event_date__lte=to_date, location_id__in=facilities)
         total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning',
                                                                  event_date__gte=from_date,
-                                                                 event_date__lte=to_date)
+                                                                 event_date__lte=to_date,
+                                                                 location_id__in=facilities)
         total_family_planning_discontinuations = Event.objects.filter(event_type='Family Planning Discontinuation',
                                                                       event_date__gte=from_date,
-                                                                      event_date__lte=to_date)
+                                                                      event_date__lte=to_date,
+                                                                      location_id__in=facilities)
         total_family_planning_registrations_by_team = Event.objects.filter(event_type='Family Planning Registration',
                                                                            event_date__gte=from_date,
-                                                                           event_date__lte=to_date
+                                                                           event_date__lte=to_date,
+                                                                           location_id__in=facilities
                                                                            ). \
             values('team_id').annotate(value=Count('team_id'))
         total_issued_services_by_team = Event.objects.filter(event_date__gte=from_date,
-                                                             event_date__lte=to_date).\
+                                                             event_date__lte=to_date, location_id__in=facilities).\
                                                                 values('team').annotate(value=Count('team_id'))
         serializer = EventsSerializer(queryset, many=True)
         total_services_aggregate = Event.objects.filter(event_date__gte=from_date,
-                                                        event_date__lte=to_date).\
+                                                        event_date__lte=to_date, location_id__in=facilities).\
                                                             values('event_type').annotate(value=Count('event_type'))
         total_services_by_month = Event.objects.filter(event_date__gte=from_date,
-                                                       event_date__lte=to_date
+                                                       event_date__lte=to_date, location_id__in=facilities
                                                        ).annotate(
             month_number=ExtractMonth('date_created'),
         ).values('month_number').annotate(
@@ -187,12 +193,18 @@ class DashboardSummaryView(viewsets.ModelViewSet):
     def create(self, request):
         format_str = '%Y/%m/%d'  # The format
 
-        queryset = Event.objects.all()
+        facilities = request.data["facilities"]
+
+        queryset = Event.objects.filter(location_id__in=facilities)
         total_clients = Client.objects.all()
-        total_family_planning_registrations = Event.objects.filter(event_type='Family Planning Registration')
-        total_family_planning_referrals = Event.objects.filter(event_type='Family Planning Referral')
-        total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning')
-        total_family_planning_discontinuations = Event.objects.filter(event_type='Family Planning Discontinuation')
+        total_family_planning_registrations = Event.objects.filter(event_type='Family Planning Registration',
+                                                                   location_id__in=facilities)
+        total_family_planning_referrals = Event.objects.filter(event_type='Family Planning Referral',
+                                                               location_id__in=facilities)
+        total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning',
+                                                                 location_id__in=facilities)
+        total_family_planning_discontinuations = Event.objects.filter(event_type='Family Planning Discontinuation',
+                                                                      location_id__in=facilities)
 
         content = {'total_services': queryset.count(),
                    'total_clients': total_clients.count(),
