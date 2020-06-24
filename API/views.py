@@ -11,7 +11,7 @@ from rest_framework.decorators import action
 import requests
 from datetime import datetime
 from django.db import models
-from django.db.models import Func
+from django.db.models import Func, Q
 from django.db.models.functions import TruncMonth, ExtractMonth
 import calendar
 
@@ -104,10 +104,7 @@ class EventsSummaryView(viewsets.ModelViewSet):
 
         from_date = datetime.strptime(request.data["from_date"], format_str).date()
         to_date = datetime.strptime(request.data["to_date"], format_str).date()
-        facilities = request.data["facilities"]
-
-        for x in facilities:
-            print(x)
+        facilities = list(request.data["facilities"])
 
         queryset = Event.objects.filter(event_date__gte=from_date,
                                         event_date__lte=to_date, location_id__in=facilities)
@@ -196,11 +193,22 @@ class DashboardSummaryView(viewsets.ModelViewSet):
         facilities = request.data["facilities"]
 
         queryset = Event.objects.filter(location_id__in=facilities)
-        total_clients = Client.objects.all()
+
+        list_families = []
+
+        total_clients_families = Client.objects.filter(unique_id__contains='family')
+
+        for x in total_clients_families:
+            list_families.append(int(x.id))
+
+        total_clients = Client.objects.exclude(id__in=list_families)
+
         total_family_planning_registrations = Event.objects.filter(event_type='Family Planning Registration',
                                                                    location_id__in=facilities)
-        total_family_planning_referrals = Event.objects.filter(event_type='Family Planning Referral',
-                                                               location_id__in=facilities)
+        total_referrals = Event.objects.filter\
+            (Q(event_type='Family Planning Referral') |
+             Q(event_type='ANC Referral')).filter(location_id__in = facilities)
+
         total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning',
                                                                  location_id__in=facilities)
         total_family_planning_discontinuations = Event.objects.filter(event_type='Family Planning Discontinuation',
@@ -209,7 +217,7 @@ class DashboardSummaryView(viewsets.ModelViewSet):
         content = {'total_services': queryset.count(),
                    'total_clients': total_clients.count(),
                    'total_family_planning_registrations': total_family_planning_registrations.count(),
-                   'total_family_planning_referrals': total_family_planning_referrals.count(),
+                   'total_referrals': total_referrals.count(),
                    'total_family_planning_initiations': total_family_planning_initiations.count(),
                    'total_family_planning_discontinuations': total_family_planning_discontinuations.count()}
         return Response(content)

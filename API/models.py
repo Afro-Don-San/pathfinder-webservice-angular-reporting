@@ -78,7 +78,54 @@ class EventExtended(models.Model):
     def __str__(self):
         return '%d' % self.id
 
-    date_time_created = models.DateTimeField(auto_now_add=True)
+    event_id = models.CharField(max_length=255, null=True, blank=True)
+    document_id = models.CharField(max_length=255, null=True, blank=True)
+    base_entity_id = models.CharField(max_length=255, null=True, blank=True)
+    form_submission_id = models.CharField(max_length=255, null=True, blank=True)
+    server_version = models.CharField(max_length=255, null=True, blank=True)
+    openmrs_uuid = models.CharField(max_length=255, null=True, blank=True)
+    event_type = models.CharField(max_length=255, null=True, blank=True)
+    event_date = models.CharField(max_length=255, null=True, blank=True)
+    entity_type = models.CharField(max_length=255, null=True, blank=True)
+    provider_id = models.CharField(max_length=255, null=True, blank=True)
+    location_id = models.CharField(max_length=255, null=True, blank=True)
+    team = models.CharField(max_length=255, null=True, blank=True)
+    team_id = models.CharField(max_length=255, null=True, blank=True)
+    date_created = models.CharField(max_length=255, null=True, blank=True)
+    date_edited = models.CharField(max_length=255, null=True, blank=True)
+    date_deleted = models.CharField(max_length=255, null=True, blank=True)
+
+    obs_0_values_0 = models.CharField(max_length=255, null=True, blank=True)
+    obs_0_field_code = models.CharField(max_length=255, null=True, blank=True)
+    obs_0_field_type = models.CharField(max_length=255, null=True, blank=True)
+    obs_0_parent_code = models.CharField(max_length=255, null=True, blank=True)
+    obs_0_field_data_type = models.CharField(max_length=255, null=True, blank=True)
+    obs_0_form_submission_field = models.CharField(max_length=255, null=True, blank=True)
+    obs_0_human_readable_values = models.CharField(max_length=255, null=True, blank=True)
+
+    # obs_2_values_0 = models.CharField(max_length=255, null=True, blank=True)
+    # obs_2_field_code = models.CharField(max_length=255, null=True, blank=True)
+    # obs_2_field_type = models.CharField(max_length=255, null=True, blank=True)
+    # obs_2_parent_code = models.CharField(max_length=255, null=True, blank=True)
+    # obs_2_field_data_type = models.CharField(max_length=255, null=True, blank=True)
+    # obs_2_form_submission_field = models.CharField(max_length=255, null=True, blank=True)
+    # obs_2_human_readable_values = models.CharField(max_length=255, null=True, blank=True)
+    #
+    # obs_3_values_0 = models.CharField(max_length=255, null=True, blank=True)
+    # obs_3_field_code = models.CharField(max_length=255, null=True, blank=True)
+    # obs_3_field_type = models.CharField(max_length=255, null=True, blank=True)
+    # obs_3_parent_code = models.CharField(max_length=255, null=True, blank=True)
+    # obs_3_field_data_type = models.CharField(max_length=255, null=True, blank=True)
+    # obs_3_form_submission_field = models.CharField(max_length=255, null=True, blank=True)
+    # obs_3_human_readable_values = models.CharField(max_length=255, null=True, blank=True)
+    #
+    # obs_4_values_0 = models.CharField(max_length=255, null=True, blank=True)
+    # obs_4_field_code = models.CharField(max_length=255, null=True, blank=True)
+    # obs_4_field_type = models.CharField(max_length=255, null=True, blank=True)
+    # obs_4_parent_code = models.CharField(max_length=255, null=True, blank=True)
+    # obs_4_field_data_type = models.CharField(max_length=255, null=True, blank=True)
+    # obs_4_form_submission_field = models.CharField(max_length=255, null=True, blank=True)
+    # obs_4_human_readable_values = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         db_table = 'events_extended'
