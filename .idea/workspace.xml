@@ -3,17 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="aa88748a-5906-422b-85f8-3d6f92f972f2" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0002_clientextended_client_id.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0003_remove_clientextended_date_time_created.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0004_auto_20200616_1121.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0005_clientextended_date_time_created.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0006_auto_20200618_2054.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0007_auto_20200618_2100.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0002_auto_20200624_1108.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0003_auto_20200624_1125.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0004_auto_20200624_1130.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0005_auto_20200624_1138.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/API/migrations/0006_auto_20200624_1224.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/models.py" afterPath="$PROJECT_DIR$/API/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/urls.py" afterPath="$PROJECT_DIR$/API/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/API/views.py" afterPath="$PROJECT_DIR$/API/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FamilyPlanning_API/settings.py" afterPath="$PROJECT_DIR$/FamilyPlanning_API/settings.py" />
     </list>
     <ignored path="FamilyPlanning_API.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,8 +62,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/API/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="109" column="49" selection-start-line="109" selection-start-column="49" selection-end-line="109" selection-end-column="49" />
+            <state relative-caret-position="230">
+              <caret line="246" column="41" selection-start-line="246" selection-start-column="41" selection-end-line="246" selection-end-column="41" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -78,7 +74,7 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/API/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3180">
+            <state relative-caret-position="2955">
               <caret line="212" column="46" selection-start-line="212" selection-start-column="46" selection-end-line="212" selection-end-column="46" />
               <folding>
                 <element signature="e#0#66#0" expanded="true" />
@@ -173,6 +169,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -225,7 +222,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -537,17 +533,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26190478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2728938" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914045" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32880434" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41509435" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41509435" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -890,12 +886,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/API/serializers.py">
+    <entry file="file://$PROJECT_DIR$/FamilyPlanning_API/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="25" column="32" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="32" />
+        <state relative-caret-position="1275">
+          <caret line="85" column="10" selection-start-line="84" selection-start-column="14" selection-end-line="85" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/API/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="246" column="41" selection-start-line="246" selection-start-column="41" selection-end-line="246" selection-end-column="41" />
           <folding>
-            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/API/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2955">
+          <caret line="212" column="46" selection-start-line="212" selection-start-column="46" selection-end-line="212" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#66#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -908,30 +922,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FamilyPlanning_API/settings.py">
+    <entry file="file://$PROJECT_DIR$/API/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="85" column="10" selection-start-line="84" selection-start-column="14" selection-end-line="85" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/API/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3180">
-          <caret line="212" column="46" selection-start-line="212" selection-start-column="46" selection-end-line="212" selection-end-column="46" />
+        <state relative-caret-position="360">
+          <caret line="25" column="32" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="32" />
           <folding>
-            <element signature="e#0#66#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/API/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="109" column="49" selection-start-line="109" selection-start-column="49" selection-end-line="109" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
