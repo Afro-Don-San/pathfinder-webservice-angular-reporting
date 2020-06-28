@@ -80,7 +80,7 @@ class EventExtended(models.Model):
 
     event_id = models.CharField(max_length=255, null=True, blank=True)
     event_type = models.CharField(max_length=255, null=True, blank=True)
-    event_date = models.CharField(max_length=255, null=True, blank=True)
+    event_date = models.DateField(null=True, blank=True)
     entity_type = models.CharField(max_length=255, null=True, blank=True)
     location_id = models.CharField(max_length=255, null=True, blank=True)
     provider_id = models.CharField(max_length=255, null=True, blank=True)

@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser, AllowAny
 from django.db.models import Count, Sum
 from django.conf import settings
 from .serializers import EventsSerializer, ClientExtendedSerializer, DashboardSummarySerializer
-from .models import Event, Client, ClientExtended
+from .models import Event, Client, ClientExtended, EventExtended
 import json
 from rest_framework.decorators import action
 import requests
@@ -78,6 +78,14 @@ class EventsSummaryView(viewsets.ModelViewSet):
             value=Count('id')
         )
 
+        total_family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method'). \
+            values('field_code_3').annotate(value=Count('field_code_3'))
+
+        total_issued_referrals = Event.objects.all(). \
+            filter(Q(event_type='Referrals') | Q(event_type='ANC Referrals') | Q(event_type='Family Planning Referral')
+                   | Q(event_type='Family Planning Referral Followup')).values('event_type'). \
+            annotate(value=Count('event_type'))
+
         converted_total_services_by_month = []
 
         for x in total_services_by_month:
@@ -96,6 +104,8 @@ class EventsSummaryView(viewsets.ModelViewSet):
                    'total_family_planning_registrations_by_team':     total_family_planning_registrations_by_team,
                    'total_issued_services_by_team': total_issued_services_by_team,
                    'total_services_by_month':converted_total_services_by_month,
+                   'total_family_planning_method_given': total_family_planning_method_given,
+                   'total_issued_referrals':total_issued_referrals,
                    'records': serializer.data}
         return Response(content)
 
@@ -130,9 +140,12 @@ class EventsSummaryView(viewsets.ModelViewSet):
                                                                            location_id__in=facilities
                                                                            ). \
             values('team_id').annotate(value=Count('team_id'))
-        total_issued_services_by_team = Event.objects.filter(event_date__gte=from_date,
-                                                             event_date__lte=to_date, location_id__in=facilities).\
-                                                                values('team').annotate(value=Count('team_id'))
+        total_issued_referrals = Event.objects.filter(event_date__gte=from_date,
+                                                      event_date__lte=to_date, location_id__in=facilities).\
+            filter(Q(event_type='ANC Referral') | Q(event_type='Family Planning Referral')
+                     | Q(event_type='Family Planning Referral Followup')).values('event_type').\
+                        annotate(value=Count('event_type'))
+
         serializer = EventsSerializer(queryset, many=True)
         total_services_aggregate = Event.objects.filter(event_date__gte=from_date,
                                                         event_date__lte=to_date, location_id__in=facilities).\
@@ -144,6 +157,12 @@ class EventsSummaryView(viewsets.ModelViewSet):
         ).values('month_number').annotate(
             value=Count('id')
         )
+
+        total_family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
+                                                                          event_date__gte=from_date,
+                                                                          event_date__lte=to_date
+                                                                          ).\
+            values('field_code_3').annotate(value=Count('field_code_3'))
 
         converted_total_services_by_month = []
 
@@ -162,8 +181,9 @@ class EventsSummaryView(viewsets.ModelViewSet):
                    'total_family_planning_discontinuations': total_family_planning_discontinuations.count(),
                    'total_services_aggregate': total_services_aggregate,
                    'total_family_planning_registrations_by_team': total_family_planning_registrations_by_team,
-                   'total_issued_services_by_team': total_issued_services_by_team,
+                   'total_issued_referrals': total_issued_referrals,
                    'total_services_by_month': converted_total_services_by_month,
+                   'total_family_planning_method_given':total_family_planning_method_given,
                    'records': serializer.data}
         return Response(content)
 
@@ -179,11 +199,13 @@ class DashboardSummaryView(viewsets.ModelViewSet):
         total_family_planning_registrations = Event.objects.filter(event_type='Family Planning Registration')
         total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning')
         total_family_planning_discontinuation = Event.objects.filter(event_type='Family Planning Discontinuation')
+        total_clients_families = Client.objects.filter(unique_id__contains='family')
         content = {'total_services': queryset.count(),
                    'total_clients': total_clients.count(),
                    'total_family_planning_registrations': total_family_planning_registrations.count(),
                    'total_family_planning_initiations':total_family_planning_initiations.count(),
-                   'total_family_planning_discontinuations': total_family_planning_discontinuation.count()
+                   'total_family_planning_discontinuations': total_family_planning_discontinuation.count(),
+                   'total_clients_families':total_clients_families.count()
                   }
         return Response(content)
 
@@ -219,7 +241,8 @@ class DashboardSummaryView(viewsets.ModelViewSet):
                    'total_family_planning_registrations': total_family_planning_registrations.count(),
                    'total_referrals': total_referrals.count(),
                    'total_family_planning_initiations': total_family_planning_initiations.count(),
-                   'total_family_planning_discontinuations': total_family_planning_discontinuations.count()}
+                   'total_family_planning_discontinuations': total_family_planning_discontinuations.count(),
+                   'total_clients_families':total_clients_families.count()}
         return Response(content)
 
 
