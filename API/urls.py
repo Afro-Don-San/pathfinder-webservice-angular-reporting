@@ -7,6 +7,8 @@ router.register('clients_summary', views.ClientsSummaryView, basename="clients_s
 router.register('events_summary', views.EventsSummaryView, basename="events_summary")
 router.register('dashboard_summary', views.DashboardSummaryView, basename="dashboard_summary")
 router.register('citizen_report_card', views.CitizenReportCardView, basename='citizen_report_card')
+router.register('family_planning_methods_given', views.FamilyPlanningMethodView,
+                basename='family_planning_methods_given')
 
 urlpatterns = [
     path('', include(router.urls)),

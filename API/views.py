@@ -445,14 +445,83 @@ class FamilyPlanningMethodView(viewsets.ModelViewSet):
     serializer_class=  EventsSerializer
     permission_classes = ()
 
-    def list(self):
-        family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
-                                                                    values_2="true").values('field_code_3'). \
-            annotate(value=Count('values_4'))
+    def list(self, request):
+        pop_given= EventExtended.objects.filter(event_type='Give Family Planning Method',field_code_3='pop_given',
+                                                                    values_2="true")
 
-        total_family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
-                                                                    values_2="true").values('field_code_3'). \
-            annotate(value=Count('values_4'))
+        coc_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
+                                                      field_code_3='coc_given',
+                                                      values_2="true")
+        sdm_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
+                                                      field_code_3='sdm_given',
+                                                      values_2="true")
+
+        content = []
+
+        total_pop_given = 0
+        total_coc_given = 0
+        total_sdm_given = 0
+
+        for x in pop_given:
+            total_pop_given += int(x.values_4)
+
+        for x in coc_given:
+            total_coc_given += int(x.values_4)
+
+        for x in sdm_given:
+            total_sdm_given += int(x.values_4)
+
+        content.append({"method_type": "pop_given", "number_of_items": total_pop_given})
+        content.append({"method_type": "coc_given", "number_of_items": total_coc_given})
+        content.append({"method_type": "sdm_given", "number_of_item": total_sdm_given})
+
+        return Response(content)
+
+    def create(self, request):
+        format_str = '%Y/%m/%d'  # The format
+
+        from_date = datetime.strptime(request.data["from_date"], format_str).date()
+        to_date = datetime.strptime(request.data["to_date"], format_str).date()
+        facilities = list(request.data["facilities"])
+
+        pop_given = EventExtended.objects.filter(event_type='Give Family Planning Method', field_code_3='pop_given',
+                                                 values_2="true", event_date__gte=from_date,
+                                                 event_date__lte=to_date, location_id__in=facilities
+                                                 )
+
+        coc_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
+                                                 field_code_3='coc_given',
+                                                 values_2="true", event_date__gte=from_date,
+                                                 event_date__lte=to_date, location_id__in=facilities
+                                                 )
+        sdm_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
+                                                 field_code_3='sdm_given',
+                                                 values_2="true", event_date__gte=from_date,
+                                                 event_date__lte=to_date, location_id__in=facilities
+                                                 )
+
+        content = []
+
+        total_pop_given = 0
+        total_coc_given = 0
+        total_sdm_given = 0
+
+        for x in pop_given:
+            total_pop_given += int(x.values_4)
+
+        for x in coc_given:
+            total_coc_given += int(x.values_4)
+
+        for x in sdm_given:
+            total_sdm_given += int(x.values_4)
+
+        content.append({"method_type": "pop given", "number_of_items": total_pop_given})
+        content.append({"method_type": "coc given", "number_of_items": total_coc_given})
+        content.append({"method_type": "sdm given", "number_of_item": total_sdm_given})
+
+        return Response(content)
+
+
 
 
 

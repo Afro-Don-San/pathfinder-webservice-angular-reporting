@@ -75,8 +75,6 @@ class ClientExtended(models.Model):
 
 
 class EventExtended(models.Model):
-    def __str__(self):
-        return '%d' % self.id
 
     event_id = models.CharField(max_length=255, null=True, blank=True)
     event_type = models.CharField(max_length=255, null=True, blank=True)
