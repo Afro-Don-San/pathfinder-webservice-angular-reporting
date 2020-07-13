@@ -267,100 +267,101 @@ class CitizenReportCardView(viewsets.ModelViewSet):
     permission_classes = ()
 
     def list(self, request):
-        willing_to_participate_in_survey = EventExtended.objects.filter\
+
+        willing_to_participate_in_survey_summary = EventExtended.objects.filter\
             (event_type='Citizen Report Card').\
             values('values_1').\
             annotate(value=Count('values_1'))
 
-        name_of_health_facility_visited_for_family_planning_services = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        name_of_health_facility_visited_for_family_planning_services_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_2'). \
             annotate(value=Count('values_2'))
 
-        residence = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        residence_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_3'). \
             annotate(value=Count('values_3'))
 
-        education = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        education_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_4'). \
             annotate(value=Count('values_4'))
 
-        occupation = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        occupation_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_5'). \
             annotate(value=Count('values_5'))
 
-        marital_status = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        marital_status_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_6'). \
             annotate(value=Count('values_6'))
 
-        religion = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        religion_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_7'). \
             annotate(value=Count('values_7'))
 
-        reasons_for_people_not_going_to_health_facilities = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        reasons_for_people_not_going_to_health_facilities_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_8'). \
             annotate(value=Count('values_8'))
 
-        means_of_transport_to_facility = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        means_of_transport_to_facility_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_9'). \
             annotate(value=Count('values_9'))
 
-        time_to_reach_closest_facility = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        time_to_reach_closest_facility_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_10'). \
             annotate(value=Count('values_10'))
 
-        is_this_the_nearest_facility_from_home = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        is_this_the_nearest_facility_from_home_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_11'). \
             annotate(value=Count('values_11'))
 
-        was_the_facility_open_when_you_arrived = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        was_the_facility_open_when_you_arrived_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_12'). \
             annotate(value=Count('values_12'))
 
-        did_you_get_family_planning_information_at_the_reception = EventExtended.objects.filter(event_type='Citizen Report Card').values(
+        did_you_get_family_planning_information_at_the_reception_summary = EventExtended.objects.filter(event_type='Citizen Report Card').values(
             'values_13'). \
             annotate(value=Count('values_13'))
 
-        how_long_it_took_to_be_attended_by_service_provider = EventExtended.objects.filter(
+        how_long_it_took_to_be_attended_by_service_provider_summary = EventExtended.objects.filter(
             event_type='Citizen Report Card').values(
             'values_14'). \
             annotate(value=Count('values_14'))
 
-        did_the_service_provider_make_you_feel_welcome = EventExtended.objects.filter(
+        did_the_service_provider_make_you_feel_welcome_summary = EventExtended.objects.filter(
             event_type='Citizen Report Card').values(
             'values_15'). \
             annotate(value=Count('values_15'))
 
-        did_the_service_provider_assure_confidentiality = EventExtended.objects.filter(
+        did_the_service_provider_assure_confidentiality_summary = EventExtended.objects.filter(
             event_type='Citizen Report Card').values(
             'values_16'). \
             annotate(value=Count('values_16'))
 
-        did_you_meet_the_service_providers_in_a_private_room = EventExtended.objects.filter(
+        did_you_meet_the_service_providers_in_a_private_room_summary = EventExtended.objects.filter(
             event_type='Citizen Report Card').values(
             'values_17'). \
             annotate(value=Count('values_17'))
 
-        did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods = EventExtended.objects.filter(
+        did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods_summary = EventExtended.objects.filter(
             event_type='Citizen Report Card').values(
             'values_18'). \
             annotate(value=Count('values_18'))
 
-        did_the_service_providers_use_visual_aids_to_demo_fp_methods = EventExtended.objects.filter(
+        did_the_service_providers_use_visual_aids_to_demo_fp_methods_summary = EventExtended.objects.filter(
             event_type='Citizen Report Card').values(
             'values_19'). \
             annotate(value=Count('values_19'))
 
-        did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods = EventExtended.objects.filter(
+        did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods_summary = EventExtended.objects.filter(
             event_type='Citizen Report Card').values(
             'values_20'). \
             annotate(value=Count('values_20'))
 
-        were_you_given_info_on_dual_protection = EventExtended.objects.filter(
+        were_you_given_info_on_dual_protection_summary = EventExtended.objects.filter(
             event_type='Citizen Report Card').values(
             'values_21'). \
             annotate(value=Count('values_21'))
 
-        methods_not_wanted = EventExtended.objects.filter(
+        methods_not_wanted_summary = EventExtended.objects.filter(
             event_type='Citizen Report Card').values(
             'values_22'). \
             annotate(value=Count('values_22'))
@@ -370,71 +371,332 @@ class CitizenReportCardView(viewsets.ModelViewSet):
         converted_citizen_card_report = []
 
         for x in citizen_card_records:
-            print(x)
-            # willing_to_participate_in_survey = x['values_1']
-            # name_of_health_facility_visited_for_family_planning_services = x['values_2']
-            # residence = x['values_3']
-            # education = x['values_4']
-            # occupation = x['values_5']
-            # marital_status = x['values_6']
-            # religion = x['values_7']
-            # reasons_for_people_not_going_to_health_facilities = x['values_8']
-            # means_of_transport_to_facility = x['values_9']
-            # time_to_reach_closest_facility = x['values_10']
-            # is_this_the_nearest_facility_from_home = x['values_11']
-            # was_the_facility_open_when_you_arrived = x['values_12']
-            # did_you_get_family_planning_information_at_the_reception = x['values_13']
-            # how_long_it_took_to_be_attended_by_service_provider = x['values_14']
-            # did_the_service_provider_make_you_feel_welcome = x['values_15']
-            # did_the_service_provider_assure_confidentiality = x['values_16']
-            # did_you_meet_the_service_providers_in_a_private_room = x['values_17']
-            # did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods = x['values_18']
-            # did_the_service_providers_use_visual_aids_to_demo_fp_methods = x['values_19']
-            # did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods = x['values_20']
-            # were_you_given_info_on_dual_protection = x['values_21']
-            # methods_not_wanted = x['values_22']
+            willing_to_participate_in_survey = x.values_1
+            name_of_health_facility_visited_for_family_planning_services = x.values_2
+            residence = x.values_3
+            education = x.values_4
+            occupation = x.values_5
+            marital_status = x.values_6
+            religion = x.values_7
+            reasons_for_people_not_going_to_health_facilities = x.values_8
+            means_of_transport_to_facility = x.values_9
+            time_to_reach_closest_facility = x.values_10
+            is_this_the_nearest_facility_from_home = x.values_11
+            was_the_facility_open_when_you_arrived = x.values_12
+            did_you_get_family_planning_information_at_the_reception = x.values_13
+            how_long_it_took_to_be_attended_by_service_provider = x.values_14
+            did_the_service_provider_make_you_feel_welcome = x.values_15
+            did_the_service_provider_assure_confidentiality = x.values_16
+            did_you_meet_the_service_providers_in_a_private_room = x.values_17
+            did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods = x.values_18
+            did_the_service_providers_use_visual_aids_to_demo_fp_methods = x.values_19
+            did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods = x.values_20
+            were_you_given_info_on_dual_protection = x.values_21
+            methods_not_wanted = x.values_22
 
-            # converted_citizen_card_report.append({'willing_to_participate_in_survey': willing_to_participate_in_survey,
-            #                                       'name_of_health_facility_visited_for_family_planning_services':
-            #                                           name_of_health_facility_visited_for_family_planning_services,
-            #                                       'residence': residence,
-            #                                       'education': education,
-            #                                       'occupation': occupation,
-            #                                       'marital_status': marital_status,
-            #                                       'religion': religion,
-            #                                       'reasons_for_people_not_going_to_health_facilities':
-            #                                           reasons_for_people_not_going_to_health_facilities,
-            #                                       'means_of_transport_to_facility': means_of_transport_to_facility})
+            converted_citizen_card_report.append({'willing_to_participate_in_survey': willing_to_participate_in_survey,
+                                                  'name_of_health_facility_visited_for_family_planning_services':
+                                                      name_of_health_facility_visited_for_family_planning_services,
+                                                  'residence': residence,
+                                                  'education': education,
+                                                  'occupation': occupation,
+                                                  'marital_status': marital_status,
+                                                  'religion': religion,
+                                                  'reasons_for_people_not_going_to_health_facilities':
+                                                      reasons_for_people_not_going_to_health_facilities,
+                                                  'means_of_transport_to_facility': means_of_transport_to_facility,
+                                                  'time_to_reach_closest_facility': time_to_reach_closest_facility,
+                                                  'is_this_the_nearest_facility_from_home': is_this_the_nearest_facility_from_home,
+                                                  'was_the_facility_open_when_you_arrived': was_the_facility_open_when_you_arrived,
+                                                  'did_you_get_family_planning_information_at_the_reception':
+                                                      did_you_get_family_planning_information_at_the_reception,
+                                                  'how_long_it_took_to_be_attended_by_service_provider':
+                                                      how_long_it_took_to_be_attended_by_service_provider,
+                                                  'did_the_service_provider_make_you_feel_welcome': did_the_service_provider_make_you_feel_welcome,
+                                                  'did_the_service_provider_assure_confidentiality': did_the_service_provider_assure_confidentiality,
+                                                  'did_you_meet_the_service_providers_in_a_private_room': did_you_meet_the_service_providers_in_a_private_room,
+                                                  'did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods':
+                                                      did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods,
+                                                  'did_the_service_providers_use_visual_aids_to_demo_fp_methods':
+                                                      did_the_service_providers_use_visual_aids_to_demo_fp_methods,
+                                                  'did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods':
+                                                      did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods,
+                                                  'were_you_given_info_on_dual_protection': were_you_given_info_on_dual_protection,
+                                                  'methods_not_wanted': methods_not_wanted})
 
-        content = {'records':converted_citizen_card_report,'willing_to_participate_in_survey':
-                                willing_to_participate_in_survey,
-                   'name_of_health_facility_visited_for_family_planning_services':
-                       name_of_health_facility_visited_for_family_planning_services,
-                   'residence': residence,
-                   'education': education,
-                   'occupation':occupation,
-                   'marital_status': marital_status,
-                   'religion': religion,
-                   'reasons_for_people_not_going_to_health_facilities': reasons_for_people_not_going_to_health_facilities,
-                   'means_of_transport_to_facility': means_of_transport_to_facility,
-                   'time_to_reach_closest_facility': time_to_reach_closest_facility,
-                   'is_this_the_nearest_facility_from_home' : is_this_the_nearest_facility_from_home,
-                   'was_the_facility_open_when_you_arrived': was_the_facility_open_when_you_arrived,
-                   'did_you_get_family_planning_information_at_the_reception': did_you_get_family_planning_information_at_the_reception,
-                   'how_long_it_took_to_be_attended_by_service_provider': how_long_it_took_to_be_attended_by_service_provider,
-                   'did_the_service_provider_make_you_feel_welcome': did_the_service_provider_make_you_feel_welcome,
-                   'did_the_service_provider_assure_confidentiality': did_the_service_provider_assure_confidentiality,
-                   'did_you_meet_the_service_providers_in_a_private_room':
-                       did_you_meet_the_service_providers_in_a_private_room,
-                   'did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods':
-                       did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods,
-                   'did_the_service_providers_use_visual_aids_to_demo_fp_methods':
-                       did_the_service_providers_use_visual_aids_to_demo_fp_methods,
-                   'did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods':
-                       did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods,
-                   'were_you_given_info_on_dual_protection': were_you_given_info_on_dual_protection,
-                   'methods_not_wanted': methods_not_wanted
+        content = {'records':converted_citizen_card_report,
+                   'willing_to_participate_in_survey_summary':willing_to_participate_in_survey_summary,
+                   'name_of_health_facility_visited_for_family_planning_services_summary':
+                       name_of_health_facility_visited_for_family_planning_services_summary,
+                   'residence_summary': residence_summary,
+                   'education_summary': education_summary,
+                   'occupation_summary': occupation_summary,
+                   'marital_status_summary': marital_status_summary,
+                   'religion_summary': religion_summary,
+                   'reasons_for_people_not_going_to_health_facilities_summary':
+                       reasons_for_people_not_going_to_health_facilities_summary,
+                   'means_of_transport_to_facility_summary': means_of_transport_to_facility_summary,
+                   'time_to_reach_closest_facility_summary': time_to_reach_closest_facility_summary,
+                   'is_this_the_nearest_facility_from_home_summary': is_this_the_nearest_facility_from_home_summary,
+                   'was_the_facility_open_when_you_arrived_summary': was_the_facility_open_when_you_arrived_summary,
+                   'did_you_get_family_planning_information_at_the_reception_summary': did_you_get_family_planning_information_at_the_reception_summary,
+                   'how_long_it_took_to_be_attended_by_service_provider_summary': how_long_it_took_to_be_attended_by_service_provider_summary,
+                   'did_the_service_provider_make_you_feel_welcome_summary': did_the_service_provider_make_you_feel_welcome_summary,
+                   'did_the_service_provider_assure_confidentiality_summary': did_the_service_provider_assure_confidentiality_summary,
+                   'did_you_meet_the_service_providers_in_a_private_room_summary': did_you_meet_the_service_providers_in_a_private_room_summary,
+                   'did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods_summary':
+                       did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods_summary,
+                   'did_the_service_providers_use_visual_aids_to_demo_fp_methods_summary': did_the_service_providers_use_visual_aids_to_demo_fp_methods_summary,
+                   'did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods_summary':
+                       did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods_summary,
+                   'were_you_given_info_on_dual_protection_summary': were_you_given_info_on_dual_protection_summary,
+                   'methods_not_wanted_summary': methods_not_wanted_summary
+                   }
 
+        return Response(content)
+
+    def create(self, request, *args, **kwargs):
+        format_str = '%Y/%m/%d'  # The format
+
+        from_date = datetime.strptime(request.data["start_date"], format_str).date()
+        to_date = datetime.strptime(request.data["end_date"], format_str).date()
+        facilities = list(request.data["facilities"])
+
+        willing_to_participate_in_survey_summary = EventExtended.objects.filter \
+            (event_type='Citizen Report Card', event_date__gte=from_date,
+             event_date__lte=to_date, location_id__in=facilities
+             ). \
+            values('values_1'). \
+            annotate(value=Count('values_1'))
+
+        name_of_health_facility_visited_for_family_planning_services_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_2'). \
+            annotate(value=Count('values_2'))
+
+        residence_summary = EventExtended.objects.filter(event_type='Citizen Report Card', event_date__gte=from_date,
+                                                         event_date__lte=to_date, location_id__in=facilities
+                                                         ).values(
+            'values_3'). \
+            annotate(value=Count('values_3'))
+
+        education_summary = EventExtended.objects.filter(event_type='Citizen Report Card', event_date__gte=from_date,
+                                                         event_date__lte=to_date, location_id__in=facilities
+                                                         ).values(
+            'values_4'). \
+            annotate(value=Count('values_4'))
+
+        occupation_summary = EventExtended.objects.filter(event_type='Citizen Report Card', event_date__gte=from_date,
+                                                          event_date__lte=to_date, location_id__in=facilities
+                                                          ).values(
+            'values_5'). \
+            annotate(value=Count('values_5'))
+
+        marital_status_summary = EventExtended.objects.filter(event_type='Citizen Report Card',
+                                                              event_date__gte=from_date,
+                                                              event_date__lte=to_date, location_id__in=facilities
+                                                              ).values(
+            'values_6'). \
+            annotate(value=Count('values_6'))
+
+        religion_summary = EventExtended.objects.filter(event_type='Citizen Report Card', event_date__gte=from_date,
+                                                        event_date__lte=to_date, location_id__in=facilities
+                                                        ).values(
+            'values_7'). \
+            annotate(value=Count('values_7'))
+
+        reasons_for_people_not_going_to_health_facilities_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_8'). \
+            annotate(value=Count('values_8'))
+
+        means_of_transport_to_facility_summary = EventExtended.objects.filter(event_type='Citizen Report Card',
+                                                                              event_date__gte=from_date,
+                                                                              event_date__lte=to_date,
+                                                                              location_id__in=facilities
+                                                                              ).values(
+            'values_9'). \
+            annotate(value=Count('values_9'))
+
+        time_to_reach_closest_facility_summary = EventExtended.objects.filter(event_type='Citizen Report Card',
+                                                                              event_date__gte=from_date,
+                                                                              event_date__lte=to_date,
+                                                                              location_id__in=facilities
+                                                                              ).values(
+            'values_10'). \
+            annotate(value=Count('values_10'))
+
+        is_this_the_nearest_facility_from_home_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_11'). \
+            annotate(value=Count('values_11'))
+
+        was_the_facility_open_when_you_arrived_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_12'). \
+            annotate(value=Count('values_12'))
+
+        did_you_get_family_planning_information_at_the_reception_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_13'). \
+            annotate(value=Count('values_13'))
+
+        how_long_it_took_to_be_attended_by_service_provider_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card').values(
+            'values_14'). \
+            annotate(value=Count('values_14'))
+
+        did_the_service_provider_make_you_feel_welcome_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_15'). \
+            annotate(value=Count('values_15'))
+
+        did_the_service_provider_assure_confidentiality_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_16'). \
+            annotate(value=Count('values_16'))
+
+        did_you_meet_the_service_providers_in_a_private_room_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_17'). \
+            annotate(value=Count('values_17'))
+
+        did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_18'). \
+            annotate(value=Count('values_18'))
+
+        did_the_service_providers_use_visual_aids_to_demo_fp_methods_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_19'). \
+            annotate(value=Count('values_19'))
+
+        did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_20'). \
+            annotate(value=Count('values_20'))
+
+        were_you_given_info_on_dual_protection_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card').values(
+            'values_21'). \
+            annotate(value=Count('values_21'))
+
+        methods_not_wanted_summary = EventExtended.objects.filter(
+            event_type='Citizen Report Card', event_date__gte=from_date,
+            event_date__lte=to_date, location_id__in=facilities
+        ).values(
+            'values_22'). \
+            annotate(value=Count('values_22'))
+
+        citizen_card_records = EventExtended.objects.filter(event_type='Citizen Report Card', event_date__gte=from_date,
+                                                            event_date__lte=to_date, location_id__in=facilities
+                                                            )
+
+        converted_citizen_card_report = []
+
+        for x in citizen_card_records:
+            willing_to_participate_in_survey = x.values_1
+            name_of_health_facility_visited_for_family_planning_services = x.values_2
+            residence = x.values_3
+            education = x.values_4
+            occupation = x.values_5
+            marital_status = x.values_6
+            religion = x.values_7
+            reasons_for_people_not_going_to_health_facilities = x.values_8
+            means_of_transport_to_facility = x.values_9
+            time_to_reach_closest_facility = x.values_10
+            is_this_the_nearest_facility_from_home = x.values_11
+            was_the_facility_open_when_you_arrived = x.values_12
+            did_you_get_family_planning_information_at_the_reception = x.values_13
+            how_long_it_took_to_be_attended_by_service_provider = x.values_14
+            did_the_service_provider_make_you_feel_welcome = x.values_15
+            did_the_service_provider_assure_confidentiality = x.values_16
+            did_you_meet_the_service_providers_in_a_private_room = x.values_17
+            did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods = x.values_18
+            did_the_service_providers_use_visual_aids_to_demo_fp_methods = x.values_19
+            did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods = x.values_20
+            were_you_given_info_on_dual_protection = x.values_21
+            methods_not_wanted = x.values_22
+
+            converted_citizen_card_report.append({'willing_to_participate_in_survey': willing_to_participate_in_survey,
+                                                  'name_of_health_facility_visited_for_family_planning_services':
+                                                      name_of_health_facility_visited_for_family_planning_services,
+                                                  'residence': residence,
+                                                  'education': education,
+                                                  'occupation': occupation,
+                                                  'marital_status': marital_status,
+                                                  'religion': religion,
+                                                  'reasons_for_people_not_going_to_health_facilities':
+                                                      reasons_for_people_not_going_to_health_facilities,
+                                                  'means_of_transport_to_facility': means_of_transport_to_facility,
+                                                  'time_to_reach_closest_facility': time_to_reach_closest_facility,
+                                                  'is_this_the_nearest_facility_from_home': is_this_the_nearest_facility_from_home,
+                                                  'was_the_facility_open_when_you_arrived': was_the_facility_open_when_you_arrived,
+                                                  'did_you_get_family_planning_information_at_the_reception':
+                                                      did_you_get_family_planning_information_at_the_reception,
+                                                  'how_long_it_took_to_be_attended_by_service_provider':
+                                                      how_long_it_took_to_be_attended_by_service_provider,
+                                                  'did_the_service_provider_make_you_feel_welcome': did_the_service_provider_make_you_feel_welcome,
+                                                  'did_the_service_provider_assure_confidentiality': did_the_service_provider_assure_confidentiality,
+                                                  'did_you_meet_the_service_providers_in_a_private_room': did_you_meet_the_service_providers_in_a_private_room,
+                                                  'did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods':
+                                                      did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods,
+                                                  'did_the_service_providers_use_visual_aids_to_demo_fp_methods':
+                                                      did_the_service_providers_use_visual_aids_to_demo_fp_methods,
+                                                  'did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods':
+                                                      did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods,
+                                                  'were_you_given_info_on_dual_protection': were_you_given_info_on_dual_protection,
+                                                  'methods_not_wanted': methods_not_wanted})
+
+        content = {'records': converted_citizen_card_report,
+                   'willing_to_participate_in_survey_summary': willing_to_participate_in_survey_summary,
+                   'name_of_health_facility_visited_for_family_planning_services_summary':
+                       name_of_health_facility_visited_for_family_planning_services_summary,
+                   'residence_summary': residence_summary,
+                   'education_summary': education_summary,
+                   'occupation_summary': occupation_summary,
+                   'marital_status_summary': marital_status_summary,
+                   'religion_summary': religion_summary,
+                   'reasons_for_people_not_going_to_health_facilities_summary':
+                       reasons_for_people_not_going_to_health_facilities_summary,
+                   'means_of_transport_to_facility_summary': means_of_transport_to_facility_summary,
+                   'time_to_reach_closest_facility_summary': time_to_reach_closest_facility_summary,
+                   'is_this_the_nearest_facility_from_home_summary': is_this_the_nearest_facility_from_home_summary,
+                   'was_the_facility_open_when_you_arrived_summary': was_the_facility_open_when_you_arrived_summary,
+                   'did_you_get_family_planning_information_at_the_reception_summary': did_you_get_family_planning_information_at_the_reception_summary,
+                   'how_long_it_took_to_be_attended_by_service_provider_summary': how_long_it_took_to_be_attended_by_service_provider_summary,
+                   'did_the_service_provider_make_you_feel_welcome_summary': did_the_service_provider_make_you_feel_welcome_summary,
+                   'did_the_service_provider_assure_confidentiality_summary': did_the_service_provider_assure_confidentiality_summary,
+                   'did_you_meet_the_service_providers_in_a_private_room_summary': did_you_meet_the_service_providers_in_a_private_room_summary,
+                   'did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods_summary':
+                       did_the_service_providers_provide_clear_information_about_various_fp_services_and_methods_summary,
+                   'did_the_service_providers_use_visual_aids_to_demo_fp_methods_summary': did_the_service_providers_use_visual_aids_to_demo_fp_methods_summary,
+                   'did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods_summary':
+                       did_the_service_providers_ask_if_you_had_any_concerns_about_previously_used_methods_summary,
+                   'were_you_given_info_on_dual_protection_summary': were_you_given_info_on_dual_protection_summary,
+                   'methods_not_wanted_summary': methods_not_wanted_summary
                    }
 
         return Response(content)
@@ -520,6 +782,9 @@ class FamilyPlanningMethodView(viewsets.ModelViewSet):
         content.append({"method_type": "sdm given", "number_of_item": total_sdm_given})
 
         return Response(content)
+
+
+
 
 
 
