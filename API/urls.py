@@ -9,6 +9,7 @@ router.register('dashboard_summary', views.DashboardSummaryView, basename="dashb
 router.register('citizen_report_card', views.CitizenReportCardView, basename='citizen_report_card')
 router.register('family_planning_methods_given', views.FamilyPlanningMethodView,
                 basename='family_planning_methods_given')
+router.register('map_summary', views.MapSummaryView, basename='map_summary')
 
 urlpatterns = [
     path('', include(router.urls)),

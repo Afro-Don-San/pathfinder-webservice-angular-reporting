@@ -231,14 +231,17 @@ class DashboardSummaryView(viewsets.ModelViewSet):
 
         queryset = Event.objects.filter(location_id__in=facilities)
 
-        list_families = []
+        # list_families = []
 
-        total_clients_families = Client.objects.filter(unique_id__contains='family')
+        # total_clients_families = Client.objects.filter(unique_id__contains='family')
 
-        for x in total_clients_families:
-            list_families.append(int(x.id))
+        # for x in total_clients_families:
+        #     list_families.append(int(x.id))
 
-        total_clients = Client.objects.exclude(id__in=list_families)
+        # total_clients = Client.objects.exclude(id__in=list_families)
+
+        total_clients = EventExtended.objects.filter(event_type='Family Member Registration', location_id__in=facilities)
+        total_clients_families = EventExtended.objects.filter(event_type='Family Registration', location_id__in=facilities)
 
         total_family_planning_registrations = Event.objects.filter(event_type='Family Planning Registration',
                                                                    location_id__in=facilities)
@@ -782,6 +785,67 @@ class FamilyPlanningMethodView(viewsets.ModelViewSet):
         content.append({"method_type": "sdm given", "number_of_item": total_sdm_given})
 
         return Response(content)
+
+
+class MapSummaryView(viewsets.ModelViewSet):
+    queryset = EventExtended.objects.filter(event_type="Family Planning Registration")
+    serializer_class= EventsSerializer
+    permission_classes = ()
+
+    def create(self, request):
+        format_str = '%Y/%m/%d'  # The format
+
+        services = {
+                    1:'Family Planning Registration',
+                    2: 'Family Planning Follow Up Visit',
+                    4: 'Family Planning Pregnancy Screening',
+                    3: 'Introduction to Family Planning',
+                    5: 'Family Planning Method Issued',
+                    6: 'Family Planning Discontinuation',
+                    7: 'ANC Referral',
+                    8: 'Family Planning Referral',
+                    9: 'Family Planning Referral Followup'
+                    }
+
+        from_date = datetime.strptime(request.data["from_date"], format_str).date()
+        to_date = datetime.strptime(request.data["to_date"], format_str).date()
+        facilities = list(request.data["facilities"])
+        org_units = list(request.data["orgUnits"])
+        selected_location_name = request.data["ouName"]
+        service_id = request.data["service"]
+        selected_service = services[service_id]
+        content = []
+
+        total_value = 0
+
+        # need to find what villag each facility belongs to
+        for facility in facilities:
+            for unit in org_units:
+                if unit["id"] == facility and unit["level"] == 4:
+                    village_name = unit["name"]
+                    print(facility)
+                    query_events = EventExtended.objects.filter(event_date__gte=from_date,
+                                                                event_date__lte=to_date, location_id=facility,
+                                                                event_type='' + selected_service + ''
+                                                                ).values('event_type').annotate(value=Count('event_type'))
+                    for x in query_events:
+                        total_value += int(x['value'])
+
+                    village_data = {"village_name": village_name, "value": total_value}
+
+                    # Initialize count for new facility
+                    total_value = 0
+
+                    content.append(village_data)
+
+        # find coordinates of each village
+        # create geojson friendly payload with coordinates and values of each village
+
+        print(content)
+        content.append({"test": 1})
+
+        return Response(content)
+
 
 
 
