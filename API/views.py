@@ -838,11 +838,7 @@ class MapSummaryView(viewsets.ModelViewSet):
 
                     content.append(village_data)
 
-        # find coordinates of each village
-        # create geojson friendly payload with coordinates and values of each village
-
         print(content)
-        content.append({"test": 1})
 
         return Response(content)
 
