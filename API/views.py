@@ -822,8 +822,11 @@ class MapSummaryView(viewsets.ModelViewSet):
         for facility in facilities:
             for unit in org_units:
                 if unit["id"] == facility and unit["level"] == 4:
-                    village_name = unit["name"]
+                    print("logic a exectured")
                     print(facility)
+                    print(unit)
+
+                    village_name = unit["name"]
                     query_events = EventExtended.objects.filter(event_date__gte=from_date,
                                                                 event_date__lte=to_date, location_id=facility,
                                                                 event_type='' + selected_service + ''
@@ -837,8 +840,42 @@ class MapSummaryView(viewsets.ModelViewSet):
                     total_value = 0
 
                     content.append(village_data)
+                elif unit["id"] == facility:
+                    print("logic b executed")
+                    print(facility)
+                    print(unit)
 
-        print(content)
+                    split_string = unit["parents"].split(';', -1)
+
+                    print(split_string)
+
+                    last_parent = str(split_string[-1])
+
+                    print(last_parent)
+
+                    for x in org_units:
+                        if last_parent == x["id"]:
+                            village_name = x["name"]
+
+                            print(village_name)
+
+                            query_events = EventExtended.objects.filter(event_date__gte=from_date,
+                                                                        event_date__lte=to_date, location_id=facility,
+                                                                        event_type='' + selected_service + ''
+                                                                        ).values('event_type').annotate(
+                                value=Count('event_type'))
+
+                            for x in query_events:
+                                total_value += int(x['value'])
+
+                            village_data = {"village_name": village_name, "value": total_value}
+
+                            # Initialize count for new facility
+                            total_value = 0
+
+                            print(village_data)
+
+                            content.append(village_data)
 
         return Response(content)
 
