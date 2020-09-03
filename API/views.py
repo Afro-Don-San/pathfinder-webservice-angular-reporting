@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser, AllowAny
 from django.db.models import Count, Sum
 from django.conf import settings
 from .serializers import EventsSerializer, ClientExtendedSerializer, DashboardSummarySerializer
-from .models import Event, Client, ClientExtended, EventExtended
+from .models import Event, Client, ClientExtended, EventExtended, Clients, Household
 import json
 from rest_framework.decorators import action
 import requests
@@ -122,17 +122,19 @@ class EventsSummaryView(viewsets.ModelViewSet):
         to_date = datetime.strptime(request.data["to_date"], format_str).date()
         facilities = list(request.data["facilities"])
 
+        print(facilities)
+
         queryset = Event.objects.filter(event_date__gte=from_date,
                                         event_date__lte=to_date, location_id__in=facilities)
         query_service_providers = Event.objects.filter(event_date__gte=from_date,
                                                        event_date__lte=to_date, location_id__in=facilities).values('team').distinct()
-        total_family_planning_registrations = Event.objects.filter(event_type='Family Planning Registration',
+        total_anc_referrals = Event.objects.filter(event_type='ANC Referral',
                                                                    event_date__gte=from_date,
                                                                    event_date__lte=to_date, location_id__in=facilities)
         total_family_planning_referrals = Event.objects.filter(event_type='Family Planning Referral',
                                                                event_date__gte=from_date,
                                                                event_date__lte=to_date, location_id__in=facilities)
-        total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning',
+        total_family_planning_initiations = Event.objects.filter(event_type='Family Planning Registration',
                                                                  event_date__gte=from_date,
                                                                  event_date__lte=to_date,
                                                                  location_id__in=facilities)
@@ -189,7 +191,7 @@ class EventsSummaryView(viewsets.ModelViewSet):
 
         content = {'total_events': queryset.count(),
                    'query_service_providers': query_service_providers,
-                   'total_family_planning_registrations': total_family_planning_registrations.count(),
+                   'total_anc_referrals': total_anc_referrals.count(),
                    'total_family_planning_referrals': total_family_planning_referrals.count(),
                    'total_family_planning_initiations': total_family_planning_initiations.count(),
                    'total_family_planning_discontinuations': total_family_planning_discontinuations.count(),
@@ -231,17 +233,8 @@ class DashboardSummaryView(viewsets.ModelViewSet):
 
         queryset = Event.objects.filter(location_id__in=facilities)
 
-        # list_families = []
-
-        # total_clients_families = Client.objects.filter(unique_id__contains='family')
-
-        # for x in total_clients_families:
-        #     list_families.append(int(x.id))
-
-        # total_clients = Client.objects.exclude(id__in=list_families)
-
-        total_clients = EventExtended.objects.filter(event_type='Family Member Registration', location_id__in=facilities)
-        total_clients_families = EventExtended.objects.filter(event_type='Family Registration', location_id__in=facilities)
+        total_clients = Clients.objects.filter(location_id__in=facilities)
+        total_clients_families = Household.objects.filter(location_id__in=facilities)
 
         total_family_planning_registrations = Event.objects.filter(event_type='Family Planning Registration',
                                                                    location_id__in=facilities)
@@ -249,14 +242,13 @@ class DashboardSummaryView(viewsets.ModelViewSet):
             (Q(event_type='Family Planning Referral') |
              Q(event_type='ANC Referral')).filter(location_id__in = facilities)
 
-        total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning',
+        total_family_planning_initiations = Event.objects.filter(event_type='Family Planning Registration',
                                                                  location_id__in=facilities)
         total_family_planning_discontinuations = Event.objects.filter(event_type='Family Planning Discontinuation',
                                                                       location_id__in=facilities)
 
         content = {'total_services': queryset.count(),
                    'total_clients': total_clients.count(),
-                   'total_family_planning_registrations': total_family_planning_registrations.count(),
                    'total_referrals': total_referrals.count(),
                    'total_family_planning_initiations': total_family_planning_initiations.count(),
                    'total_family_planning_discontinuations': total_family_planning_discontinuations.count(),
@@ -822,9 +814,6 @@ class MapSummaryView(viewsets.ModelViewSet):
         for facility in facilities:
             for unit in org_units:
                 if unit["id"] == facility and unit["level"] == 4:
-                    print("logic a exectured")
-                    print(facility)
-                    print(unit)
 
                     village_name = unit["name"]
                     query_events = EventExtended.objects.filter(event_date__gte=from_date,
@@ -841,23 +830,13 @@ class MapSummaryView(viewsets.ModelViewSet):
 
                     content.append(village_data)
                 elif unit["id"] == facility:
-                    print("logic b executed")
-                    print(facility)
-                    print(unit)
 
                     split_string = unit["parents"].split(';', -1)
-
-                    print(split_string)
-
                     last_parent = str(split_string[-1])
-
-                    print(last_parent)
 
                     for x in org_units:
                         if last_parent == x["id"]:
                             village_name = x["name"]
-
-                            print(village_name)
 
                             query_events = EventExtended.objects.filter(event_date__gte=from_date,
                                                                         event_date__lte=to_date, location_id=facility,
@@ -872,8 +851,6 @@ class MapSummaryView(viewsets.ModelViewSet):
 
                             # Initialize count for new facility
                             total_value = 0
-
-                            print(village_data)
 
                             content.append(village_data)
 

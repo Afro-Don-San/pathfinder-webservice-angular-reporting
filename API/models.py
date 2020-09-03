@@ -272,3 +272,92 @@ class EventExtended(models.Model):
 
     class Meta:
         db_table = 'events_extended'
+
+
+class Clients(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    client_id = models.CharField(max_length=255, null=True, blank=True)
+    event_id = models.CharField(max_length=255, null=True, blank=True)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    middle_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField( max_length=255, null=True, blank=True)
+    gender = models.CharField(max_length=255,null=True, blank=True)
+    client_type = models.CharField(max_length=255, null=True, blank=True)
+    birth_Date = models.CharField(max_length=255, null=True, blank=True)
+    team = models.CharField(max_length=255, null=True, blank=True)
+    team_id = models.CharField(max_length=255, null=True, blank=True)
+    location_id = models.CharField(max_length=255, null=True, blank=True)
+    provider_id = models.CharField(max_length=255, null=True, blank=True)
+    family_location_name = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        db_table = 'clients'
+
+
+class Household(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    client_id = models.CharField(max_length=255, null=True, blank=True)
+    event_id = models.CharField(max_length=255, null=True, blank=True)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    middle_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField( max_length=255, null=True, blank=True)
+    gender = models.CharField(max_length=255,null=True, blank=True)
+    client_type = models.CharField(max_length=255, null=True, blank=True)
+    birth_Date = models.CharField(max_length=255, null=True, blank=True)
+    team = models.CharField(max_length=255, null=True, blank=True)
+    team_id = models.CharField(max_length=255, null=True, blank=True)
+    location_id = models.CharField(max_length=255, null=True, blank=True)
+    provider_id = models.CharField(max_length=255, null=True, blank=True)
+    family_location_name = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        db_table = 'households'
+
+
+class Referral(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    event_id = models.CharField(max_length=255, null=True, blank=True)
+    event_date = models.CharField(max_length=255, null=True, blank=True)
+    event_type = models.CharField(max_length=255, null=True, blank=True)
+    team = models.CharField(max_length=255, null=True, blank=True)
+    team_id = models.CharField(max_length=255, null=True, blank=True)
+    location_id = models.CharField(max_length=255, null=True, blank=True)
+    provider_id = models.CharField(max_length=255, null=True, blank=True)
+    referral_status = models.CharField(max_length=255, null=True, blank=True)
+    chw_referral_service = models.CharField(max_length=255, null=True, blank=True)
+    referral_date = models.CharField(max_length=255, null=True, blank=True)
+    referral_type = models.CharField(max_length=255, null=True, blank=True)
+    referral_appointment_date = models.CharField(max_length=255, null=True, blank=True)
+    referral_time = models.CharField(max_length=255, null=True, blank=True)
+
+
+    class Meta:
+        db_table = 'referrals'
+
+
+class ReferralTask(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    task_id = models.CharField(max_length=255, null=True, blank=True)
+    identifier = models.CharField(max_length=255, null=True, blank=True)
+    execution_start_date = models.DateField(null=True, blank=True)
+    referred_client_base_entity_id = models.CharField(max_length=255, null=True, blank=True)
+    code = models.CharField(max_length=255, null=True, blank=True)
+    focus = models.CharField(max_length=255, null=True, blank=True)
+    chw_id = models.CharField(max_length=255, null=True, blank=True)
+    health_facility_location_id = models.CharField(max_length=255, null=True, blank=True)
+    chw_name = models.CharField(max_length=255, null=True, blank=True)
+    businessstatus = models.CharField(max_length=255, null=True, blank=True)
+    referral_formsubmissionid = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        db_table = 'referral_tasks'
+
+
