@@ -280,11 +280,13 @@ class Clients(models.Model):
 
     client_id = models.CharField(max_length=255, null=True, blank=True)
     event_id = models.CharField(max_length=255, null=True, blank=True)
+    event_date = models.DateTimeField(null=True, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=True)
     middle_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField( max_length=255, null=True, blank=True)
     gender = models.CharField(max_length=255,null=True, blank=True)
     client_type = models.CharField(max_length=255, null=True, blank=True)
+    phone_number = models.CharField(max_length=255, null=True, blank=True)
     birth_Date = models.CharField(max_length=255, null=True, blank=True)
     team = models.CharField(max_length=255, null=True, blank=True)
     team_id = models.CharField(max_length=255, null=True, blank=True)
@@ -302,6 +304,7 @@ class Household(models.Model):
 
     client_id = models.CharField(max_length=255, null=True, blank=True)
     event_id = models.CharField(max_length=255, null=True, blank=True)
+    event_date = models.DateField(null=True, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=True)
     middle_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField( max_length=255, null=True, blank=True)

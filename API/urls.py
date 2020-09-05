@@ -10,6 +10,8 @@ router.register('citizen_report_card', views.CitizenReportCardView, basename='ci
 router.register('family_planning_methods_given', views.FamilyPlanningMethodView,
                 basename='family_planning_methods_given')
 router.register('map_summary', views.MapSummaryView, basename='map_summary')
+router.register('referral_summary', views.ReferralTaskView, basename='referral_types_focus')
+router.register('clients_families', views.ClientsView, basename='clients')
 
 urlpatterns = [
     path('', include(router.urls)),
