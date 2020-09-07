@@ -57,153 +57,6 @@ class ClientsSummaryView(viewsets.ModelViewSet):
         return Response(content)
 
 
-class EventsSummaryView(viewsets.ModelViewSet):
-    queryset = Event.objects.all()
-    serializer_class = EventsSerializer
-    permission_classes = ()
-
-    def list(self, request):
-        queryset = Event.objects.all()
-        query_service_providers = Event.objects.values('team_id', 'team').distinct()
-        total_family_planning_registrations = Event.objects.filter(event_type='Family Planning Registration')
-        total_family_planning_initiations = Event.objects.filter(event_type='Introduction to Family Planning')
-        total_family_planning_discontinuation = Event.objects.filter(event_type='Family Planning Discontinuation')
-        total_family_planning_registrations_by_team = Event.objects.filter(event_type='Family Planning Registration'). \
-            values('team_id', 'team').annotate(value=Count('team_id'))
-        total_issued_services_by_team = Event.objects.all(). \
-            values('team_id', 'team').annotate(value=Count('team_id'))
-        serializer = EventsSerializer(queryset, many=True)
-        total_services_aggregate = Event.objects.values('event_type').annotate(value=Count('event_type'))
-        total_services_by_month = Event.objects.all().annotate(
-            month_number=ExtractMonth('date_created')).values('month_number').annotate(
-            value=Count('id')
-        )
-
-        total_family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
-                                                                          values_1='true'). \
-            values('field_code_3').annotate(value=Count('field_code_3'))
-
-        total_issued_referrals = Event.objects.all(). \
-            filter(Q(event_type='Referrals') | Q(event_type='ANC Referrals') | Q(event_type='Family Planning Referral')
-                   | Q(event_type='Family Planning Referral Followup')).values('event_type'). \
-            annotate(value=Count('event_type'))
-
-        family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
-                                                                    values_2="true").values('field_code_3'). \
-            annotate(value=Count('values_4'))
-
-        converted_total_services_by_month = []
-
-        for x in total_services_by_month:
-            month_number = int(x['month_number'])
-            month_value = x['value']
-            month_name = calendar.month_name[month_number]
-
-            converted_total_services_by_month.append({ 'month_name': month_name, 'value': month_value })
-
-        content = {'total_events': queryset.count(),
-                   'query_service_providers': query_service_providers,
-                   'total_family_planning_registrations': total_family_planning_registrations.count(),
-                   'total_family_planning_initiations':total_family_planning_initiations.count(),
-                   'total_family_planning_discontinuations': total_family_planning_discontinuation.count(),
-                   'total_services_aggregate': total_services_aggregate,
-                   'total_family_planning_registrations_by_team':     total_family_planning_registrations_by_team,
-                   'total_issued_services_by_team': total_issued_services_by_team,
-                   'total_services_by_month':converted_total_services_by_month,
-                   'total_family_planning_method_given': total_family_planning_method_given,
-                   'total_issued_referrals':total_issued_referrals,
-                   'family_planning_method_given': family_planning_method_given,
-                   'records': serializer.data}
-        return Response(content)
-
-    def create(self, request):
-        format_str = '%Y/%m/%d'  # The format
-
-        from_date = datetime.strptime(request.data["from_date"], format_str).date()
-        to_date = datetime.strptime(request.data["to_date"], format_str).date()
-        facilities = list(request.data["facilities"])
-
-        queryset = Event.objects.filter(event_date__gte=from_date,
-                                        event_date__lte=to_date, location_id__in=facilities)
-        query_service_providers = Event.objects.filter(event_date__gte=from_date,
-                                                       event_date__lte=to_date, location_id__in=facilities).values('team').distinct()
-        total_anc_referrals = Event.objects.filter(event_type='ANC Referral',
-                                                   event_date__gte=from_date,
-                                                   event_date__lte=to_date, location_id__in=facilities)
-        total_family_planning_referrals = Event.objects.filter(event_type='Family Planning Referral',
-                                                               event_date__gte=from_date,
-                                                               event_date__lte=to_date, location_id__in=facilities)
-        total_family_planning_initiations = Event.objects.filter(event_type='Family Planning Registration',
-                                                                 event_date__gte=from_date,
-                                                                 event_date__lte=to_date,
-                                                                 location_id__in=facilities)
-        total_family_planning_discontinuations = Event.objects.filter(event_type='Family Planning Discontinuation',
-                                                                      event_date__gte=from_date,
-                                                                      event_date__lte=to_date,
-                                                                      location_id__in=facilities)
-        total_family_planning_registrations_by_team = Event.objects.filter(event_type='Family Planning Registration',
-                                                                           event_date__gte=from_date,
-                                                                           event_date__lte=to_date,
-                                                                           location_id__in=facilities
-                                                                           ). \
-            values('team_id').annotate(value=Count('team_id'))
-        total_issued_referrals = Event.objects.filter(event_date__gte=from_date,
-                                                      event_date__lte=to_date, location_id__in=facilities). \
-            filter(Q(event_type='ANC Referral') | Q(event_type='Family Planning Referral')
-                   | Q(event_type='Family Planning Referral Followup')).values('event_type'). \
-            annotate(value=Count('event_type'))
-
-        serializer = EventsSerializer(queryset, many=True)
-        total_services_aggregate = Event.objects.filter(event_date__gte=from_date,
-                                                        event_date__lte=to_date, location_id__in=facilities). \
-            values('event_type').annotate(value=Count('event_type'))
-        total_services_by_month = Event.objects.filter(event_date__gte=from_date,
-                                                       event_date__lte=to_date, location_id__in=facilities
-                                                       ).annotate(
-            month_number=ExtractMonth('date_created'),
-        ).values('month_number').annotate(
-            value=Count('id')
-        )
-
-        total_family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
-                                                                          values_2="true",
-                                                                          event_date__gte=from_date,
-                                                                          event_date__lte=to_date, location_id__in=facilities
-                                                                          ). \
-            values('field_code_3').annotate(value=Count('field_code_3'))
-
-        family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
-                                                                    values_2="true",
-                                                                    event_date__gte=from_date,
-                                                                    event_date__lte=to_date, location_id__in=facilities
-                                                                    ). \
-            values('field_code_3').annotate(value=Count('values_4'))
-
-        converted_total_services_by_month = []
-
-        for x in total_services_by_month:
-            month_number = int(x['month_number'])
-            month_value = x['value']
-            month_name = calendar.month_name[month_number]
-
-            converted_total_services_by_month.append({'month_name': month_name, 'value': month_value})
-
-        content = {'total_events': queryset.count(),
-                   'query_service_providers': query_service_providers,
-                   'total_anc_referrals': total_anc_referrals.count(),
-                   'total_family_planning_referrals': total_family_planning_referrals.count(),
-                   'total_family_planning_initiations': total_family_planning_initiations.count(),
-                   'total_family_planning_discontinuations': total_family_planning_discontinuations.count(),
-                   'total_services_aggregate': total_services_aggregate,
-                   'total_family_planning_registrations_by_team': total_family_planning_registrations_by_team,
-                   'total_issued_referrals': total_issued_referrals,
-                   'total_services_by_month': converted_total_services_by_month,
-                   'total_family_planning_method_given':total_family_planning_method_given,
-                   'family_planning_method_given': family_planning_method_given,
-                   'records': serializer.data}
-        return Response(content)
-
-
 class CitizenReportCardView(viewsets.ModelViewSet):
     queryset = EventExtended.objects.filter(event_type="Citizen Report Card")
     serializer_class=  EventsSerializer
@@ -848,15 +701,35 @@ class ClientsView(viewsets.ModelViewSet):
     def create(self, request):
         format_str = '%Y/%m/%d'  # The format
 
+        converted_client_registration_by_month = []
+
         from_date = datetime.strptime(request.data["from_date"], format_str).date()
         to_date = datetime.strptime(request.data["to_date"], format_str).date()
         locations = list(request.data["facilities"])
 
         clients = Clients.objects.filter(event_date__gte=from_date,
                                            event_date__lte=to_date,
-                                            location_id__in=locations).values('first_name', 'middle_name', 'last_name', 'gender', 'phone_number')
+                                            location_id__in=locations).values('first_name', 'middle_name', 'last_name',
+                                                                              'gender', 'phone_number', 'birth_date')
+        client_registration_by_month = Clients.objects.filter(event_date__gte=from_date,
+                                                       event_date__lte=to_date, location_id__in=locations
+                                                       ).annotate(
+            month_number=ExtractMonth('event_date'),
+        ).values('month_number').annotate(
+            value=Count('id')
+        )
 
-        content = {'clients': clients,}
+        for x in client_registration_by_month:
+            month_number = int(x['month_number'])
+            month_value = x['value']
+            month_name = calendar.month_name[month_number]
+
+            converted_client_registration_by_month.append({'month_name': month_name, 'value': month_value})
+
+        print(converted_client_registration_by_month)
+
+        content = {'clients': clients,
+                   'client_registration_by_month': converted_client_registration_by_month}
 
         return Response(content)
 
@@ -899,13 +772,156 @@ class DashboardSummaryView(viewsets.ModelViewSet):
         total_family_planning_discontinuations = Event.objects.filter(event_type='Family Planning Discontinuation',
                                                                       location_id__in=facilities)
 
+        total_citizen_reports = Event.objects.filter(event_type='Citizen Report Card',
+                                                                      location_id__in=facilities)
+
         content = {'total_services': queryset.count(),
                    'total_clients': total_clients.count(),
                    'total_referrals': total_referrals.count(),
                    'total_family_planning_initiations': total_family_planning_initiations.count(),
                    'total_family_planning_discontinuations': total_family_planning_discontinuations.count(),
-                   'total_clients_families': total_clients_families.count()}
+                   'total_clients_families': total_clients_families.count(),
+                   '§': total_citizen_reports.count()}
         return Response(content)
+
+
+class EventsSummaryView(viewsets.ModelViewSet):
+        queryset = Event.objects.all()
+        serializer_class = EventsSerializer
+        permission_classes = ()
+
+        def create(self, request):
+            format_str = '%Y/%m/%d'  # The format
+
+            from_date = datetime.strptime(request.data["from_date"], format_str).date()
+            to_date = datetime.strptime(request.data["to_date"], format_str).date()
+            facilities = list(request.data["facilities"])
+
+            converted_family_planning_initiations = []
+            converted_family_planning_discontinuations = []
+
+            queryset = Event.objects.filter(event_date__gte=from_date,
+                                            event_date__lte=to_date, location_id__in=facilities)
+            query_service_providers = Event.objects.filter(event_date__gte=from_date,
+                                                           event_date__lte=to_date, location_id__in=facilities).values(
+                'team').distinct()
+            total_anc_referrals = Event.objects.filter(event_type='ANC Referral',
+                                                       event_date__gte=from_date,
+                                                       event_date__lte=to_date, location_id__in=facilities)
+            total_family_planning_referrals = Event.objects.filter(event_type='Family Planning Referral',
+                                                                   event_date__gte=from_date,
+                                                                   event_date__lte=to_date, location_id__in=facilities)
+            total_family_planning_initiations = Event.objects.filter(event_type='Family Planning Registration',
+                                                                     event_date__gte=from_date,
+                                                                     event_date__lte=to_date,
+                                                                     location_id__in=facilities)
+            total_family_planning_discontinuations = Event.objects.filter(event_type='Family Planning Discontinuation',
+                                                                          event_date__gte=from_date,
+                                                                          event_date__lte=to_date,
+                                                                          location_id__in=facilities)
+            total_family_planning_registrations_by_team = Event.objects.filter(
+                event_type='Family Planning Registration',
+                event_date__gte=from_date,
+                event_date__lte=to_date,
+                location_id__in=facilities
+                ). \
+                values('team_id').annotate(value=Count('team_id'))
+            total_issued_referrals = Event.objects.filter(event_date__gte=from_date,
+                                                          event_date__lte=to_date, location_id__in=facilities). \
+                filter(Q(event_type='ANC Referral') | Q(event_type='Family Planning Referral')
+                       | Q(event_type='Family Planning Referral Followup')).values('event_type'). \
+                annotate(value=Count('event_type'))
+
+            serializer = EventsSerializer(queryset, many=True)
+            total_services_aggregate = Event.objects.filter(event_date__gte=from_date,
+                                                            event_date__lte=to_date, location_id__in=facilities). \
+                values('event_type').annotate(value=Count('event_type'))
+            total_services_by_month = Event.objects.filter(event_date__gte=from_date,
+                                                           event_date__lte=to_date, location_id__in=facilities
+                                                           ).annotate(
+                month_number=ExtractMonth('date_created'),
+            ).values('month_number').annotate(
+                value=Count('id')
+            )
+
+            total_family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
+                                                                              values_2="true",
+                                                                              event_date__gte=from_date,
+                                                                              event_date__lte=to_date,
+                                                                              location_id__in=facilities
+                                                                              ). \
+                values('field_code_3').annotate(value=Count('field_code_3'))
+
+            family_planning_method_given = EventExtended.objects.filter(event_type='Give Family Planning Method',
+                                                                        values_2="true",
+                                                                        event_date__gte=from_date,
+                                                                        event_date__lte=to_date,
+                                                                        location_id__in=facilities
+                                                                        ). \
+                values('field_code_3').annotate(value=Count('values_4'))
+
+            converted_total_services_by_month = []
+
+            for x in total_services_by_month:
+                month_number = int(x['month_number'])
+                month_value = x['value']
+                month_name = calendar.month_name[month_number]
+
+                converted_total_services_by_month.append({'month_name': month_name, 'value': month_value})
+
+
+            # Initiations
+            family_planning_initiations = Event.objects.filter(event_type= "Family Planning Registration",
+                                                                event_date__gte=from_date,
+                                                                event_date__lte=to_date,
+                                                                location_id__in=facilities
+                                                                      ).annotate(
+                    month_number=ExtractMonth('event_date'),
+                ).values('month_number').annotate(
+                    value=Count('id')
+                )
+
+            for x in family_planning_initiations:
+                    month_number = int(x['month_number'])
+                    month_value = x['value']
+                    month_name = calendar.month_name[month_number]
+
+                    converted_family_planning_initiations.append({'month_name': month_name, 'value': month_value})
+
+            # Discontinuations
+            family_planning_discontinuations = Event.objects.filter(event_type="Family Planning Discontinuations",
+                                                               event_date__gte=from_date,
+                                                               event_date__lte=to_date,
+                                                               location_id__in=facilities
+                                                               ).annotate(
+                month_number=ExtractMonth('event_date'),
+            ).values('month_number').annotate(
+                value=Count('id')
+            )
+
+            for x in family_planning_discontinuations:
+                month_number = int(x['month_number'])
+                month_value = x['value']
+                month_name = calendar.month_name[month_number]
+
+                converted_family_planning_discontinuations.append({'month_name': month_name, 'value': month_value})
+
+            content = {'total_events': queryset.count(),
+                       'query_service_providers': query_service_providers,
+                       'total_anc_referrals': total_anc_referrals.count(),
+                       'total_family_planning_referrals': total_family_planning_referrals.count(),
+                       'total_family_planning_initiations': total_family_planning_initiations.count(),
+                       'total_family_planning_discontinuations': total_family_planning_discontinuations.count(),
+                       'total_services_aggregate': total_services_aggregate,
+                       'total_family_planning_registrations_by_team': total_family_planning_registrations_by_team,
+                       'total_issued_referrals': total_issued_referrals,
+                       'total_services_by_month': converted_total_services_by_month,
+                       'total_family_planning_method_given': total_family_planning_method_given,
+                       'family_planning_method_given': family_planning_method_given,
+                       'family_planning_initiations': converted_family_planning_initiations,
+                       'family_planning_discontinuations': converted_family_planning_discontinuations,
+                       'records': serializer.data}
+            return Response(content)
 
 
 
