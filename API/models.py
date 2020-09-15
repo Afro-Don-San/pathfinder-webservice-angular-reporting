@@ -54,226 +54,6 @@ class Event(models.Model):
         db_table = 'event_metadata'
 
 
-class ClientExtended(models.Model):
-    def __str__(self):
-        return '%d' % self.id
-
-    Female = 'Female'
-    Male = 'Male'
-
-    GENDER_TYPE_CHOICES = (
-        (Female, 'Female'),
-        (Male, 'Male')
-    )
-
-    date_time_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
-    gender = models.CharField(max_length=30, choices=GENDER_TYPE_CHOICES)
-
-    class Meta:
-        db_table = 'clients_extended'
-
-
-class EventExtended(models.Model):
-
-    event_id = models.CharField(max_length=255, null=True, blank=True)
-    event_type = models.CharField(max_length=255, null=True, blank=True)
-    event_date = models.DateField(null=True, blank=True)
-    entity_type = models.CharField(max_length=255, null=True, blank=True)
-    location_id = models.CharField(max_length=255, null=True, blank=True)
-    provider_id = models.CharField(max_length=255, null=True, blank=True)
-    team = models.CharField(max_length=255, null=True, blank=True)
-    team_id = models.CharField(max_length=255, null=True, blank=True)
-    date_created = models.CharField(max_length=255, null=True, blank=True)
-
-    values_0 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_0 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_0 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_0_0 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_0 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_0 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_0 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_1 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_1 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_1 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_1 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_1 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_1 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_1 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_2 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_2 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_2 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_2 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_2 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_2 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_2 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_3 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_3 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_3 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_3 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_3 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_3 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_3 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_4 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_4 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_4 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_4 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_4 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_4 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_4 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_5 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_5 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_5 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_5 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_5 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_5 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_5 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_6 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_6 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_6 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_6 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_6 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_6 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_6 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_7 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_7 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_7 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_7 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_7 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_7 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_7 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_8 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_8 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_8 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_8 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_8 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_8 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_8 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_9 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_9 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_9 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_9 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_9 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_9 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_9 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_10 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_10 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_10 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_10 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_10 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_10 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_10 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_11 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_11 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_11 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_11 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_11 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_11 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_11 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_12 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_12 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_12 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_12 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_12 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_12 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_12 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_13 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_13 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_13 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_13 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_13 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_13 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_13 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_14 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_14 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_14 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_14 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_14 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_14 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_14 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_15 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_15 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_15 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_15 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_15 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_15 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_15 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_16 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_16 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_16 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_16 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_16 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_16 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_16 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_17 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_17 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_17 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_17 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_17 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_17 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_17 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_18 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_18 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_18 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_18 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_18 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_18 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_18 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_19 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_19 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_19 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_19 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_19 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_19 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_19 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_20 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_20 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_20 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_20 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_20 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_20 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_20 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_21 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_21 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_21 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_21 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_21 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_21 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_21 = models.CharField(max_length=255, null=True, blank=True)
-
-    values_22 = models.CharField(max_length=255, null=True, blank=True)
-    field_code_22 = models.CharField(max_length=255, null=True, blank=True)
-    field_type_22 = models.CharField(max_length=255, null=True, blank=True)
-    parent_code_22 = models.CharField(max_length=255, null=True, blank=True)
-    field_data_type_22 = models.CharField(max_length=255, null=True, blank=True)
-    form_submission_field_22 = models.CharField(max_length=255, null=True, blank=True)
-    human_readable_values_22 = models.CharField(max_length=255, null=True, blank=True)
-
-    class Meta:
-        db_table = 'events_extended'
-
-
 class Clients(models.Model):
     def __str__(self):
         return '%d' % self.id
@@ -362,5 +142,80 @@ class ReferralTask(models.Model):
 
     class Meta:
         db_table = 'referral_tasks'
+
+
+class CitizenReportCard(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    event_id = models.IntegerField(null=True, blank=True)
+    event_date = models.DateTimeField(null=True, blank=True)
+    willing_to_participate_in_survey = models.CharField(max_length=255, null=True, blank=True)
+    name_of_health_facility_visited_for_family_planning_services = models.CharField(max_length=255, null=True, blank=True)
+    residence = models.CharField(max_length=255, null=True, blank=True)
+    education = models.CharField(max_length=255, null=True, blank=True)
+    occupation = models.CharField(max_length=255, null=True, blank=True)
+    marital_status = models.CharField(max_length=255, null=True, blank=True)
+    religion = models.CharField(max_length=255, null=True, blank=True)
+    reasons_for_people_not_going_to_health_facilities = models.CharField(max_length=255, null=True, blank=True)
+    means_of_transport_to_facility = models.CharField(max_length=255, null=True, blank=True)
+    time_to_reach_facility_closest_from_household = models.CharField(max_length=255, null=True, blank=True)
+    is_this_the_nearest_facility_from_home = models.CharField(max_length=255, null=True, blank=True)
+    was_the_facility_open_when_you_arrived = models.CharField(max_length=255, null=True, blank=True)
+    did_you_arrive_during_normal_operating_hours = models.CharField(max_length=255, null=True, blank=True)
+    did_you_get_family_planning_information_at_the_reception = models.CharField(max_length=255, null=True, blank=True)
+    how_long_it_took_to_be_attended_by_service_provider = models.CharField(max_length=255, null=True, blank=True)
+    did_the_service_provider_make_you_feel_welcome = models.CharField(max_length=255, null=True, blank=True)
+    did_the_service_provider_assure_confidentiality = models.CharField(max_length=255, null=True, blank=True)
+    did_you_meet_the_service_providers_in_a_private_room = models.CharField(max_length=255, null=True, blank=True)
+    did_the_providers_give_clear_info_about_services_and_methods = models.CharField(max_length=255, null=True, blank=True)
+    did_the_service_providers_use_visual_aids_to_demo_fp_methods = models.CharField(max_length=255, null=True, blank=True)
+    did_the_providers_ask_of_any_concerns_about_used_methods = models.CharField(max_length=255, null=True, blank=True)
+    were_you_given_info_on_dual_protection = models.CharField(max_length=255, null=True, blank=True)
+    visited_facility_for_fp_services_but_not_get_services_needed = models.CharField(max_length=255, null=True, blank=True)
+    why_did_you_not_get_the_services_at_the_health_facility = models.CharField(max_length=255, null=True, blank=True)
+    did_you_pay_for_the_service = models.CharField(max_length=255, null=True, blank=True)
+    were_you_asked_to_give_some_kickbacks_to_get_the_service = models.CharField(max_length=255, null=True, blank=True)
+    did_you_file_a_complaint = models.CharField(max_length=255, null=True, blank=True)
+    was_your_problem_solved_to_satisfaction = models.CharField(max_length=255, null=True, blank=True)
+    did_you_report_the_problem_again = models.CharField(max_length=255, null=True, blank=True)
+    will_you_go_back_for_fp_services_at_this_facility = models.CharField(max_length=255, null=True, blank=True)
+    are_you_satisfied_with_fp_services_you_received = models.CharField(max_length=255, null=True, blank=True)
+    are_you_satisfied_with_fp_services_provided_using_phone = models.CharField(max_length=255, null=True, blank=True)
+    have_fp_services_improved = models.CharField(max_length=255, null=True, blank=True)
+    team = models.CharField(max_length=255, null=True, blank=True)
+    team_id = models.CharField(max_length=255, null=True, blank=True)
+    location_id = models.CharField(max_length=255, null=True, blank=True)
+    provider_id = models.CharField(max_length=255, null=True, blank=True)
+
+
+    class Meta:
+        db_table = 'citizen_report_cards'
+
+
+class GiveFpMethod(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    event_id = models.IntegerField(null=True, blank=True),
+    give_fp_method_done = models.CharField(max_length=100, null=True, blank=True)
+    fp_method_given = models.CharField(max_length=100, null=True, blank=True)
+    male_condoms_given = models.CharField(max_length=100, null=True, blank=True)
+    number_of_condoms = models.IntegerField(null=True, blank=True)
+    coc_given = models.CharField(max_length=100, null=True, blank=True)
+    pop_given = models.CharField(max_length=100, null=True, blank=True)
+    sdm_given = models.CharField(max_length=100, null=True, blank=True)
+    number_of_pills = models.IntegerField(null=True, blank=True)
+    team = models.CharField(max_length=100, null=True, blank=True)
+    team_id = models.CharField(max_length=100, null=True, blank=True)
+    event_type = models.CharField(max_length=100, null=True, blank=True)
+    location_id = models.CharField(max_length=100, null=True, blank=True)
+    provider_id = models.CharField(max_length=100, null=True, blank=True)
+    base_entity_id = models.CharField(max_length=100, null=True, blank=True)
+    date_created = models.DateField(null=True, blank=True)
+    form_submission_id = models.CharField(max_length=100, null=True, blank=True)
+
+    class Meta:
+        db_table = "give_family_planning_methods"
 
 

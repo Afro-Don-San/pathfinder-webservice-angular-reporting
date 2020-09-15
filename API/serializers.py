@@ -1,18 +1,11 @@
 from rest_framework import serializers
-from .models import Client, Event, ClientExtended, ReferralTask, Referral, Household, Clients
+from .models import Client, Event, ReferralTask, Referral, Household, Clients, CitizenReportCard, GiveFpMethod
 
 
 class ClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Client
-        fields = '__all__'
-
-
-class ClientExtendedSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = ClientExtended
         fields = '__all__'
 
 
@@ -58,3 +51,18 @@ class ClientsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clients
         fields = '__all__'
+
+
+class GiveFpMethodSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GiveFpMethod
+        fields = '__all__'
+
+
+class CitizenReportCardSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CitizenReportCard
+        fields = '__all__'
+
