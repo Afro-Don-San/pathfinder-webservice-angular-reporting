@@ -72,7 +72,9 @@ class Clients(models.Model):
     team_id = models.CharField(max_length=255, null=True, blank=True)
     location_id = models.CharField(max_length=255, null=True, blank=True)
     provider_id = models.CharField(max_length=255, null=True, blank=True)
-    family_location_name = models.CharField(max_length=255, null=True, blank=True)
+    base_entity_id = models.CharField(max_length=255, null=True, blank=True)
+    family = models.CharField(max_length=255, null=True, blank=True)
+
 
     class Meta:
         db_table = 'clients'
@@ -128,6 +130,7 @@ class ReferralTask(models.Model):
     def __str__(self):
         return '%d' % self.id
 
+    client = models.CharField(max_length=255, null=True, blank=True)
     task_id = models.CharField(max_length=255, null=True, blank=True)
     identifier = models.CharField(max_length=255, null=True, blank=True)
     execution_start_date = models.DateField(null=True, blank=True)
@@ -150,44 +153,25 @@ class CitizenReportCard(models.Model):
 
     event_id = models.IntegerField(null=True, blank=True)
     event_date = models.DateTimeField(null=True, blank=True)
-    willing_to_participate_in_survey = models.CharField(max_length=255, null=True, blank=True)
-    name_of_health_facility_visited_for_family_planning_services = models.CharField(max_length=255, null=True, blank=True)
-    residence = models.CharField(max_length=255, null=True, blank=True)
-    education = models.CharField(max_length=255, null=True, blank=True)
-    occupation = models.CharField(max_length=255, null=True, blank=True)
-    marital_status = models.CharField(max_length=255, null=True, blank=True)
-    religion = models.CharField(max_length=255, null=True, blank=True)
-    reasons_for_people_not_going_to_health_facilities = models.CharField(max_length=255, null=True, blank=True)
-    means_of_transport_to_facility = models.CharField(max_length=255, null=True, blank=True)
-    time_to_reach_facility_closest_from_household = models.CharField(max_length=255, null=True, blank=True)
-    is_this_the_nearest_facility_from_home = models.CharField(max_length=255, null=True, blank=True)
-    was_the_facility_open_when_you_arrived = models.CharField(max_length=255, null=True, blank=True)
-    did_you_arrive_during_normal_operating_hours = models.CharField(max_length=255, null=True, blank=True)
-    did_you_get_family_planning_information_at_the_reception = models.CharField(max_length=255, null=True, blank=True)
-    how_long_it_took_to_be_attended_by_service_provider = models.CharField(max_length=255, null=True, blank=True)
-    did_the_service_provider_make_you_feel_welcome = models.CharField(max_length=255, null=True, blank=True)
-    did_the_service_provider_assure_confidentiality = models.CharField(max_length=255, null=True, blank=True)
-    did_you_meet_the_service_providers_in_a_private_room = models.CharField(max_length=255, null=True, blank=True)
-    did_the_providers_give_clear_info_about_services_and_methods = models.CharField(max_length=255, null=True, blank=True)
-    did_the_service_providers_use_visual_aids_to_demo_fp_methods = models.CharField(max_length=255, null=True, blank=True)
-    did_the_providers_ask_of_any_concerns_about_used_methods = models.CharField(max_length=255, null=True, blank=True)
-    were_you_given_info_on_dual_protection = models.CharField(max_length=255, null=True, blank=True)
-    visited_facility_for_fp_services_but_not_get_services_needed = models.CharField(max_length=255, null=True, blank=True)
-    why_did_you_not_get_the_services_at_the_health_facility = models.CharField(max_length=255, null=True, blank=True)
-    did_you_pay_for_the_service = models.CharField(max_length=255, null=True, blank=True)
-    were_you_asked_to_give_some_kickbacks_to_get_the_service = models.CharField(max_length=255, null=True, blank=True)
-    did_you_file_a_complaint = models.CharField(max_length=255, null=True, blank=True)
-    was_your_problem_solved_to_satisfaction = models.CharField(max_length=255, null=True, blank=True)
-    did_you_report_the_problem_again = models.CharField(max_length=255, null=True, blank=True)
-    will_you_go_back_for_fp_services_at_this_facility = models.CharField(max_length=255, null=True, blank=True)
-    are_you_satisfied_with_fp_services_you_received = models.CharField(max_length=255, null=True, blank=True)
-    are_you_satisfied_with_fp_services_provided_using_phone = models.CharField(max_length=255, null=True, blank=True)
-    have_fp_services_improved = models.CharField(max_length=255, null=True, blank=True)
     team = models.CharField(max_length=255, null=True, blank=True)
     team_id = models.CharField(max_length=255, null=True, blank=True)
+    event_type = models.CharField(max_length=255, null=True, blank=True)
     location_id = models.CharField(max_length=255, null=True, blank=True)
     provider_id = models.CharField(max_length=255, null=True, blank=True)
+    base_entity_id = models.CharField(max_length=255, null=True, blank=True)
+    form_submission_id = models.CharField(max_length=255, null=True, blank=True)
 
+    willing_to_participate_in_survey = models.CharField(max_length=255, null=True, blank=True)
+    name_of_health_facility_visited_for_family_planning_services = models.CharField(max_length=255, null=True,                                                                                   blank=True)
+    did_the_client_complete_referral = models.CharField(max_length=255, null=True, blank=True)
+    times_the_client_tried_to_complete_referral = models.CharField(max_length=255, null=True, blank=True)
+    how_long_it_took_to_be_attended_by_service_provider = models.CharField(max_length=255, null=True, blank=True)
+    was_client_screened_for_pregnancy = models.CharField(max_length=255, null=True, blank=True)
+    amount_asked_to_pay_for_services = models.CharField(max_length=255, null=True, blank=True)
+    reasons_for_not_getting_services = models.CharField(max_length=255, null=True, blank=True)
+    treatment_from_service_providers = models.CharField(max_length=255, null=True, blank=True)
+    satisfied_with_fp_services_from_health_facility = models.CharField(max_length=255, null=True, blank=True)
+    satisfied_with_fp_services_from_chw = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         db_table = 'citizen_report_cards'
@@ -219,3 +203,39 @@ class GiveFpMethod(models.Model):
         db_table = "give_family_planning_methods"
 
 
+class CloseReferral(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    event_id = models.IntegerField(null=True, blank=True)
+    event_date = models.DateTimeField(null=True, blank=True)
+    team = models.CharField(max_length=100, null=True, blank=True)
+    team_id = models.CharField(max_length=100, null=True, blank=True)
+    event_type = models.CharField(max_length=100, null=True, blank=True)
+    location_id = models.CharField(max_length=100, null=True, blank=True)
+    provider_id = models.CharField(max_length=100, null=True, blank=True)
+    base_entity_id = models.CharField(max_length=100, null=True, blank=True)
+    form_submission_id = models.CharField(max_length=100, null=True, blank=True)
+
+    referral_task = models.CharField(max_length=100, null=True, blank=True)
+    referral_task_previous_status = models.CharField(max_length=100, null=True, blank=True)
+    referral_task_previous_business_status = models.CharField(max_length=255, null=True, blank=True)
+    service_provided = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        db_table = "close_referral"
+
+
+class TeamMembers(models.Model):
+    def __str__(self):
+        return '%d' %self.id
+
+    identifier = models.CharField(max_length=255, null=True, blank=True)
+    uuid = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    location_uuid = models.CharField(max_length=255, null=True, blank=True)
+    location_name = models.CharField(max_length=255, null=True, blank=True)
+    team_name = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        db_table = "team_members"

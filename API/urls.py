@@ -13,6 +13,8 @@ router.register('referral_summary', views.ReferralTaskView, basename='referral_t
 router.register('clients_families', views.ClientsView, basename='clients')
 router.register('give_fp_methods', views.FamilyPlanningMethodView, basename='give_fp_methods')
 router.register('citizen_report_card', views.CitizenReportCardView, basename='citizen_report_card')
+router.register('visit_types', views.VisitTypesView, basename='visit_types')
+router.register('service_provided', views.CloseReferralView, basename='service_provided')
 
 urlpatterns = [
     path('', include(router.urls)),
