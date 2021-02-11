@@ -6,7 +6,7 @@ from django.db.models import Count, Sum
 from django.conf import settings
 from .serializers import EventsSerializer,DashboardSummarySerializer, \
     ReferralTaskSerializer, CloseReferralSerializer, HouseholdSerializer, ClientsSerializer, GiveFpMethodSerializer, CitizenReportCardSerializer
-from .models import Event, Client, Clients, Household, ReferralTask, CitizenReportCard, GiveFpMethod,CloseReferral, TeamMembers
+from Core.models import Event, Client, Clients, Household, ReferralTask, CitizenReportCard, GiveFpMethod,CloseReferral, TeamMembers
 import requests
 from datetime import datetime
 from django.db import models

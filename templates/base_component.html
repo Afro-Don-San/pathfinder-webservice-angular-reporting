@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Health Commodity Tracer</title>
+    <title>Family Planning</title>
 
     {%  load static %}
 
@@ -9,36 +9,25 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--===============================================================================================-->
+
     <link rel="icon" type="image/png" href="{% static "images/icons/favicon.ico" %}">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static "fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static "fonts/Linearicons-Free-v1.0.0/icon-font.min.css" %}">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static "vendor/animate/animate.css" %}">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static "vendor/css-hamburgers/hamburgers.min.css" %}">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static "vendor/animsition/css/animsition.min.css" %}">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static "vendor/select2/select2.min.css" %}">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/plugins/loaders/loaders.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/core/colors/palette-loader.css" %}">
 
 
     <link rel="stylesheet" type="text/css" href="{% static "css/util.css" %}">
-
     <link rel="stylesheet" type="text/css" href="{% static "css/custom.css" %}">
-
     <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
-
     <link rel="apple-touch-icon" href="{% static "app-assets/images/ico/apple-icon-120.png" %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static "app-assets/images/ico/favicon.ico" %}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
 
-    <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/vendors.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/extensions/bootstrap-treeview.min.css" %}">
     <!-- END: Vendor CSS-->
@@ -107,7 +96,6 @@
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/pages/app-chat.css" %}">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css" />
 </head>
 
@@ -215,10 +203,8 @@
 <script src="{% static "app-assets/js/scripts/pages/app-chat.js" %}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-
 <script src="https://code.highcharts.com/highcharts.src.js"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
-
 <script src="http://code.highcharts.com/maps/highmaps.js"></script>
 <script src="http://code.highcharts.com/maps/modules/map.js"></script>
 <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
@@ -268,96 +254,6 @@
 
     });
 
-{#    Highcharts.chart('container_line', {#}
-{#        chart: {#}
-{#            type: 'line',#}
-{#            events: {#}
-{#                load: function (event) {#}
-{##}
-{#                    var availableQty = this.series[0];#}
-{#                    var consumedQty = this.series[1];#}
-{##}
-{#                    var availableQtys = availableQty.data;#}
-{#                    var consumedQtys = availableQty.data;#}
-{##}
-{##}
-{#                    for (var i = 0; i < availableQtys.length; i++) {#}
-{#                        var theDataPoint = availableQtys[i].y;#}
-{#                        var theCompDataPoint = consumedQtys[i].y;#}
-{##}
-{#                        var ratio = theDataPoint/theCompDataPoint;#}
-{##}
-{#                        if (0 > ratio <= 0.5) {#}
-{#                            console.log(availableQty);#}
-{#                            availableQty.points[i].update({#}
-{#                                color: 'maroon'#}
-{#                            });#}
-{#                        }#}
-{#                        else{#}
-{##}
-{#                            if (0.5 > ratio <= 3){#}
-{##}
-{#                                console.log(availableQty);#}
-{#                                availableQty.points[i].update({#}
-{#                                    color: 'yellow'#}
-{#                                });#}
-{#                            }#}
-{##}
-{#                            else{#}
-{##}
-{#                                if (3 > ratio <= 6)#}
-{#                                {#}
-{#                                    console.log(availableQty);#}
-{#                                    availableQty.points[i].update({#}
-{#                                        color: 'green'#}
-{#                                    });#}
-{#                                }#}
-{##}
-{#                                else {#}
-{##}
-{#                                    console.log(availableQty);#}
-{#                                    availableQty.points[i].update({#}
-{#                                        color: 'blue'#}
-{#                                    });#}
-{#                                }#}
-{#                            }#}
-{##}
-{##}
-{#                        }#}
-{##}
-{#                    }#}
-{##}
-{#                }#}
-{#            }#}
-{##}
-{#        },#}
-{#        title: {#}
-{#            text: 'Line Graph'#}
-{#        },#}
-{#        xAxis: {#}
-{#            categories: [#}
-{##}
-{#                {% for entry in aggregated_transactions %}'{{ entry.posting_schedule__health_commodity_balance__health_commodity__health_commodity_name }} '{% if not forloop.last %}, {% endif %}{% endfor %}#}
-{#            ]#}
-{#        },#}
-{#        series: [{#}
-{#            name: 'Average Quantity Available',#}
-{#            data: [#}
-{#                {% for entry in aggregated_transactions %}{{ entry.average }}{% if not forloop.last %}, {% endif %}{% endfor %}#}
-{#            ],#}
-{#            color: 'DodgerBlue',#}
-{#        }#}
-{#            , {#}
-{#                name: 'Quantity Consumed from eLIMS',#}
-{#                data: [#}
-{#                    {% for entry in aggregated_transactions %}{{ entry.average_consumption }}{% if not forloop.last %}, {% endif %}{% endfor %}#}
-{#                ],#}
-{#                color: 'OliveDrab'#}
-{#            }#}
-{#        ]#}
-{##}
-{##}
-{#    });#}
 
     Highcharts.chart('container_area', {
         chart: {

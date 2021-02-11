@@ -1,0 +1,210 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block dashboard %}
+
+    <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+            <div class="card pull-up">
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="media d-flex">
+                            <div class="align-self-center">
+                                {#                                            <i class="la la-edit font-large-2 success"></i>#}
+                                <img class="media-object rounded-circle" src="{% static "app-assets/images/cards/anc_referral.png" %}" alt="Avatar">
+                            </div>
+
+                            <div class="media-body text-right">
+                                <h5 class="text-muted text-bold-500">ANC Referrals</h5>
+                                <h3 class="text-bold-600" id="id_card_anc_referral">{{ card_anc_referrals }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+            <div class="card pull-up">
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="media d-flex">
+                            <div class="align-self-center">
+                                {#                                            <i class="la la-edit font-large-2 success"></i>#}
+                                <img class="media-object rounded-circle" src="{% static "app-assets/images/cards/fp_referral.png" %}" alt="Avatar">
+                            </div>
+                            <div class="media-body text-right">
+                                <h5 class="text-muted text-bold-500">Family Planning Referrals</h5>
+                                <h3 class="text-bold-600" id="id_card_fp_referrals">{{ card_family_planning_referrals }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+            <div class="card pull-up">
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="media d-flex">
+                            <div class="align-self-center">
+                                {#                                            <i class="la la-edit font-large-2 success"></i>#}
+                                <img class="media-object rounded-circle" src="{% static "app-assets/images/cards/fp_initiations.png" %}" alt="Avatar">
+                            </div>
+                            <div class="media-body text-right">
+                                <h5 class="text-muted text-bold-500">Family Planning Initiations</h5>
+                                <h3 class="text-bold-600" id="id_card_fp_initiations">{{ card_family_planning_initiations }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+            <div class="card pull-up">
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="media d-flex">
+                            <div class="align-self-center">
+                                {#                                            <i class="la la-edit font-large-2 success"></i>#}
+                                <img class="media-object rounded-circle" src="{% static "app-assets/images/cards/fp_discontinuations.png" %}" alt="Avatar">
+                            </div>
+                            <div class="media-body text-right">
+                                <h5 class="text-muted text-bold-500">Family Planning Discontinuations</h5>
+                                <h3 class="text-bold-600" id="id_card_fp_discontinuations">{{ card_family_planning_discontinuations }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Appointment</h4>
+                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-content collapse show">
+                    <div class="card-body chartjs">
+                        <canvas id="combo-bar-line" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% block dashboard_summary %}
+
+        <li class=" navigation-header"><span data-i18n="nav.category.apps"><b>Dashboard Summary</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Apps"></i>
+        </li>
+        <li class=" nav-item"><a href="{% url 'clients_summary' %}"><i class="la la-users"></i><span class="menu-title" data-i18n="">All Clients</span><div class="summary-spacing badge bg-blue-grey">{{ total_clients }}</div></a>
+        </li>
+        <li class=" nav-item"><a href="{% url 'referrals_summary' %}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">Referrals</span><div class="summary-spacing badge bg-blue-grey">{{ total_referrals }}</div></a>
+        </li>
+        <li class=" nav-item"><a href="{% url 'visits_summary' %}"><i class="la la-car"></i><span class="menu-title" data-i18n="">Follow up</span><div class="summary-spacing badge bg-blue-grey">{{ total_visits }}</div></a>
+        </li>
+        <li class=" nav-item"><a href="{% url 'initiations_summary' %}"><i class="la la-thumbs-up"></i><span class="menu-title" data-i18n="">FP Registrations</span><div class="summary-spacing badge bg-blue-grey">{{ total_family_planning_initiations }}</div></a>
+        </li>
+        </li>
+        <li class=" nav-item"><a href="{% url 'discontinuations_summary' %}"><i class="la la-thumbs-down"></i><span class="menu-title" data-i18n="">FP Drop Outs</span><div class="summary-spacing badge bg-blue-grey">{{ total_family_planning_discontinuations }}</div></a>
+        </li>
+        </li>
+        <li class=" nav-item"><a href="{% url 'citizens_report_summary' %}"><i class="la la-newspaper-o"></i><span class="menu-title" data-i18n="">Citizens Report</span><div class="summary-spacing badge bg-blue-grey">{{ total_citizen_reports }}</div></a>
+        </li>
+
+    {% endblock %}
+
+{% endblock %}
+
+{% block scripts %}
+
+
+    <script>
+
+        $(document).ready(function(){
+
+            {#            var url = "{% url 'get_parent_child_relationship' %}";#}
+            {#            $.ajax({#}
+            {#                type: "POST",#}
+            {#                url: url,#}
+            {#                data: {#}
+            {##}
+            {#                    'csrfmiddlewaretoken': '{{ csrf_token }}'#}
+            {#                },#}
+            {##}
+            {#                success: function (data) {#}
+            {##}
+            {#                    data = $.parseJSON(data);#}
+            {##}
+            {#                    alert(data);#}
+            {##}
+            {#                },#}
+            {#                error: function (XMLHttpRequest, textStatus, errorThrown) {#}
+            {##}
+            {#                    alert('failed');#}
+            {##}
+            {#                }#}
+            {#            });#}
+
+
+
+            $("#btn_filter").on("click", function () {
+
+                var date_from = document.getElementById("id_date_from").value;
+                var date_to = document.getElementById("id_date_to").value;
+                var url = "{% url 'filter_dashboard' %}";
+
+                if (date_from = "" || date_to == "")
+                {
+                    alert("filter are empty");
+                }
+
+                else {
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            date_from: date_from, date_to: date_to,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+
+                        success: function (data) {
+
+                            data = $.parseJSON(data);
+
+                            $('#id_card_anc_referral').text(data["card_anc_referrals"]);
+                            $('#id_card_fp_referrals').text(data["card_family_planning_referrals"]);
+                            $('#id_card_fp_initiations').text(data["card_family_planning_initiations"]);
+                            $('#id_card_fp_discontinuations').text(data["card_family_planning_discontinuations"]);
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                            alert('failed');
+
+                        }
+                    });
+                }
+
+
+            })
+
+        });
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% load render_table from django_tables2 %}
+
+
+{% block content %}
+
+
+    <div class="row" id="clients">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">CHW Performance</h4>
+                </div>
+                <div class="card-body">
+
+
+                    <table id = "table" class = "table table-bordered">
+                        <thead class = "alert-primary">
+                        <tr>
+
+                            <th>CHW NAME</th>
+                            <th>CHW ID</th>
+                            <th>NUMBER OF CLIENT REGISTRATIONS</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for x in chw_array %}
+                            <tr>
+
+                                <td align="center">{{ x.chw_name }}</td>
+                                <td align="center">{{ x.chw_id }}</td>
+                                <td align="center">{{ x.value }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="page-nav"></div>
+
+    {% block scripts %}
+
+        <script>
+
+            $(document).ready(function(){
+                // Grab whatever we need to paginate
+                var pageParts = $(".paginate");
+
+                // How many parts do we have?
+                var numPages = 100;
+                // How many parts do we want per page?
+                var perPage = 10;
+
+                // When the document loads we're on page 1
+                // So to start with... hide everything else
+                pageParts.slice(perPage).hide();
+                // Apply simplePagination to our placeholder
+                $("#page-nav").pagination({
+                    items: numPages,
+                    itemsOnPage: perPage,
+                    cssStyle: "light-theme",
+                    // We implement the actual pagination
+                    //   in this next function. It runs on
+                    //   the event that a user changes page
+                    onPageClick: function(pageNum) {
+                        // Which page parts do we show?
+                        var start = perPage * (pageNum - 1);
+                        var end = start + perPage;
+
+                        // First hide all page parts
+                        // Then show those just for our page
+                        pageParts.hide()
+                                .slice(start, end).show();
+                    }
+                });
+            });
+
+        </script>
+
+    {% endblock %}
+
+
+{% endblock %}

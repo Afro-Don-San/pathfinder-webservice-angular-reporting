@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+
+{% block content %}
+
+
+    <div class="row" id="clients">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Client Registrations</h4>
+                </div>
+                <div class="card-body">
+
+
+                    <table id = "table" class = "table table-bordered">
+                        <thead class = "alert-primary">
+                        <tr>
+
+                            <th>FEMALE 10-14</th>
+                            <th>FEMALE 15-19</th>
+                            <th>FEMALE 20-24</th>
+                            <th>FEMALE 25+</th>
+                            <th>MALE 10-14</th>
+                            <th>MALE 15-19</th>
+                            <th>MALE 20-24</th>
+                            <th>MALE 25+</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for x in clients_disaggregated %}
+                            <tr>
+
+                                <td align="center" id="id_female_10_14">{{ x.total_female_10_14 }}</td>
+                                <td align="center" id="id_female_15_19">{{ x.total_female_15_19 }}</td>
+                                <td align="center" id="id_female_20_24">{{ x.total_female_20_24 }}</td>
+                                <td align="center" id="id_female_25">{{ x.total_female_25_ }}</td>
+
+                                <td align="center" id="id_male_10_14">{{ x.total_male_10_14 }}</td>
+                                <td align="center" id="id_male_15_19">{{ x.total_male_15_19 }}</td>
+                                <td align="center" id="id_male_20_24">{{ x.total_male_20_24 }}</td>
+                                <td align="center" id="id_male_25">{{ x.total_male_25_ }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="card-body">
+
+                    <!-- Registration Bar Line Chart -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Appointment</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body chartjs">
+                                        <canvas id="combo-bar-line" height="400"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Registration Bar Line Chart Ends -->
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+    {% block scripts %}
+
+        <script>
+
+            $(document).ready(function(){
+
+                $("#btn_filter").on("click", function () {
+
+                    var date_from = document.getElementById("id_date_from").value;
+                    var date_to = document.getElementById("id_date_to").value;
+                    var url = "{% url 'filter_clients' %}";
+
+                    if (date_from == "" || date_to == "")
+                    {
+                        alert("filter are empty");
+                    }
+
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: {
+                                date_from: date_from, date_to: date_to,
+                                'csrfmiddlewaretoken': '{{ csrf_token }}'
+                            },
+
+                            success: function (data) {
+
+                                data = $.parseJSON(data);
+
+                                $('#id_female_10_14').text(data["total_female_10_14"]);
+                                $('#id_female_15_19').text(data["total_female_15_19"]);
+                                $('#id_female_20_24').text(data["total_female_20_24"]);
+                                $('#id_female_25').text(data["total_female_25_"]);
+
+                                $('#id_male_10_14').text(data["total_male_10_14"]);
+                                $('#id_male_15_19').text(data["total_male_15_19"]);
+                                $('#id_male_20_24').text(data["total_male_20_24"]);
+                                $('#id_male_25').text(data["total_male_25_"]);
+
+
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                alert('failed');
+
+                            }
+                        });
+                    }
+
+
+                })
+
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+
+            });
+
+        </script>
+
+    {% endblock %}
+
+
+{% endblock %}

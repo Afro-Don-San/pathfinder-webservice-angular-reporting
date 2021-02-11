@@ -1,119 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Health Commodity Tracer</title>
+    <title>Family Planning</title>
 
     {%  load static %}
 
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="{% static "images/icons/favicon.ico" %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static "fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static "fonts/Linearicons-Free-v1.0.0/icon-font.min.css" %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static "vendor/animate/animate.css" %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static "vendor/css-hamburgers/hamburgers.min.css" %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static "vendor/animsition/css/animsition.min.css" %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static "vendor/select2/select2.min.css" %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/plugins/loaders/loaders.min.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/core/colors/palette-loader.css" %}">
-
-
-    <link rel="stylesheet" type="text/css" href="{% static "css/util.css" %}">
-
-    <link rel="stylesheet" type="text/css" href="{% static "css/custom.css" %}">
-
-    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+    <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
+    <meta name="author" content="PIXINVENT">
+    <title>Family Planning Dashboard</title>
     <link rel="apple-touch-icon" href="{% static "app-assets/images/ico/apple-icon-120.png" %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static "app-assets/images/ico/favicon.ico" %}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
 
-    <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/vendors.min.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/extensions/bootstrap-treeview.min.css" %}">
-    <!-- END: Vendor CSS-->
-
-    <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/bootstrap-extended.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/colors.css" %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/select2-treeview.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/select2totree.css" %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css" />
+
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/components.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/ui/jquery-ui.min.css" %}">
-    <!-- END: Theme CSS-->
-
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/core/menu/menu-types/vertical-compact-menu.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/fonts/mobiriseicons/24px/mobirise/style.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/charts/morris.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/fonts/simple-line-icons/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/core/menu/menu-types/vertical-menu.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/core/colors/palette-gradient.css" %}">
-
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/charts/chartist.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/charts/chartist-plugin-tooltip.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/pages/hospital.css" %}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css">
     <!-- END: Page CSS-->
-
-    <!-- BEGIN: Custom CSS-->
-    <!-- END: Custom CSS-->
-    <link rel="apple-touch-icon" href="{% static "app-assets/images/ico/apple-icon-120.png" %}">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static "app-assets/images/ico/favicon.ico" %}">
-
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/vendors.min.css" %}">
-    <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{% static "assets/css/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/custom.css" %}">
     <!-- END: Custom CSS-->
-
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/pickers/daterange/daterangepicker.css" %}">
-    <!-- END: Vendor CSS-->
-
-
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/plugins/forms/wizard.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/plugins/pickers/daterange/daterange.css" %}">
-
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/plugins/extensions/toastr.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/plugins/ui/jqueryui.css" %}">
-
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/pages/timeline.css" %}">
-    <!-- END: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/editors/codemirror.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/editors/theme/monokai.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/pages/app-chat.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/select2-treeview.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/select2totree.css" %}">
-
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css" />
 
 
 </head>
 
-<body class="vertical-layout vertical-compact-menu 2-columns   fixed-navbar" data-open="click" data-menu="vertical-compact-menu" data-col="2-columns" onload="makeTableScroll();">
 
 <!-- BEGIN: Header-->
-<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-shadow navbar-brand-center">
+<body class="vertical-layout vertical-menu 2-columns   fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
+
+<!-- BEGIN: Header-->
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light bg-info navbar-shadow">
     <div class="navbar-wrapper">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
-                <li class="nav-item"><a class="navbar-brand" href="{% url 'dashboard' %}"><img class="brand-logo" alt="modern admin logo" src="{% static "app-assets/images/logo/logo.png" %}">
-                    <h3 class="brand-text">Health Commodity Tracer App</h3>
+                <li class="nav-item"><a class="navbar-brand" href=""><img class="brand-logo" alt="modern admin logo" src="{% static "app-assets/images/logo/logo.png" %}">
+                    <h3 class="brand-text">Family Planning</h3>
                 </a></li>
                 <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
             </ul>
@@ -123,43 +65,12 @@
                 <ul class="nav navbar-nav mr-auto float-left">
                     <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
                     <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li>
-                    <li class="nav-item nav-search"><a class="nav-link nav-link-search" href="#"><i class="ficon ft-search"></i></a>
-                        <div class="search-input">
-                            <input class="input" type="text" placeholder="Explore...">
-                        </div>
-                    </li>
                 </ul>
-
                 <ul class="nav navbar-nav float-right">
-                {% if request.user.profile.location.location_type == "FCT" or request.user.profile.location.location_type == "DST" %}
-                    <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="{% url 'get_scheduled_transaction_page' %}"><i class="ficon ft-bell"></i>
 
-                        {% if scheduled_items  > 0 %}
-                            <span class="badge badge-pill badge-danger badge-up badge-glow">
-                            {{ scheduled_items }}
-                        </span>
-                        {% endif %}
-
-                    </a></li>
-
-                {% endif %}
-
-                    <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="{% url 'get_messaging_page' %}"><i class="ficon ft-mail"></i>
-                        {% if unread_messages  > 0 %}
-                            <span class="badge badge-pill badge-danger badge-up badge-glow">
-                            {{ unread_messages }}
-                        </span>
-                        {% endif %}
-                    </a>
-
-                    </li>
-
-                    <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700">Welcome, {{ user.get_full_name }}</span><span class="avatar avatar-online"><img src="{% static "app-assets/images/portrait/small/avatar-s-19.png" %}" alt="avatar"><i></i></span></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item text-danger" href="#"><i class=""></i>Access Level : {{ user.profile.location }}</a>
-{#                            <a class="dropdown-item" href="{% url 'user_profile' %}"><i class="ft-user"></i> Edit Profile</a>#}
-                            <a class="dropdown-item" id="change_password"><i class="icon-key"></i>Change Password</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url "logout" %}"><i class="ft-power"></i> Logout</a>
+                    <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700"> {{ user }}</span></a>
+                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'logout' %}"><i class="ft-power"></i> Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -172,182 +83,323 @@
 
 <!-- BEGIN: Main Menu-->
 
-<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a href="{% url "dashboard" %}"><i class="mbri-desktop"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboards</span></a>
+            <li class="active"><a href="{% url 'dashboard' %}"><i class="la la-home"></i><span class="menu-title" data-i18n="">Dashboard Hospital</span></a>
             </li>
-
-                <li class=" nav-item"><a><i class="mbri-paper-plane"></i><span class="menu-title" data-i18n="nav.category.forms">Post</span></a>
-                    <ul class="menu-content">
-
-                        <li><a class="menu-item" href="{% url 'get_scheduled_transaction_page' %}"><i class="la la-calendar "></i><span data-i18n="nav.form_repeater.main">View Posting Schedule</span></a>
-                        </li>
-                        <li><a class="menu-item" href="{% url 'view_transactions' %}"><i class="la la-eye "></i><span data-i18n="nav.form_repeater.main">View Posted Transactions</span></a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li class=" nav-item"><a href="#"><i class="mbri-database"></i><span class="menu-title" data-i18n="nav.category.forms">Masterdata</span></a>
-                    <ul class="menu-content">
-
-                        {% if request.user.is_superuser %}
-                            <li><a class="menu-item" href="{% url 'frequencies' %}"><i class="la ft-refresh-cw "></i><span data-i18n="nav.form_repeater.main">View Posting Frequencies</span></a>
-                            </li>
-                            <li><a class="menu-item" href="{% url 'units' %}"><i class="la la-safari "></i><span data-i18n="nav.form_repeater.main">View Units</span></a>
-                            </li>
-                            <li><a class="menu-item" href="{% url 'health_commodity_categories' %}"><i class="la icon-screen-desktop "></i><span data-i18n="nav.form_repeater.main">View Categories</span></a>
-                            </li>
-                            <li><a class="menu-item" href="{% url 'health_commodities' %}"><i class="la icon-social-dropbox"></i><span data-i18n="nav.form_repeater.main">View Commodities</span></a>
-                            </li>
-                            <li class=" nav-item"><a href="{% url 'locations' %}"><i class="la icon-home"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Location Management</span></a>
-                        {% endif %}
-
-                        </li>
-                        {% if request.user.profile.location.location_type == "FCT" or request.user.profile.location.location_type == "DST" or request.user.profile.location.location_type == "RGN" %}
-                            <li><a class="menu-item" href="{% url 'health_commodities_balance' %}"><i class="la icon-directions"></i><span data-i18n="nav.form_repeater.main">Commodity-Facility Mapping </span></a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </li>
-
-
-            <li class=" nav-item"><a href="{% url 'get_messaging_page' %}"><i class="mbri-help"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Messaging</span></a>
+            <li class=" navigation-header"><span data-i18n="nav.category.professional"><b>Features</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Professional"></i>
             </li>
-
-            <li class=" nav-item"><a><i class="mbri-file"></i><span class="menu-title" data-i18n="nav.category.forms">JS Reports</span></a>
+            <li class=" nav-item"><a href="#"><i class="la la-file"></i><span class="menu-title" data-i18n="">Reports</span></a>
                 <ul class="menu-content">
-
-                    <li><a class="menu-item" href="{% url 'reporting_posted_transactions' %}"><i class="la la-calendar "></i><span data-i18n="nav.form_repeater.main">Stock Transactions Report</span></a>
+                    <li id="btn_chw_performance"><a><i></i><span>CHW Performance</span></a>
                     </li>
-                       <li><a class="menu-item" href="{% url "reporting_stock_balance" %}"><i class="ft-layers "></i><span data-i18n="nav.form_repeater.main">Stock Balance Report</span></a>
+                    <li id="btn_health_education"><a><i></i><span>Health Education</span></a>
                     </li>
-                    <li><a class="menu-item" href="{% url "reporting_stock_trend" %}"><i class="la icon-graph "></i><span data-i18n="nav.form_repeater.main">Months Of Stock Chart</span></a>
+                    <li id = "btn_household_theme"><a><i></i><span>Household Themes</span></a>
                     </li>
-
                 </ul>
-        </li>
+            </li>
 
-{#                <li class=" nav-item"><a href="{% url 'get_user_management_page' %}"><i class="mbri-user"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Users</span></a>#}
-{#            </li>#}
+            </li>
+            <li class=" nav-item" id="btn_team"><a><i class="la la-users"></i><span class="menu-title" data-i18n="">Team Management</span></a>
+            </li>
 
+            </li>
+            <li class=" nav-item" id="btn_location"><a><i class="la la-building"></i><span class="menu-title" data-i18n="">Location Management</span></a>
+            </li>
+
+            <li class=" nav-item" id="btn_method"><a><i class="la la-scissors"></i><span class="menu-title" data-i18n="">Methods</span></a>
+            </li>
+
+            <li class=" navigation-header"><span data-i18n="nav.category.apps"><b>Dashboard Summary</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Apps"></i>
+            </li>
+            <li class=" nav-item"><a href="{% url 'clients_summary' %}"><i class="la la-users"></i><span class="menu-title" data-i18n="">All Clients</span><div class="summary-spacing badge bg-blue-grey">{{ total_clients }}</div></a>
+            </li>
+            <li class=" nav-item"><a href="{% url 'referrals_summary' %}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">Referrals</span><div class="summary-spacing badge bg-blue-grey">{{ total_referrals }}</div></a>
+            </li>
+            <li class=" nav-item"><a href="{% url 'visits_summary' %}"><i class="la la-car"></i><span class="menu-title" data-i18n="">Follow up</span><div class="summary-spacing badge bg-blue-grey">{{ total_visits }}</div></a>
+            </li>
+            <li class=" nav-item"><a href="{% url 'initiations_summary' %}"><i class="la la-thumbs-up"></i><span class="menu-title" data-i18n="">FP Registrations</span><div class="summary-spacing badge bg-blue-grey">{{ total_family_planning_initiations }}</div></a>
+            </li>
+            </li>
+            <li class=" nav-item"><a href="{% url 'discontinuations_summary' %}"><i class="la la-thumbs-down"></i><span class="menu-title" data-i18n="">FP Drop Outs</span><div class="summary-spacing badge bg-blue-grey">{{ total_family_planning_discontinuations }}</div></a>
+            </li>
+            </li>
+            <li class=" nav-item"><a href="{% url 'citizens_report_summary' %}"><i class="la la-newspaper-o"></i><span class="menu-title" data-i18n="">Citizens Report</span><div class="summary-spacing badge bg-blue-grey">{{ total_citizen_reports }}</div></a>
+            </li>
 
         </ul>
     </div>
 </div>
 
-<div class="col-lg-4 col-md-12 col-sm-12">
-    <div class="form-group">
-        <!-- Popup Modal -->
-        <div id="popModal" class="modal fade text-left" tabindex="-1" aria-hidden="true" aria-labelledby="myModalLabel70" role="dialog" data-keyboard="false" data-backdrop="static">
+
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row mb-1">
+        </div>
+        <div class="content-body">
+            <div class="row" id="filters">
+                <div class="col-md-12 col-sm-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Filters</h4>
+                        </div>
+
+                        <div class="card-body">
+
+                            {#                            <input type="text" id="location_data" value="{{ tree_locations }}" hidden/>#}
+
+                            <div class="col-md-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="issueinput3">Date From:</label>
+                                                    <input type="date" id="id_date_from" class="form-control" name="datefrom" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date From">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="issueinput4">Date To:</label>
+                                                    <input type="date" id="id_date_to" class="form-control" name="dateto" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date To">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <h6>Location:</h6>
+                                                <select id="select_location" style="width:16em" multiple>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class ="row">
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-primary round width-200 buttonAnimation" id="btn_filter" data-animation="pulse" data-toggle="modal" data-backdrop="static" data-target="#modalCategoryMapping">
+                                                    <i class="la la-download"></i> Filter
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {% block dashboard %}
+
+
+                    {% endblock %}
+
+                    <div id="renderer">
+                        {#                        Section used to render all pages here#}
+                    </div>
+
+                </div>
+            </div>
+
 
         </div>
-
     </div>
 </div>
 
 
-
-{%  block content %}
-
-
-
-
-
-
-{%  endblock %}
-
-<!-- END: Content-->
-
 <div class="sidenav-overlay"></div>
 <div class="drag-target"></div>
 
-
-
-<!-- BEGIN: Footer-->
-<footer class="footer footer-static footer-light navbar-border navbar-shadow">
-    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2019 <a class="text-bold-800 grey darken-2" href="https://themeforest.net/user/pixinvent/portfolio?ref=pixinvent" target="_blank">SoftMed</a></span>
-</footer>
-<!-- END: Footer-->
-
-
-
-<!-- BEGIN: Vendor JS-->
 <script src="{% static "app-assets/vendors/js/vendors.min.js" %}"></script>
-<!-- BEGIN Vendor JS-->
-
 <script src="{% static "app-assets/vendors/js/charts/chart.min.js" %}"></script>
-<script src="{% static "app-assets/vendors/js/charts/raphael-min.js" %}"></script>
-<script src="{% static "app-assets/vendors/js/charts/morris.min.js" %}"></script>
-{#<!-- END: Page Vendor JS-->#}
-
-<!-- BEGIN: Theme JS-->
+<script src="{% static "app-assets/vendors/js/charts/echarts/echarts.js" %}"></script>
 <script src="{% static "app-assets/js/core/app-menu.js" %}"></script>
 <script src="{% static "app-assets/js/core/app.js" %}"></script>
-<!-- END: Theme JS-->
-
-
-<!-- BEGIN: Page Vendor JS-->
-<script src="{% static "app-assets/vendors/js/extensions/jquery.steps.min.js" %}"></script>
+<script src="{% static "app-assets/js/scripts/pages/appointment.js" %}"></script>
+{#<script src="{% static "app-assets/vendors/js/extensions/jquery.steps.min.js" %}"></script>#}
 <script src="{% static "app-assets/vendors/js/pickers/dateTime/moment-with-locales.min.js" %}"></script>
 <script src="{% static "app-assets/vendors/js/pickers/daterange/daterangepicker.js" %}"></script>
-<script src="{% static "app-assets/vendors/js/forms/validation/jquery.validate.min.js" %}"></script>
-<!-- END: Page Vendor JS-->
-
-<script src="{% static "app-assets/js/scripts/forms/wizard-steps.js" %}"></script>
-
-<!-- BEGIN: Page Vendor JS-->
-<script src="{% static "app-assets/vendors/js/extensions/sweetalert.min.js" %}"></script>
-<!-- END: Page Vendor JS-->
-<!-- BEGIN: Page JS-->
-<script src="{% static "app-assets/js/scripts/extensions/sweet-alerts.js" %}"></script>
-
-<!-- BEGIN: Page Vendor JS-->
-<script src="{% static "app-assets/vendors/js/animation/jquery.appear.js" %}"></script>
-<!-- END: Page Vendor JS-->
-
-<!-- BEGIN: Page JS-->
-<script src="{% static "app-assets/js/scripts/animation/animation.js" %}"></script>
-
-
-<!-- BEGIN: Page JS-->
-<script src="{% static "app-assets/js/scripts/forms/switch.js" %}"></script>
-
-<!-- BEGIN: Page Vendor JS-->
-<script src="{% static "app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js" %}"></script>
-<!-- END: Page Vendor JS-->
-
-<!-- BEGIN: Page JS-->
-<script src="{% static "app-assets/js/scripts/ui/jquery-ui/date-pickers.js" %}"></script>
-
-
-<script src="{% static "app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js" %}"></script>
-<!-- BEGIN: Page Vendor JS-->
-<script src="{% static "app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js" %}"></script>
-<script src="{% static "app-assets/vendors/js/forms/toggle/switchery.min.js" %}"></script>
-<script src="{% static "app-assets/js/scripts/pages/app-email.js" %}"></script>
-<script src="{% static "app-assets/js/scripts/pages/app-chat.js" %}"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="{% static "app-assets/js/select2totree.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 <script>
+    $("#btn_team").on("click", function () {
 
-    $(document).ready(function(){
+        $("#renderer").empty();
 
-        $('.switch').checkboxpicker();
+        var url = "{% url 'team_management' %}";
 
-        $("#change_password").on("click", function()
-        {
-            $("#popModal").load('{% url 'change_password' %}', function() {
-                $("#popModal").modal("show");
-            });
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+
+
+                $("#renderer").html(data);
+
+            },
+            error: function () {
+
+                swal("Failed", "Failed to loadcontent.", "warning");
+
+            }
         });
 
     });
 
+    $("#btn_location").on("click", function () {
 
+        $("#renderer").empty();
+
+        var url = "{% url 'location_management' %}";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+
+
+                $("#renderer").html(data);
+
+            },
+            error: function () {
+
+                swal("Failed", "Failed to loadcontent.", "warning");
+
+            }
+        });
+
+    })
+
+    $("#btn_method").on("click", function () {
+
+        $("#renderer").empty();
+
+        var url = "{% url 'methods' %}";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+
+
+                $("#renderer").html(data);
+
+            },
+            error: function () {
+
+                swal("Failed", "Failed to loadcontent.", "warning");
+
+            }
+        });
+
+    })
+
+    $("#btn_chw_performance").on("click", function () {
+
+        $("#renderer").empty();
+
+        var url = "{% url 'chw_performance' %}";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+
+
+                $("#renderer").html(data);
+
+            },
+            error: function () {
+
+                swal("Failed", "Failed to loadcontent.", "warning");
+
+            }
+        });
+
+    })
+
+    $("#btn_health_education").on("click", function () {
+
+        $("#renderer").empty();
+
+        var url = "{% url 'health_education' %}";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+
+
+                $("#renderer").html(data);
+
+            },
+            error: function () {
+
+                swal("Failed", "Failed to load content.", "warning");
+
+            }
+        });
+
+    })
+
+    $("#btn_household_theme").on("click", function () {
+
+        $("#renderer").empty();
+
+        var url = "{% url 'methods' %}";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+
+
+                $("#renderer").html(data);
+
+            },
+            error: function () {
+
+                swal("Failed", "Failed to loadcontent.", "warning");
+
+            }
+        });
+
+    })
 
 </script>
+
+{% block scripts %}
+
+
+
+{% endblock %}
+
 
 </body>
 </html>

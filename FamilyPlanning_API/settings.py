@@ -40,11 +40,16 @@ INSTALLED_APPS = [
 
     # Custom Apps
     'API',
+    'UserManagement',
+    'Core',
 
     # APi specific apps
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'django_tables2',
+    'django_datatables_view'
+
 ]
 
 REST_FRAMEWORK = {
@@ -71,10 +76,18 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'FamilyPlanning_API.urls'
 
+OPENMRS_URL = 'http://172.105.87.198:8081'
+
+LOGIN_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,10 +95,22 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
             ],
         },
     },
 ]
+
+# Celery related settings
+CELERY_BROKER_URL = 'amqp://localhost:5672'
+# CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+CELERY_TIMEZONE = 'UTC'
+CELERY_ENABLE_UTC = True
 
 WSGI_APPLICATION = 'FamilyPlanning_API.wsgi.application'
 
@@ -132,7 +157,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Dar_es_Salaam'
 
 USE_I18N = True
 
@@ -145,3 +170,5 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+

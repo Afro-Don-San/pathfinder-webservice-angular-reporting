@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from Core import views as core_views
 
 urlpatterns = [
+    path('', include('UserManagement.urls')),
     path('admin/', admin.site.urls),
     path('api_', include('API.urls')),
-    path('superset_', include('Superset.urls')),
+    path('get_parent_child_relationship', core_views.get_parent_child_relationship, name='get_parent_child_relationship')
 ]

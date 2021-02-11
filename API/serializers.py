@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import Client, Event, ReferralTask, Referral, Household, Clients, CitizenReportCard, \
-    GiveFpMethod, CloseReferral
+from Core.models import Event, Client, Clients, Household, ReferralTask, CitizenReportCard, GiveFpMethod,\
+    CloseReferral, TeamMembers, Referral
 
 
 class ClientSerializer(serializers.ModelSerializer):

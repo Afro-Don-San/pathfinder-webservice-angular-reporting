@@ -1,0 +1,79 @@
+{% load render_table from django_tables2 %}
+
+
+    <div class="row" id="clients">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Methods</h4>
+                </div>
+                <div class="card-body">
+
+
+                    <table id = "table" class = "table table-bordered">
+                        <thead class = "alert-success">
+                        <tr>
+                            <th><b>METHOD TYPE</b></th>
+                            <th>FEMALE 10-14</th>
+                            <th>FEMALE 15-19</th>
+                            <th>FEMALE 20-24</th>
+                            <th>FEMALE 25+</th>
+                            <th>MALE 10-14</th>
+                            <th>MALE 15-19</th>
+                            <th>MALE 20-24</th>
+                            <th>MALE 25+</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for x in methods_disaggregated %}
+                            <tr>
+                                <td>{{ x.method }}</td>
+
+                                <td align="center">{{ x.total_female_10_14 }}</td>
+                                <td align="center">{{ x.total_female_15_19 }}</td>
+                                <td align="center">{{ x.total_female_20_24 }}</td>
+                                <td align="center">{{ x.total_female_25_ }}</td>
+
+                                <td align="center">{{ x.total_male_10_14 }}</td>
+                                <td align="center">{{ x.total_male_15_19 }}</td>
+                                <td align="center">{{ x.total_male_20_24 }}</td>
+                                <td align="center">{{ x.total_male_25_ }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <!-- Registration Bar Line Chart -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Appointment</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body chartjs">
+                                        <canvas id="combo-bar-line" height="400"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Registration Bar Line Chart Ends -->
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
