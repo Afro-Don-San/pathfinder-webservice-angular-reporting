@@ -52,7 +52,7 @@
                                 <img class="media-object rounded-circle" src="{% static "app-assets/images/cards/fp_initiations.png" %}" alt="Avatar">
                             </div>
                             <div class="media-body text-right">
-                                <h5 class="text-muted text-bold-500">Family Planning Initiations</h5>
+                                <h5 class="text-muted text-bold-500">Family Planning Registrations</h5>
                                 <h3 class="text-bold-600" id="id_card_fp_initiations">{{ card_family_planning_initiations }}</h3>
                             </div>
                         </div>
@@ -209,7 +209,6 @@
                         success: function (data) {
 
                             data = $.parseJSON(data);
-                            alert(data);
 
                             var total_clients = data['total_clients'];
                             var total_clients_categories = [];
@@ -230,9 +229,6 @@
                                 fp_methods_categories.push(v.method_type);
                                 fp_methods_values.push(v.items);
                             });
-
-                            alert(total_clients_categories);
-                            alert(total_clients_values);
 
                             $('#id_card_anc_referral').text(data["card_anc_referrals"]);
                             $('#id_card_fp_referrals').text(data["card_family_planning_referrals"]);

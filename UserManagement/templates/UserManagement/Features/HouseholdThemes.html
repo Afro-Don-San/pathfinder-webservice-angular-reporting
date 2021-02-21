@@ -60,6 +60,7 @@
 
                     var date_from = document.getElementById("id_date_from").value;
                     var date_to = document.getElementById("id_date_to").value;
+                    var location_id = document.getElementById("selected_location_id").value;
                     var url = "{% url 'filtered_methods' %}";
 
                     if (date_from == "" || date_to == "")
@@ -72,7 +73,7 @@
                             type: "POST",
                             url: url,
                             data: {
-                                date_from: date_from, date_to: date_to,
+                                date_from: date_from, date_to: date_to,location_id: location_id,
                                 'csrfmiddlewaretoken': '{{ csrf_token }}'
                             },
 

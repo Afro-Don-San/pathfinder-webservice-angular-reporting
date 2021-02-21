@@ -284,7 +284,7 @@ def get_filtered_methods_page(request):
 
 def get_chw_performance_report(request):
     location_array = []
-    locations = core_views.get_children_by_user(request)
+    locations = core_views.get_children_by_user(request.user)
 
     for x in locations:
         location_array.append(x.uuid)
@@ -322,9 +322,10 @@ def get_chw_performance_report(request):
 
         json_array_chw.append(referral_object)
 
+
     return render(request, 'UserManagement/Features/ChwPerformance.html',{
         'chw_array':chw_array,
-        'referral_issued_by_chw': json_array_chw,
+        'referral_issued_by_chw': json_array_chw
     })
 
 
@@ -332,17 +333,14 @@ def get_filtered_chw_performance_report(request):
     if request.method == "POST":
         date_from = request.POST["date_from"]
         date_to = request.POST["date_to"]
+        parent_location_id = request.POST["location_id"]
 
-        location_array = []
-        locations = core_views.get_children_by_user(request)
-
-        for x in locations:
-            location_array.append(x.uuid)
+        children = core_views.get_facilities_by_location(parent_location_id)
 
         chw_array = []
         json_array_chw = []
 
-        client_registration_by_chw = core_models.Clients.objects.filter(location_id__in=location_array,
+        client_registration_by_chw = core_models.Clients.objects.filter(location_id__in=children,
                                                                         event_date__gte=date_from,
                                                                         event_date__lte=date_to
 
@@ -350,7 +348,7 @@ def get_filtered_chw_performance_report(request):
             .order_by('-value')
 
         referral_issued_by_chw = core_models.ReferralTask.objects.filter(
-            health_facility_location_id__in=location_array, execution_start_date__gte=date_from,
+            health_facility_location_id__in=children, execution_start_date__gte=date_from,
             execution_start_date__lte=date_to
         ). \
             values('chw_id', 'chw_name').annotate(value=Count('chw_id'))
@@ -369,7 +367,7 @@ def get_filtered_chw_performance_report(request):
 
         for x in referral_issued_by_chw:
             query_completed_referrals = core_models.ReferralTask.objects.filter(
-                health_facility_location_id__in=location_array, execution_start_date__gte=date_from,
+                health_facility_location_id__in=children, execution_start_date__gte=date_from,
                 execution_start_date__lte=date_to
 
                 , chw_id=x['chw_id'], businessstatus='Complete')
@@ -377,7 +375,6 @@ def get_filtered_chw_performance_report(request):
                                'completed': query_completed_referrals.count()}
 
             json_array_chw.append(referral_object)
-
 
         content = {"chw_array":chw_array, "json_array_chw":json_array_chw}
 
@@ -462,20 +459,14 @@ def get_filtered_health_education_report(request):
     if request.method == "POST":
         date_from = request.POST["date_from"]
         date_to = request.POST["date_to"]
+        parent_location_id = request.POST["location_id"]
 
-        locations = core_models.Location.objects.all().order_by('location_id')
-        location_array = []
-
-        for x in locations:
-            location_array.append(x.uuid)
+        children = core_views.get_facilities_by_location(parent_location_id)
 
         location_array = []
         client_array = []
 
-        for x in locations:
-            location_array.append(x.uuid)
-
-        query_fp_introduction = core_models.FamilyPlanningServices.objects.filter(location_id__in=location_array,
+        query_fp_introduction = core_models.FamilyPlanningServices.objects.filter(location_id__in=children,
                                                                                   event_date__gte=date_from,
                                                                                   event_date__lte=date_to,
                                                                                   event_type='Introduction to Family Planning')
@@ -1053,8 +1044,6 @@ def get_discontinuations_summary(request):
                                                                               location_id__in=location_array).values('event_type').annotate(
         value=Count('event_type'))
 
-    print(total_family_planning_discontinuations)
-
     return render(request, 'UserManagement/Summary/Discontinuations.html', {'total_family_planning_discontinuations':total_family_planning_discontinuations})
 
 
@@ -1230,9 +1219,6 @@ def get_dashboard(request, date_from, date_to, location_array):
     content_clients.append({"method_type": "pop given", "clients": pop_given.count()})
     content_clients.append({"method_type": "coc given", "clients": coc_given.count()})
     content_clients.append({"method_type": "male condoms", "clients": male_condoms.count()})
-
-    print(content_methods)
-    print(content_clients)
 
     content = {
         'card_anc_referrals': card_anc_referrals.count(),

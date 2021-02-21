@@ -11,14 +11,14 @@
                     <h4 class="card-title">Client Registrations</h4>
                 </div>
 
-            <div align="right">
-                 <a class="las la-file-excel" href="{% url 'export_clients_xls' %}">Export</a>
-            </div>
+                <div align="right">
+                    <a class="las la-file-excel" href="{% url 'export_clients_xls' %}">Export</a>
+                </div>
                 <div class="card-body">
 
-                <h6>TOTAL REGISTERED CLIENTS: <span><b>{{ total }}</b></span></h6>
-                <h6>TOTAL REGISTERED FEMALE CLIENTS: <span><b>{{ total_female }}</b></h6></span>
-                <h6>TOTAL REGISTERED MALE CLIENTS: <span><b>{{ total_male }}</b></h6></span>
+                    <h6>TOTAL REGISTERED CLIENTS: <span><b>{{ total }}</b></span></h6>
+                    <h6>TOTAL REGISTERED FEMALE CLIENTS: <span><b>{{ total_female }}</b></h6></span>
+                    <h6>TOTAL REGISTERED MALE CLIENTS: <span><b>{{ total_male }}</b></h6></span>
 
                     <table id = "table" class = "table table-bordered">
                         <thead class = "alert-primary">
@@ -67,7 +67,7 @@
                 </div>
                 <div class="card-body">
 
-                       {% render_table clients_table %}
+                    {% render_table clients_table %}
 
                 </div>
 
@@ -96,36 +96,45 @@
                     }
 
                     else {
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: {
-                                date_from: date_from, date_to: date_to,location_id:location_id,
-                                'csrfmiddlewaretoken': '{{ csrf_token }}'
-                            },
+                        if (date_from > date_to)
+                        {
+                            swal("Error!", "Date From is greater than Date To", "error");
+                        }
 
-                            success: function (data) {
+                        else {
 
-                                data = $.parseJSON(data);
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: {
+                                    date_from: date_from, date_to: date_to, location_id: location_id,
+                                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                },
 
-                                $('#id_female_10_14').text(data["total_female_10_14"]);
-                                $('#id_female_15_19').text(data["total_female_15_19"]);
-                                $('#id_female_20_24').text(data["total_female_20_24"]);
-                                $('#id_female_25').text(data["total_female_25_"]);
+                                success: function (data) {
 
-                                $('#id_male_10_14').text(data["total_male_10_14"]);
-                                $('#id_male_15_19').text(data["total_male_15_19"]);
-                                $('#id_male_20_24').text(data["total_male_20_24"]);
-                                $('#id_male_25').text(data["total_male_25_"]);
+                                    data = $.parseJSON(data);
+
+                                    $('#id_female_10_14').text(data["total_female_10_14"]);
+                                    $('#id_female_15_19').text(data["total_female_15_19"]);
+                                    $('#id_female_20_24').text(data["total_female_20_24"]);
+                                    $('#id_female_25').text(data["total_female_25_"]);
+
+                                    $('#id_male_10_14').text(data["total_male_10_14"]);
+                                    $('#id_male_15_19').text(data["total_male_15_19"]);
+                                    $('#id_male_20_24').text(data["total_male_20_24"]);
+                                    $('#id_male_25').text(data["total_male_25_"]);
 
 
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                                   swal("Error!", "Operation Failed.", "error");
+                                    swal("Error!", "Operation Failed.", "error");
 
-                            }
-                        });
+                                }
+                            });
+
+                        }
                     }
 
 

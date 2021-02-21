@@ -232,159 +232,160 @@
                 }
 
                 else {
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: {
-                            date_from: date_from, date_to: date_to,location_id:location_id,
-                            'csrfmiddlewaretoken': '{{ csrf_token }}'
-                        },
+                    if (date_from > date_to)
+                    {
+                        swal("Error!", "Date From is greater than Date To", "error");
+                    }
 
-                        success: function (data) {
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: {
+                                date_from: date_from, date_to: date_to, location_id: location_id,
+                                'csrfmiddlewaretoken': '{{ csrf_token }}'
+                            },
 
-                            data = $.parseJSON(data);
+                            success: function (data) {
 
-                            var query_wait_time = data['query_wait_time'];
-                            var query_wait_time_categories = [];
-                            var query_wait_time_values = [];
+                                data = $.parseJSON(data);
 
-                            var query_attempts_complete = data['query_attempts_complete'];
-                            var query_attempts_complete_categories = [];
-                            var query_attempts_complete_values = [];
+                                var query_wait_time = data['query_wait_time'];
+                                var query_wait_time_categories = [];
+                                var query_wait_time_values = [];
 
-                            var query_reason_not_getting_service = data['query_reason_not_getting_service'];
-                            var query_reason_not_getting_service_categories = [];
-                            var query_reason_not_getting_service_values = [];
+                                var query_attempts_complete = data['query_attempts_complete'];
+                                var query_attempts_complete_categories = [];
+                                var query_attempts_complete_values = [];
 
-                            var query_amount_asked_to_pay = data['query_amount_asked_to_pay'];
-                            var query_amount_asked_to_pay_categories = [];
-                            var query_amount_asked_to_pay_values = [];
+                                var query_reason_not_getting_service = data['query_reason_not_getting_service'];
+                                var query_reason_not_getting_service_categories = [];
+                                var query_reason_not_getting_service_values = [];
 
-
-                            $.each(query_wait_time, function(k, v)
-                            {
-                                query_wait_time_categories.push(v.how_long_it_took_to_be_attended_by_service_provider);
-                                query_wait_time_values.push(v.value);
-                            });
-
-                            $.each(query_attempts_complete, function(k, v)
-                            {
-                                query_attempts_complete_categories.push(v.times_the_client_tried_to_complete_referral);
-                                query_attempts_complete_values.push(v.value);
-                            });
-
-                            $.each(query_reason_not_getting_service, function(k, v)
-                            {
-                                query_reason_not_getting_service_categories.push(v.reasons_for_not_getting_services);
-                                query_reason_not_getting_service_values.push(v.value);
-                            });
-
-                             $.each(query_amount_asked_to_pay, function(k, v)
-                            {
-                                query_amount_asked_to_pay_categories.push(v.amount_asked_to_pay_for_services);
-                                query_amount_asked_to_pay_values.push(v.value);
-                            });
-
-                            Highcharts.chart('container_wait_time', {
-                                chart: {
-                                    type: 'line'
-                                },
-                                title: {
-                                    text: 'WAIT TIME FOR SERVICE'
-                                },
-                                xAxis: {
-                                    categories: query_wait_time_categories
-                                },
-                                series: [{
-                                    name: 'Number of People waited',
-                                    data: query_wait_time_values,
-                                    color: 'DodgerBlue'
-                                }],
-                                exporting: {
-                                    showTable: false
-                                }
+                                var query_amount_asked_to_pay = data['query_amount_asked_to_pay'];
+                                var query_amount_asked_to_pay_categories = [];
+                                var query_amount_asked_to_pay_values = [];
 
 
-                            });
+                                $.each(query_wait_time, function (k, v) {
+                                    query_wait_time_categories.push(v.how_long_it_took_to_be_attended_by_service_provider);
+                                    query_wait_time_values.push(v.value);
+                                });
 
-                            Highcharts.chart('container_referral_attempts', {
-                                chart: {
-                                    type: 'line'
-                                },
-                                title: {
-                                    text: 'REFERRAL COMPLETION ATTEMPTS BY CLIENTS'
-                                },
-                                xAxis: {
-                                    categories: query_attempts_complete_categories
-                                },
-                                series: [{
-                                    name: 'Number of referrals',
-                                    data: query_attempts_complete_values,
-                                    color: 'Olive'
-                                }],
+                                $.each(query_attempts_complete, function (k, v) {
+                                    query_attempts_complete_categories.push(v.times_the_client_tried_to_complete_referral);
+                                    query_attempts_complete_values.push(v.value);
+                                });
 
-                                exporting: {
-                                    showTable: false
-                                }
+                                $.each(query_reason_not_getting_service, function (k, v) {
+                                    query_reason_not_getting_service_categories.push(v.reasons_for_not_getting_services);
+                                    query_reason_not_getting_service_values.push(v.value);
+                                });
 
+                                $.each(query_amount_asked_to_pay, function (k, v) {
+                                    query_amount_asked_to_pay_categories.push(v.amount_asked_to_pay_for_services);
+                                    query_amount_asked_to_pay_values.push(v.value);
+                                });
 
-                            });
-
-                            Highcharts.chart('container_reasons_not_getting_services', {
-                                chart: {
-                                    type: 'line'
-                                },
-                                title: {
-                                    text: ''
-                                },
-                                xAxis: {
-                                    categories: query_reason_not_getting_service_categories
-                                },
-                                series: [{
-                                    name: 'Number of People waited',
-                                    data: query_reason_not_getting_service_values,
-                                    color: 'Red'
-                                }],
-
-                                exporting: {
-                                    showTable: false
-                                }
+                                Highcharts.chart('container_wait_time', {
+                                    chart: {
+                                        type: 'line'
+                                    },
+                                    title: {
+                                        text: 'WAIT TIME FOR SERVICE'
+                                    },
+                                    xAxis: {
+                                        categories: query_wait_time_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of People waited',
+                                        data: query_wait_time_values,
+                                        color: 'DodgerBlue'
+                                    }],
+                                    exporting: {
+                                        showTable: false
+                                    }
 
 
+                                });
 
-                            });
+                                Highcharts.chart('container_referral_attempts', {
+                                    chart: {
+                                        type: 'line'
+                                    },
+                                    title: {
+                                        text: 'REFERRAL COMPLETION ATTEMPTS BY CLIENTS'
+                                    },
+                                    xAxis: {
+                                        categories: query_attempts_complete_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of referrals',
+                                        data: query_attempts_complete_values,
+                                        color: 'Olive'
+                                    }],
 
-                            Highcharts.chart('container_amount_asked_to_pay', {
-                                chart: {
-                                    type: 'line'
-                                },
-                                title: {
-                                    text: ''
-                                },
-                                xAxis: {
-                                    categories: query_amount_asked_to_pay_categories
-                                },
-                                series: [{
-                                    name: 'Number of People',
-                                    data: query_amount_asked_to_pay_values,
-                                    color: 'Orange'
-                                }],
-                                exporting: {
-                                    showTable: false
-                                }
-
-
-                            });
+                                    exporting: {
+                                        showTable: false
+                                    }
 
 
+                                });
 
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                Highcharts.chart('container_reasons_not_getting_services', {
+                                    chart: {
+                                        type: 'line'
+                                    },
+                                    title: {
+                                        text: ''
+                                    },
+                                    xAxis: {
+                                        categories: query_reason_not_getting_service_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of People waited',
+                                        data: query_reason_not_getting_service_values,
+                                        color: 'Red'
+                                    }],
 
-                            swal("Error!", "Operation Failed.", "error");
+                                    exporting: {
+                                        showTable: false
+                                    }
 
-                        }
-                    });
+
+                                });
+
+                                Highcharts.chart('container_amount_asked_to_pay', {
+                                    chart: {
+                                        type: 'line'
+                                    },
+                                    title: {
+                                        text: ''
+                                    },
+                                    xAxis: {
+                                        categories: query_amount_asked_to_pay_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of People',
+                                        data: query_amount_asked_to_pay_values,
+                                        color: 'Orange'
+                                    }],
+                                    exporting: {
+                                        showTable: false
+                                    }
+
+
+                                });
+
+
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                swal("Error!", "Operation Failed.", "error");
+
+                            }
+                        });
+                    }
                 }
 
 

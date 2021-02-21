@@ -4,7 +4,6 @@
 
 {% block content %}
 
-
     <div class="row" id="clients">
         <div class="card-body">
             <div class="card">
@@ -83,73 +82,79 @@
 
                     var date_from = document.getElementById("id_date_from").value;
                     var date_to = document.getElementById("id_date_to").value;
+                    var location_id = document.getElementById("selected_location_id").value;
                     var url = "{% url 'filter_chw_performance' %}";
 
-                    if (date_from == "" || date_to == "")
+                    if (date_from == "" || date_to == "" || location_id =="")
                     {
                         swal("Error!", "Filter(s) are empty.", "error");
                     }
 
                     else {
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: {
-                                date_from: date_from, date_to: date_to,
-                                'csrfmiddlewaretoken': '{{ csrf_token }}'
-                            },
+                        if (date_from > date_to)
+                        {
+                             swal("Error!", "Date From is greater than Date To", "error");
+                        }
 
-                            success: function (data) {
+                        else {
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: {
+                                    date_from: date_from, date_to: date_to, location_id: location_id,
+                                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                },
 
-                                data = $.parseJSON(data);
+                                success: function (data) {
 
-                                if (data["chw_array"] == '') {
+                                    data = $.parseJSON(data);
 
-                                    var tb = document.getElementById('table_registrations');
-                                    while(tb.rows.length > 1) {
-                                        tb.deleteRow(1);
+                                    if (data["chw_array"] == '') {
+
+                                        var tb = document.getElementById('table_registrations');
+                                        while (tb.rows.length > 1) {
+                                            tb.deleteRow(1);
+                                        }
+                                        swal("Empty!", "No records found.", "warning");
                                     }
-                                    swal("Empty!", "No records found.", "warning");
-                                }
-                                else
-                                {
-                                    $.each(data["chw_array"], function(k, v) {
-                                        $('#cr_chw_name').text(v.chw_name);
-                                        $('#cr_chw_id').text(v.chw_id);
-                                        $('#cr_id_value').text(v.value);
+                                    else {
+                                        $.each(data["chw_array"], function (k, v) {
+                                            $('#cr_chw_name').text(v.chw_name);
+                                            $('#cr_chw_id').text(v.chw_id);
+                                            $('#cr_id_value').text(v.value);
 
-                                    });
-                                }
-
-
-                                if (data["json_array_chw"] == '') {
-
-                                    var tb = document.getElementById('table_referrals');
-                                    while(tb.rows.length > 1) {
-                                        tb.deleteRow(1);
+                                        });
                                     }
-                                    swal("Empty!", "No records found.", "warning");
+
+
+                                    if (data["json_array_chw"] == '') {
+
+                                        var tb = document.getElementById('table_referrals');
+                                        while (tb.rows.length > 1) {
+                                            tb.deleteRow(1);
+                                        }
+                                        swal("Empty!", "No records found.", "warning");
+                                    }
+                                    else {
+                                        $.each(data["json_array_chw"], function (k, v) {
+
+                                            $('#ri_chw_name').text(v.chw_name);
+                                            $('#ri_chw_id').text(v.chw_id);
+                                            $('#ri_issued').text(v.issued);
+                                            $('#ri_completed').text(v.completed);
+
+                                        });
+                                    }
+
+
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                    swal("Error!", "Operation Failed.", "error");
+
                                 }
-                                else
-                                {
-                                    $.each(data["json_array_chw"], function (k, v) {
-
-                                        $('#ri_chw_name').text(v.chw_name);
-                                        $('#ri_chw_id').text(v.chw_id);
-                                        $('#ri_issued').text(v.issued);
-                                        $('#ri_completed').text(v.completed);
-
-                                    });
-                                }
-
-
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                                swal("Error!", "Operation Failed.", "error");
-
-                            }
-                        });
+                            });
+                        }
                     }
 
 

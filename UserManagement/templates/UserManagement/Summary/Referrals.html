@@ -226,117 +226,119 @@
                 }
 
                 else {
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: {
-                            date_from: date_from, date_to: date_to,location_id:location_id,
-                            'csrfmiddlewaretoken': '{{ csrf_token }}'
-                        },
+                    if (date_from > date_to)
+                    {
+                        swal("Error!", "Date From is greater than Date To", "error");
+                    }
 
-                        success: function (data) {
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: {
+                                date_from: date_from, date_to: date_to, location_id: location_id,
+                                'csrfmiddlewaretoken': '{{ csrf_token }}'
+                            },
 
-                            data = $.parseJSON(data);
+                            success: function (data) {
 
-                            var focus_data = data['referral_types_focus'];
-                            var focus_data_categories = [];
-                            var focus_data_values = [];
+                                data = $.parseJSON(data);
 
-                            var referral_status_data = data['referral_status'];
-                            var referral_status_categories = [];
-                            var referral_status_values = [];
+                                var focus_data = data['referral_types_focus'];
+                                var focus_data_categories = [];
+                                var focus_data_values = [];
 
-                               var total_referrals_data = data['total_issued_referrals'];
-                            var total_referrals_categories = [];
-                            var total_referrals_values = [];
+                                var referral_status_data = data['referral_status'];
+                                var referral_status_categories = [];
+                                var referral_status_values = [];
 
-
-                            $.each(focus_data, function(k, v)
-                            {
-                                focus_data_categories.push(v.focus);
-                                focus_data_values.push(v.value);
-                            });
-
-                            $.each(referral_status_data, function(k, v)
-                            {
-                                referral_status_categories.push(v.businessstatus);
-                                referral_status_values.push(v.value);
-                            });
-
-                            $.each(total_referrals_data, function(k, v)
-                            {
-                                total_referrals_categories.push(v.event_type);
-                                total_referrals_values.push(v.value);
-                            });
+                                var total_referrals_data = data['total_issued_referrals'];
+                                var total_referrals_categories = [];
+                                var total_referrals_values = [];
 
 
-                            Highcharts.chart('container_area', {
-                                chart: {
-                                    type: 'line'
-                                },
-                                title: {
-                                    text: 'Referral Focus'
-                                },
-                                xAxis: {
-                                    categories: focus_data_categories
-                                },
-                                series: [{
-                                    name: 'Number of Referrals',
-                                    data: focus_data_values,
-                                    color: 'DodgerBlue'
-                                }]
+                                $.each(focus_data, function (k, v) {
+                                    focus_data_categories.push(v.focus);
+                                    focus_data_values.push(v.value);
+                                });
+
+                                $.each(referral_status_data, function (k, v) {
+                                    referral_status_categories.push(v.businessstatus);
+                                    referral_status_values.push(v.value);
+                                });
+
+                                $.each(total_referrals_data, function (k, v) {
+                                    total_referrals_categories.push(v.event_type);
+                                    total_referrals_values.push(v.value);
+                                });
 
 
-                            });
-
-                            Highcharts.chart('container_referral_line', {
-                                chart: {
-                                    type: 'line'
-                                },
-                                title: {
-                                    text: 'Referral Types Issued'
-                                },
-                                xAxis: {
-                                    categories: total_referrals_categories
-                                },
-                                series: [{
-                                    name: 'Number of Referrals',
-                                    data: total_referrals_values,
-                                    color: 'DodgerBlue'
-                                }]
+                                Highcharts.chart('container_area', {
+                                    chart: {
+                                        type: 'line'
+                                    },
+                                    title: {
+                                        text: 'Referral Focus'
+                                    },
+                                    xAxis: {
+                                        categories: focus_data_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of Referrals',
+                                        data: focus_data_values,
+                                        color: 'DodgerBlue'
+                                    }]
 
 
-                            });
+                                });
 
-                            Highcharts.chart('container_bar', {
-                                chart: {
-                                    type: 'column'
-                                },
-                                title: {
-                                    text: 'Referral Status'
-                                },
-                                xAxis: {
-                                    categories: referral_status_categories,
-                                },
-                                series: [{
-                                    name: 'Number of Referrals',
-                                    data: referral_status_values,
-                                    color: 'Olive'
-                                }]
-
-
-                            });
+                                Highcharts.chart('container_referral_line', {
+                                    chart: {
+                                        type: 'line'
+                                    },
+                                    title: {
+                                        text: 'Referral Types Issued'
+                                    },
+                                    xAxis: {
+                                        categories: total_referrals_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of Referrals',
+                                        data: total_referrals_values,
+                                        color: 'DodgerBlue'
+                                    }]
 
 
+                                });
+
+                                Highcharts.chart('container_bar', {
+                                    chart: {
+                                        type: 'column'
+                                    },
+                                    title: {
+                                        text: 'Referral Status'
+                                    },
+                                    xAxis: {
+                                        categories: referral_status_categories,
+                                    },
+                                    series: [{
+                                        name: 'Number of Referrals',
+                                        data: referral_status_values,
+                                        color: 'Olive'
+                                    }]
 
 
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                });
 
-                            swal("Error!", "Operation Failed.", "error");
 
-                        }
-                    });
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                swal("Error!", "Operation Failed.", "error");
+
+                            }
+                        });
+                    }
                 }
 
 

@@ -50,3 +50,24 @@ class ClientsTable(tables.Table):
         model = core_models.Clients
         template_name = "django_tables2/bootstrap.html"
         fields = ("first_name","middle_name","last_name","gender", "phone_number", "birth_date" )
+
+
+# class CHWTable(tables.Table):
+#     chw_name = tables.Column()
+#     chw_id = tables.Column()
+#     value = tables.Column()
+#
+#     class Meta:
+#         template_name = "django_tables2/bootstrap.html"
+#         fields = ("chw_name", "chw_id", "value")
+#
+#
+# class CHWReferralsTable(tables.Table):
+#     chw_name = tables.Column()
+#     chw_id = tables.Column()
+#     issued = tables.Column()
+#     completed = tables.Column()
+#
+#     class Meta:
+#         template_name = "django_tables2/bootstrap.html"
+#         fields = ("chw_name", "chw_id", "issued", "completed")
