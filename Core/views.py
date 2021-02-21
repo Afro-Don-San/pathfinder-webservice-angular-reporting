@@ -3,14 +3,17 @@ from django.conf import settings
 from django.db.models import Func, Q
 from Core import models as core_models
 import json
+from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 # Create your views here.):
-def get_children_by_user(request):
-    starting_location = core_models.Location.objects.get(location_id=request.user.profile.location.location_id)
+def get_children_by_user(user):
+
+    starting_location = core_models.Location.objects.get(location_id=user.profile.location.location_id)
 
     # Regions
-    location_children = core_models.Location.objects.filter(parent_location=starting_location.id)
+    location_children = core_models.Location.objects.filter(parent_location=starting_location.location_id)
 
     if location_children.count() > 0:
         # Districts
@@ -39,10 +42,9 @@ def get_children_by_user(request):
             children = location_children
     else:
         # Work around to return a queryset so as to count()
-        children = core_models.Location.objects.filter(id=request.user.profile.location.id)
+        children = core_models.Location.objects.filter(location_id=user.profile.location.location_id)
 
     return children
-
 
 def get_dashboard_summary(request):
     location_array = []
@@ -80,39 +82,76 @@ def get_dashboard_summary(request):
 # Logic to create dashboard tree
 def get_children_recursively(parent_location_id):
     final_children = []
-
-    all_locations = core_models.Location.objects.all()
-
-    for x in all_locations:
+    locations = core_models.Location.objects.filter(parent_location=parent_location_id)
+    for x in locations:
         if x.parent_location == parent_location_id:
-            # add this object to an array
-            # children.append({"id": x.id, "text": ""+x.location_name+""})
-
-            if len((get_children_recursively(x.location_id))) > 0:
-                final_children.append(
-                    {"id": x.location_id, "text": "" + x.name + "", "inc": (get_children_recursively(x.location_id))})
-            else:
-                final_children.append(
-                    {"id": x.location_id, "text": "" + x.name + ""})
+            final_children.append({"id": x.location_id, "label": "" + x.name + "",
+                                   "children":get_children_recursively(x.location_id)})
+        else:
+            final_children.append(
+                {"id": x.location_id, "label": "" + x.name + ""})
 
     return final_children
 
+
 def get_parent_child_relationship(request):
     json_data = ""
-    starting_location_id = request.user.profile.location.location_id
+    starting_location = core_models.Location.objects.get(location_id=request.user.profile.location.location_id)
+    starting_location_id = starting_location.location_id
+
     exact_location = core_models.Location.objects.get(location_id=starting_location_id)
+
     parent_id = exact_location.parent_location
+
     if parent_id is None:
         parent_id = starting_location_id
     else:
         parent_id = exact_location.parent_location
+
     all_locations = core_models.Location.objects.all()
+
     for x in all_locations:
         if x.location_id == parent_id:
-            children = get_children_recursively(parent_id)
-            if len(children) > 0:
-                json_data = [{"id": x.location_id, "text": x.name, "inc": children}]
+            children = core_models.Location.objects.filter(parent_location = parent_id)
 
+            if children.count() > 0:
+                json_data = [{"id": x.location_id, "label": x.name, "children": get_children_recursively(parent_id)}]
             else:
                 pass
-    return json.dumps(json_data)
+    return HttpResponse(JsonResponse(json_data, safe=False))
+
+
+def get_facilities_by_location(location_id):
+    location_array = []
+    # Regions
+    location_children = core_models.Location.objects.filter(parent_location=location_id)
+    if location_children.count() > 0:
+        # Districts
+        query_level_1 = core_models.Location.objects.filter(parent_location__in=location_children.values('location_id'))
+        if query_level_1.count() > 0:
+            # Facilities
+            query_level_2 = core_models.Location.objects.filter(parent_location__in=query_level_1.values('location_id'))
+
+            if query_level_2.count() > 0:
+                query_level_3 = core_models.Location.objects.filter(parent_location__in=query_level_2.values('location_id'))
+                if query_level_3.count() > 0:
+                    query_level_4 = core_models.Location.objects.filter(parent_location__in=query_level_3.values('location_id'))
+                    if query_level_4.count()>0:
+                        villages = query_level_4
+                    else:
+                        villages = query_level_3
+                else:
+                    villages = query_level_2
+            else:
+                villages = query_level_1
+        else:
+            villages = location_children
+
+        for x in villages:
+            location_array.append(x.uuid)
+    else:
+        # Work around to return a queryset so as to count()
+        village = core_models.Location.objects.get(location_id=location_id)
+        location_array.append(village.uuid)
+
+    return location_array

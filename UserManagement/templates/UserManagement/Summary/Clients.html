@@ -4,15 +4,21 @@
 
 {% block content %}
 
-
     <div class="row" id="clients">
         <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Client Registrations</h4>
                 </div>
+
+            <div align="right">
+                 <a class="las la-file-excel" href="{% url 'export_clients_xls' %}">Export</a>
+            </div>
                 <div class="card-body">
 
+                <h6>TOTAL REGISTERED CLIENTS: <span><b>{{ total }}</b></span></h6>
+                <h6>TOTAL REGISTERED FEMALE CLIENTS: <span><b>{{ total_female }}</b></h6></span>
+                <h6>TOTAL REGISTERED MALE CLIENTS: <span><b>{{ total_male }}</b></h6></span>
 
                     <table id = "table" class = "table table-bordered">
                         <thead class = "alert-primary">
@@ -43,46 +49,32 @@
                                 <td align="center" id="id_male_25">{{ x.total_male_25_ }}</td>
                             </tr>
                         {% endfor %}
+
                         </tbody>
                     </table>
 
                 </div>
 
-                <div class="card-body">
-
-                    <!-- Registration Bar Line Chart -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Appointment</h4>
-                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                                    <div class="heading-elements">
-                                        <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                            <li><a data-action="close"><i class="ft-x"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-content collapse show">
-                                    <div class="card-body chartjs">
-                                        <canvas id="combo-bar-line" height="400"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Registration Bar Line Chart Ends -->
-
-
-                </div>
             </div>
         </div>
     </div>
 
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="row" id="clients">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Client Registrations</h4>
+                </div>
+                <div class="card-body">
+
+                       {% render_table clients_table %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
     {% block scripts %}
 
@@ -94,11 +86,13 @@
 
                     var date_from = document.getElementById("id_date_from").value;
                     var date_to = document.getElementById("id_date_to").value;
+                    var location_id = document.getElementById("selected_location_id").value;
+
                     var url = "{% url 'filter_clients' %}";
 
-                    if (date_from == "" || date_to == "")
+                    if (date_from == "" || date_to == "" || location_id == "")
                     {
-                        alert("filter are empty");
+                        swal("Empty Filter(s)", "One or more filters are missing.", "warning");
                     }
 
                     else {
@@ -106,7 +100,7 @@
                             type: "POST",
                             url: url,
                             data: {
-                                date_from: date_from, date_to: date_to,
+                                date_from: date_from, date_to: date_to,location_id:location_id,
                                 'csrfmiddlewaretoken': '{{ csrf_token }}'
                             },
 
@@ -128,51 +122,13 @@
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                                alert('failed');
+                                   swal("Error!", "Operation Failed.", "error");
 
                             }
                         });
                     }
 
 
-                })
-
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
                 });
 
 

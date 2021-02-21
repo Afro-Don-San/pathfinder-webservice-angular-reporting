@@ -3,19 +3,19 @@
 
 
 {% block content %}
-
     <div class="row" id="clients">
         <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Health Education</h4>
+                    <h4 class="card-title">Household Themes</h4>
                 </div>
                 <div class="card-body">
 
 
                     <table id = "table" class = "table table-bordered">
-                        <thead class = "alert-warning">
+                        <thead class = "alert-success">
                         <tr>
+                            <th><b>Theme Name</b></th>
                             <th>FEMALE 10-14</th>
                             <th>FEMALE 15-19</th>
                             <th>FEMALE 20-24</th>
@@ -27,29 +27,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for x in fp_introduction_disaggregated %}
+                        {% for x in household_array %}
                             <tr>
+                                <td>{{ x.method }}</td>
 
-                                <td align="center" id="total_female_10_14">{{ x.total_female_10_14 }}</td>
-                                <td align="center" id="total_female_15_19">{{ x.total_female_15_19 }}</td>
-                                <td align="center" id="total_female_20_24">{{ x.total_female_20_24 }}</td>
-                                <td align="center" id="total_female_25_">{{ x.total_female_25_ }}</td>
+                                <td align="center">{{ x.total_female_10_14 }}</td>
+                                <td align="center">{{ x.total_female_15_19 }}</td>
+                                <td align="center">{{ x.total_female_20_24 }}</td>
+                                <td align="center">{{ x.total_female_25_ }}</td>
 
-                                <td align="center" id="total_male_10_14">{{ x.total_male_10_14 }}</td>
-                                <td align="center" id="total_male_15_19">{{ x.total_male_15_19 }}</td>
-                                <td align="center" id="total_male_20_24">{{ x.total_male_20_24 }}</td>
-                                <td align="center" id="total_male_25_">{{ x.total_male_25_ }}</td>
+                                <td align="center">{{ x.total_male_10_14 }}</td>
+                                <td align="center">{{ x.total_male_15_19 }}</td>
+                                <td align="center">{{ x.total_male_20_24 }}</td>
+                                <td align="center">{{ x.total_male_25_ }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
 
-
                 </div>
             </div>
         </div>
     </div>
-
 
     {% block scripts %}
 
@@ -61,7 +60,7 @@
 
                     var date_from = document.getElementById("id_date_from").value;
                     var date_to = document.getElementById("id_date_to").value;
-                    var url = "{% url 'filtered_health_education' %}";
+                    var url = "{% url 'filtered_methods' %}";
 
                     if (date_from == "" || date_to == "")
                     {
@@ -81,21 +80,30 @@
 
                                 data = $.parseJSON(data);
 
-                                $.each(data, function(k, v) {
+                                if (data == '') {
 
-                                    alert(v.total_female_10_14);
+                                    var tb = document.getElementById('table');
+                                    while(tb.rows.length > 1) {
+                                        tb.deleteRow(1);
+                                    }
+                                    swal("Empty!", "No records found.", "warning");
+                                }
+                                else {
 
-                                    $('#total_female_10_14').text(v.total_female_10_14);
-                                    $('#total_female_15_19').text(v.total_female_15_19);
-                                    $('#total_female_20_24').text(v.total_female_20_24);
-                                    $('#total_female_25_').text(v.total_female_25_);
+                                    $.each(data, function (k, v) {
 
-                                    $('#total_male_10_14').text(v.total_male_10_14);
-                                    $('#total_male_15_19').text(v.total_male_15_19);
-                                    $('#total_male_20_24').text(v.total_male_20_24);
-                                    $('#total_male_25_').text(v.total_male_25_);
+                                        $('#total_female_10_14').text(v.total_female_10_14);
+                                        $('#total_female_15_19').text(v.total_female_15_19);
+                                        $('#total_female_20_24').text(v.total_female_20_24);
+                                        $('#total_female_25_').text(v.total_female_25_);
 
-                                });
+                                        $('#total_male_10_14').text(v.total_male_10_14);
+                                        $('#total_male_15_19').text(v.total_male_15_19);
+                                        $('#total_male_20_24').text(v.total_male_20_24);
+                                        $('#total_male_25_').text(v.total_male_25_);
+
+                                    });
+                                }
 
 
 
@@ -119,3 +127,4 @@
     {% endblock %}
 
 {% endblock %}
+

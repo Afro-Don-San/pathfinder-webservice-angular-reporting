@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% load render_table from django_tables2 %}
 
 
@@ -5,78 +6,156 @@
 
 
     <div class="row" id="clients">
-        <div class="col-md-12 col-sm-12">
+        <div class="card-body">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">CHW Performance</h4>
+                    <h4 class="card-title">CLIENT REGISTRATION BY CHWS</h4>
                 </div>
-                <div class="card-body">
 
 
-                    <table id = "table" class = "table table-bordered">
-                        <thead class = "alert-primary">
+                <table id = "table_registrations" class = "table table-bordered">
+                    <thead class = "alert-primary">
+                    <tr>
+
+                        <th>CHW NAME</th>
+                        <th>CHW ID</th>
+                        <th>NUMBER OF CLIENT REGISTRATIONS</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for x in chw_array %}
                         <tr>
 
-                            <th>CHW NAME</th>
-                            <th>CHW ID</th>
-                            <th>NUMBER OF CLIENT REGISTRATIONS</th>
-
+                            <td align="center" id="cr_chw_name">{{ x.chw_name }}</td>
+                            <td align="center" id="cr_chw_id">{{ x.chw_id }}</td>
+                            <td align="center", id="cr_id_value">{{ x.value }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        {% for x in chw_array %}
-                            <tr>
-
-                                <td align="center">{{ x.chw_name }}</td>
-                                <td align="center">{{ x.chw_id }}</td>
-                                <td align="center">{{ x.value }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-
-                </div>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
             </div>
         </div>
     </div>
-    <div id="page-nav"></div>
+
+    <div class="row">
+        <div class="card-body">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">REFERRALS ISSUED BY CHWS</h4>
+                </div>
+
+                <table id = "table_referrals" class = "table table-bordered">
+                    <thead class = "alert-success">
+                    <tr>
+                        <th>CHW NAME</th>
+                        <th>CHW ID</th>
+                        <th>REFERRALS ISSUED</th>
+                        <th>REFERRALS COMPLETED</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for x in referral_issued_by_chw %}
+                        <tr>
+                            <td align="center" id="ri_chw_name">{{ x.chw_name }}</td>
+                            <td align="center" id="ri_chw_id">{{ x.chw_id }}</td>
+                            <td align="center" id="ri_issued">{{ x.issued }}</td>
+                            <td align="center" id="ri_completed">{{ x.completed }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
 
     {% block scripts %}
 
         <script>
 
             $(document).ready(function(){
-                // Grab whatever we need to paginate
-                var pageParts = $(".paginate");
 
-                // How many parts do we have?
-                var numPages = 100;
-                // How many parts do we want per page?
-                var perPage = 10;
+                $("#btn_filter").on("click", function () {
 
-                // When the document loads we're on page 1
-                // So to start with... hide everything else
-                pageParts.slice(perPage).hide();
-                // Apply simplePagination to our placeholder
-                $("#page-nav").pagination({
-                    items: numPages,
-                    itemsOnPage: perPage,
-                    cssStyle: "light-theme",
-                    // We implement the actual pagination
-                    //   in this next function. It runs on
-                    //   the event that a user changes page
-                    onPageClick: function(pageNum) {
-                        // Which page parts do we show?
-                        var start = perPage * (pageNum - 1);
-                        var end = start + perPage;
+                    var date_from = document.getElementById("id_date_from").value;
+                    var date_to = document.getElementById("id_date_to").value;
+                    var url = "{% url 'filter_chw_performance' %}";
 
-                        // First hide all page parts
-                        // Then show those just for our page
-                        pageParts.hide()
-                                .slice(start, end).show();
+                    if (date_from == "" || date_to == "")
+                    {
+                        swal("Error!", "Filter(s) are empty.", "error");
                     }
+
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: {
+                                date_from: date_from, date_to: date_to,
+                                'csrfmiddlewaretoken': '{{ csrf_token }}'
+                            },
+
+                            success: function (data) {
+
+                                data = $.parseJSON(data);
+
+                                if (data["chw_array"] == '') {
+
+                                    var tb = document.getElementById('table_registrations');
+                                    while(tb.rows.length > 1) {
+                                        tb.deleteRow(1);
+                                    }
+                                    swal("Empty!", "No records found.", "warning");
+                                }
+                                else
+                                {
+                                    $.each(data["chw_array"], function(k, v) {
+                                        $('#cr_chw_name').text(v.chw_name);
+                                        $('#cr_chw_id').text(v.chw_id);
+                                        $('#cr_id_value').text(v.value);
+
+                                    });
+                                }
+
+
+                                if (data["json_array_chw"] == '') {
+
+                                    var tb = document.getElementById('table_referrals');
+                                    while(tb.rows.length > 1) {
+                                        tb.deleteRow(1);
+                                    }
+                                    swal("Empty!", "No records found.", "warning");
+                                }
+                                else
+                                {
+                                    $.each(data["json_array_chw"], function (k, v) {
+
+                                        $('#ri_chw_name').text(v.chw_name);
+                                        $('#ri_chw_id').text(v.chw_id);
+                                        $('#ri_issued').text(v.issued);
+                                        $('#ri_completed').text(v.completed);
+
+                                    });
+                                }
+
+
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                swal("Error!", "Operation Failed.", "error");
+
+                            }
+                        });
+                    }
+
+
                 });
+
+
             });
 
         </script>

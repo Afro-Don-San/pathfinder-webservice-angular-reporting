@@ -35,6 +35,12 @@
     background-color: #ffffff;
 }
 
+.white-font-color
+{
+   color: #FFFFFF;
+    font-size: 40px;
+    margin-left: 50px;
+}
 
 .spinner {
    border: 0px solid;
@@ -100,3 +106,4 @@ strong.select2-results__group {
     display: block;
     padding: 6px;
 }
+

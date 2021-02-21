@@ -18,28 +18,21 @@
     <link rel="apple-touch-icon" href="{% static "app-assets/images/ico/apple-icon-120.png" %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static "app-assets/images/ico/favicon.ico" %}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/vendors/css/vendors.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/bootstrap-extended.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/colors.css" %}">
-
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/select2-treeview.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/select2totree.css" %}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css" />
-
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/components.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/core/menu/menu-types/vertical-menu.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/core/colors/palette-gradient.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "app-assets/css/pages/hospital.css" %}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css">
-    <!-- END: Page CSS-->
-
-    <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{% static "assets/css/style.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/custom.css" %}">
-    <!-- END: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static "css/jqtree.css" %}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 
 
 </head>
@@ -69,8 +62,8 @@
                 <ul class="nav navbar-nav float-right">
 
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700"> {{ user }}</span></a>
-                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'logout' %}"><i class="ft-power"></i> Logout</a>
+                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" id="change_password"><i class="ft-user"></i>Change Password</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'logout' %}" id="id_logout"><i class="ft-power"></i> Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -86,34 +79,35 @@
 <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class="active"><a href="{% url 'dashboard' %}"><i class="la la-home"></i><span class="menu-title" data-i18n="">Dashboard Hospital</span></a>
+            <li class="active"><a href="{% url 'filter_dashboard' %}"><i class="la la-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
             </li>
             <li class=" navigation-header"><span data-i18n="nav.category.professional"><b>Features</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Professional"></i>
             </li>
             <li class=" nav-item"><a href="#"><i class="la la-file"></i><span class="menu-title" data-i18n="">Reports</span></a>
                 <ul class="menu-content">
-                    <li id="btn_chw_performance"><a><i></i><span>CHW Performance</span></a>
+                    <li id="btn_chw_performance"><a href="{% url 'chw_performance' %}"><i></i><span>CHW Performance</span></a>
                     </li>
-                    <li id="btn_health_education"><a><i></i><span>Health Education</span></a>
+                    <li id="btn_health_education"><a href="{% url 'health_education' %}"><i></i><span>Health Education</span></a>
                     </li>
-                    <li id = "btn_household_theme"><a><i></i><span>Household Themes</span></a>
+                    <li id = "btn_household_theme"><a href="{% url 'household_themes' %}"><i></i><span>Household Themes</span></a>
                     </li>
                 </ul>
             </li>
 
             </li>
-            <li class=" nav-item" id="btn_team"><a><i class="la la-users"></i><span class="menu-title" data-i18n="">Team Management</span></a>
+            <li class=" nav-item" id="btn_team"><a href="{% url 'team_management' %}"><i class="la la-users"></i><span class="menu-title" data-i18n="">Team Management</span></a>
             </li>
 
             </li>
-            <li class=" nav-item" id="btn_location"><a><i class="la la-building"></i><span class="menu-title" data-i18n="">Location Management</span></a>
-            </li>
-
-            <li class=" nav-item" id="btn_method"><a><i class="la la-scissors"></i><span class="menu-title" data-i18n="">Methods</span></a>
+            <li class=" nav-item" id="btn_location"><a href="{% url 'location_management' %}"><i class="la la-building"></i><span class="menu-title" data-i18n="">Location Management</span></a>
             </li>
 
             <li class=" navigation-header"><span data-i18n="nav.category.apps"><b>Dashboard Summary</b></span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Apps"></i>
             </li>
+
+            <li class=" nav-item" id="btn_method"><a href="{% url 'methods' %}"><i class="la la-scissors"></i><span class="menu-title" data-i18n="">Methods</span></a>
+            </li>
+
             <li class=" nav-item"><a href="{% url 'clients_summary' %}"><i class="la la-users"></i><span class="menu-title" data-i18n="">All Clients</span><div class="summary-spacing badge bg-blue-grey">{{ total_clients }}</div></a>
             </li>
             <li class=" nav-item"><a href="{% url 'referrals_summary' %}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">Referrals</span><div class="summary-spacing badge bg-blue-grey">{{ total_referrals }}</div></a>
@@ -122,12 +116,9 @@
             </li>
             <li class=" nav-item"><a href="{% url 'initiations_summary' %}"><i class="la la-thumbs-up"></i><span class="menu-title" data-i18n="">FP Registrations</span><div class="summary-spacing badge bg-blue-grey">{{ total_family_planning_initiations }}</div></a>
             </li>
-            </li>
-            <li class=" nav-item"><a href="{% url 'discontinuations_summary' %}"><i class="la la-thumbs-down"></i><span class="menu-title" data-i18n="">FP Drop Outs</span><div class="summary-spacing badge bg-blue-grey">{{ total_family_planning_discontinuations }}</div></a>
-            </li>
-            </li>
             <li class=" nav-item"><a href="{% url 'citizens_report_summary' %}"><i class="la la-newspaper-o"></i><span class="menu-title" data-i18n="">Citizens Report</span><div class="summary-spacing badge bg-blue-grey">{{ total_citizen_reports }}</div></a>
             </li>
+
 
         </ul>
     </div>
@@ -172,8 +163,9 @@
 
                                             <div class="col-md-3">
                                                 <h6>Location:</h6>
-                                                <select id="select_location" style="width:16em" multiple>
-                                                </select>
+                                                <input type="text" value="" id="selected_location_id" disabled="true" class="form-control" hidden/>
+                                                <input type="text" value="Loading..." id="selected_location" disabled="true" class="form-control" />
+                                                <div id="tree1"></div>
                                             </div>
                                         </div>
 
@@ -181,7 +173,7 @@
                                         <div class ="row">
                                             <div class="col-md-3">
                                                 <button type="button" class="btn btn-primary round width-200 buttonAnimation" id="btn_filter" data-animation="pulse" data-toggle="modal" data-backdrop="static" data-target="#modalCategoryMapping">
-                                                    <i class="la la-download"></i> Filter
+                                                    <i class="la la-download"></i> Update Data
                                                 </button>
                                             </div>
                                         </div>
@@ -195,17 +187,27 @@
                         </div>
                     </div>
 
-                    {% block dashboard %}
+                </div>
+            </div>
 
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <!-- Popup Modal -->
+                    <div id="popModal" class="modal fade text-left" tabindex="-1" aria-hidden="true" aria-labelledby="myModalLabel70" role="dialog" data-keyboard="false" data-backdrop="static">
 
-                    {% endblock %}
-
-                    <div id="renderer">
-                        {#                        Section used to render all pages here#}
                     </div>
 
                 </div>
             </div>
+
+
+
+            {% block content %}
+
+
+
+
+            {% endblock %}
 
 
         </div>
@@ -217,182 +219,115 @@
 <div class="drag-target"></div>
 
 <script src="{% static "app-assets/vendors/js/vendors.min.js" %}"></script>
-<script src="{% static "app-assets/vendors/js/charts/chart.min.js" %}"></script>
-<script src="{% static "app-assets/vendors/js/charts/echarts/echarts.js" %}"></script>
 <script src="{% static "app-assets/js/core/app-menu.js" %}"></script>
 <script src="{% static "app-assets/js/core/app.js" %}"></script>
 <script src="{% static "app-assets/js/scripts/pages/appointment.js" %}"></script>
 {#<script src="{% static "app-assets/vendors/js/extensions/jquery.steps.min.js" %}"></script>#}
 <script src="{% static "app-assets/vendors/js/pickers/dateTime/moment-with-locales.min.js" %}"></script>
 <script src="{% static "app-assets/vendors/js/pickers/daterange/daterangepicker.js" %}"></script>
+<script src="{% static "app-assets/vendors/js/extensions/sweetalert.min.js" %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="{% static "app-assets/js/select2totree.js" %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+<script src="{% static "js/tree.jquery.js" %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
-    $("#btn_team").on("click", function () {
 
-        $("#renderer").empty();
+    $(document).ready(function(){
 
-        var url = "{% url 'team_management' %}";
+        var now = new Date();
 
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (data) {
+        {#        Date From#}
+        var day = ("0" + (now.getDate() - 1)).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var yesterday = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+        {#       Date To#}
+        var three_months_ago = ("0" + (now.getMonth())).slice(-2);
+        var three_months_ago_date = now.getFullYear()+"-"+(three_months_ago)+"-"+(day) ;
+
+        $('#id_date_from').val(three_months_ago_date);
+        $('#id_date_to').val(yesterday);
+
+        var locationData = localStorage.getItem('locationData');
+
+        if (locationData == null) {
+            var url = "{% url 'get_parent_child_relationship' %}";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+
+                success: function (response) {
+
+                    var data = $.parseJSON(response);
+                    localStorage.setItem('locationData', JSON.stringify(data));
+
+                    $('#tree1').tree({
+                        data: data,
+                        autoOpen: false,
+                        dragAndDrop: true
+                    });
+
+                    $('#selected_location').val('Select Location');
+
+                },
+                error: function () {
+
+                    swal('Error', 'Operation failed', 'error');
+
+                }
+            });
+        }
+        else
+        {
+            $('#tree1').tree({
+                data: $.parseJSON(locationData),
+                autoOpen: false,
+                dragAndDrop: true
+            });
+
+            $('#selected_location').val('Select Location');
+
+        }
 
 
-                $("#renderer").html(data);
+        $('#tree1').on(
+                'tree.click',
+                function(event) {
+                    // The clicked node is 'event.node'
+                    var node = event.node;
+                    $("#selected_location").val(node.name);
+                    $("#selected_location_id").val(node.id);
 
-            },
-            error: function () {
 
-                swal("Failed", "Failed to loadcontent.", "warning");
+                }
+        );
 
-            }
+        $("#id_logout").on("click", function () {
+
+            localStorage.removeItem("locationData");
+
         });
+
+        $("#change_password").on("click", function()
+        {
+            $("#popModal").load('{% url 'change_password' %}', function() {
+                $("#popModal").modal("show");
+            });
+        });
+
 
     });
 
-    $("#btn_location").on("click", function () {
-
-        $("#renderer").empty();
-
-        var url = "{% url 'location_management' %}";
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (data) {
-
-
-                $("#renderer").html(data);
-
-            },
-            error: function () {
-
-                swal("Failed", "Failed to loadcontent.", "warning");
-
-            }
-        });
-
-    })
-
-    $("#btn_method").on("click", function () {
-
-        $("#renderer").empty();
-
-        var url = "{% url 'methods' %}";
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (data) {
-
-
-                $("#renderer").html(data);
-
-            },
-            error: function () {
-
-                swal("Failed", "Failed to loadcontent.", "warning");
-
-            }
-        });
-
-    })
-
-    $("#btn_chw_performance").on("click", function () {
-
-        $("#renderer").empty();
-
-        var url = "{% url 'chw_performance' %}";
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (data) {
-
-
-                $("#renderer").html(data);
-
-            },
-            error: function () {
-
-                swal("Failed", "Failed to loadcontent.", "warning");
-
-            }
-        });
-
-    })
-
-    $("#btn_health_education").on("click", function () {
-
-        $("#renderer").empty();
-
-        var url = "{% url 'health_education' %}";
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (data) {
-
-
-                $("#renderer").html(data);
-
-            },
-            error: function () {
-
-                swal("Failed", "Failed to load content.", "warning");
-
-            }
-        });
-
-    })
-
-    $("#btn_household_theme").on("click", function () {
-
-        $("#renderer").empty();
-
-        var url = "{% url 'methods' %}";
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (data) {
-
-
-                $("#renderer").html(data);
-
-            },
-            error: function () {
-
-                swal("Failed", "Failed to loadcontent.", "warning");
-
-            }
-        });
-
-    })
-
 </script>
+
 
 {% block scripts %}
 

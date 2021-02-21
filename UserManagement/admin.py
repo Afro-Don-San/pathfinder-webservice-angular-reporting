@@ -21,7 +21,7 @@ class CustomUserAdmin(UserAdmin):
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
 admin.site.site_header = 'Family Planning Admin Panel'
-admin.site.site_url = '/dashboard'
+admin.site.site_url = '/filter_dashboard'
 admin.site.site_title = 'Family Planning App'
 admin.site.index_title = 'App Configurations'
 

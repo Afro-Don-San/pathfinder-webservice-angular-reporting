@@ -21,5 +21,5 @@ urlpatterns = [
     path('', include('UserManagement.urls')),
     path('admin/', admin.site.urls),
     path('api_', include('API.urls')),
-    path('get_parent_child_relationship', core_views.get_parent_child_relationship, name='get_parent_child_relationship')
+    path('get_parent_child_relationship', core_views.get_parent_child_relationship, name='get_parent_child_relationship'),
 ]

@@ -25,7 +25,7 @@ SECRET_KEY = '*5o9(%s6r&r@^@$mbph3*(8_i^(@c@&y!p$g8#qsvne*rkj$1z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '172.105.87.198', '172.104.250.225','50.116.38.151']
+ALLOWED_HOSTS = ['127.0.0.1', '172.105.87.198', '172.104.250.225','50.116.38.151', 'lcwt-pathfinder.org']
 
 
 # Application definition
@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'xlwt',
+    'crispy_forms',
     'django_tables2',
     'django_datatables_view'
 

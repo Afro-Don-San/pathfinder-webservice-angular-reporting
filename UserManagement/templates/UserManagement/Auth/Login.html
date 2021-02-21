@@ -6,7 +6,13 @@
 
     <div class="app-content content">
         <div class="content-wrapper">
-            <div class="content-header row mb-1">
+            <div class="col-md-12">
+                <div class="content-header row mb-1">
+                    <h1 style="color:white; font-size:40px; font-weight:bold; margin-left: 40px">Family Planning</h1>
+                </div>
+                <div class="content-header row mb-1">
+                    <h3 style="color:white; margin-left: 50px; margin-top: 0px; font-weight:bold;">Provision Of Quality Reproductive Health</h3>
+                </div>
             </div>
             <div class="content-body">
                 <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
@@ -39,16 +45,24 @@
 
                         <div class="container-login100-form-btn">
 
-                            <button class="login100-form-btn">
+                            <button class="login100-form-btn" id="btn_login">
                                 Login
                             </button>
 
                         </div>
 
+                                 {% if messages %}
+                            <ul class="messages" style="color: #FA2704;">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
                     </form>
                 </div>
 
-                <div id="dropDownSelect1"></div>
+                {#                <div id="dropDownSelect1"></div>#}
             </div>
 
         </div>
@@ -58,9 +72,16 @@
 
     </div>
 
-
-
     </body>
 
+
 {% endblock %}
-	
+
+
+
+{% block scripts %}
+
+
+
+{% endblock %}
+

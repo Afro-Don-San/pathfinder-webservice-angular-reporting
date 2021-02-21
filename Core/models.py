@@ -246,6 +246,26 @@ class FamilyPlanningServices(models.Model):
         db_table = "family_planning_services"
 
 
+class HouseholdThemes(models.Model):
+    def __str__(self):
+        return '%d' % self.id
+
+    event_id = models.IntegerField(null=True, blank=True)
+    client_id = models.BigIntegerField(null=True, blank=True)
+    event_date = models.DateTimeField(null=True, blank=True)
+    event_type = models.CharField(max_length=100, null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    team = models.CharField(max_length=100, null=True, blank=True)
+    team_id = models.CharField(max_length=100, null=True, blank=True)
+    event_type = models.CharField(max_length=100, null=True, blank=True)
+    location_id = models.CharField(max_length=100, null=True, blank=True)
+    provider_id = models.CharField(max_length=100, null=True, blank=True)
+    base_entity_id = models.CharField(max_length=100, null=True, blank=True)
+
+    class Meta:
+        db_table = "household_themes"
+
+
 class TeamMembers(models.Model):
     def __str__(self):
         return '%d' %self.id
