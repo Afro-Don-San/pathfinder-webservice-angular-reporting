@@ -8,7 +8,7 @@
         <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                       <div align="right" style="padding-right: 50px">
+                    <div align="right" style="padding-right: 50px">
                         <a class="las la-file-excel la-3x" href="" id="id_export_xls"></a>
                     </div>
                     <h4 class="card-title">Family Planning Registrations</h4>
@@ -34,15 +34,15 @@
                             {% for x in fp_registrations_disaggregated %}
                                 <tr>
 
-                                    <td align="center">{{ x.total_female_10_14 }}</td>
-                                    <td align="center">{{ x.total_female_15_19 }}</td>
-                                    <td align="center">{{ x.total_female_20_24 }}</td>
-                                    <td align="center">{{ x.total_female_25_ }}</td>
+                                    <td align="center" id="total_female_10_14">{{ x.total_female_10_14 }}</td>
+                                    <td align="center" id="total_female_15_19">{{ x.total_female_15_19 }}</td>
+                                    <td align="center" id="total_female_20_24">{{ x.total_female_20_24 }}</td>
+                                    <td align="center" id="total_female_25_">{{ x.total_female_25_ }}</td>
 
-                                    <td align="center">{{ x.total_male_10_14 }}</td>
-                                    <td align="center">{{ x.total_male_15_19 }}</td>
-                                    <td align="center">{{ x.total_male_20_24 }}</td>
-                                    <td align="center">{{ x.total_male_25_ }}</td>
+                                    <td align="center" id="total_male_10_14">{{ x.total_male_10_14 }}</td>
+                                    <td align="center" id="total_male_15_19">{{ x.total_male_15_19 }}</td>
+                                    <td align="center" id="total_male_20_24">{{ x.total_male_20_24 }}</td>
+                                    <td align="center" id="total_male_25_">{{ x.total_male_25_ }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -64,14 +64,17 @@
 
         $(document).ready(function(){
 
+            $("#filter_spinner").hide();
 
             $("#btn_filter").on("click", function () {
+
+                $("#filter_spinner").show();
 
                 var date_from = document.getElementById("id_date_from").value;
                 var date_to = document.getElementById("id_date_to").value;
                 var location_id = document.getElementById("selected_location_id").value;
 
-                var url = "{% url 'filtered_methods' %}";
+                var url = "{% url 'filter_initiations_summary' %}";
 
                 if (date_from == "" || date_to == "" || location_id == "")
                 {
@@ -97,35 +100,27 @@
 
                                 data = $.parseJSON(data);
 
-                                if (data == '') {
+                                $.each(data, function (k, v) {
 
-                                    var tb = document.getElementById('table');
-                                    while (tb.rows.length > 1) {
-                                        tb.deleteRow(1);
-                                    }
-                                    swal("Empty!", "No records found.", "warning");
-                                }
-                                else {
+                                    $('#total_female_10_14').text(v.total_female_10_14);
+                                    $('#total_female_15_19').text(v.total_female_15_19);
+                                    $('#total_female_20_24').text(v.total_female_20_24);
+                                    $('#total_female_25_').text(v.total_female_25_);
 
-                                    $.each(data, function (k, v) {
+                                    $('#total_male_10_14').text(v.total_male_10_14);
+                                    $('#total_male_15_19').text(v.total_male_15_19);
+                                    $('#total_male_20_24').text(v.total_male_20_24);
+                                    $('#total_male_25_').text(v.total_male_25_);
 
-                                        $('#total_female_10_14').text(v.total_female_10_14);
-                                        $('#total_female_15_19').text(v.total_female_15_19);
-                                        $('#total_female_20_24').text(v.total_female_20_24);
-                                        $('#total_female_25_').text(v.total_female_25_);
+                                });
 
-                                        $('#total_male_10_14').text(v.total_male_10_14);
-                                        $('#total_male_15_19').text(v.total_male_15_19);
-                                        $('#total_male_20_24').text(v.total_male_20_24);
-                                        $('#total_male_25_').text(v.total_male_25_);
-
-                                    });
-                                }
+                                $("#filter_spinner").hide();
 
 
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
+                                $("#filter_spinner").hide();
                                 swal("Error!", "Operation Failed.", "error");
 
                             }
@@ -136,57 +131,57 @@
 
             });
 
-                            $("#id_export_xls").on("click", function () {
+            $("#id_export_xls").on("click", function () {
 
-                    downloadExcel('FPRegistrations', 'table');
+                downloadExcel('FPRegistrations', 'table');
 
 
-                });
+            });
 
             function downloadExcel(fileName, tableId){
 
-                      let dataType = 'application/vnd.ms-excel';
-                    let extension = '.xls';
-                    let filename = fileName;
+                let dataType = 'application/vnd.ms-excel';
+                let extension = '.xls';
+                let filename = fileName;
 
-                    let base64 = function(s) {
-                        return window.btoa(unescape(encodeURIComponent(s)))
-                    };
+                let base64 = function(s) {
+                    return window.btoa(unescape(encodeURIComponent(s)))
+                };
 
-                    let template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
-                    let render = function(template, content) {
-                        return template.replace(/{(\w+)}/g, function(m, p) { return content[p]; });
-                    };
+                let template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
+                let render = function(template, content) {
+                    return template.replace(/{(\w+)}/g, function(m, p) { return content[p]; });
+                };
 
-                    let tableElement = document.getElementById(''+tableId+'');
+                let tableElement = document.getElementById(''+tableId+'');
 
-                    let tableExcel = render(template, {
-                        worksheet: filename,
-                        table: tableElement.innerHTML
-                    });
+                let tableExcel = render(template, {
+                    worksheet: filename,
+                    table: tableElement.innerHTML
+                });
 
-                    filename = filename + extension;
+                filename = filename + extension;
 
-                    if (navigator.msSaveOrOpenBlob)
-                    {
-                        let blob = new Blob(
-                                [ '\ufeff', tableExcel ],
-                                { type: dataType }
-                        );
+                if (navigator.msSaveOrOpenBlob)
+                {
+                    let blob = new Blob(
+                            [ '\ufeff', tableExcel ],
+                            { type: dataType }
+                    );
 
-                        navigator.msSaveOrOpenBlob(blob, filename);
-                    } else {
-                        let downloadLink = document.createElement("a");
+                    navigator.msSaveOrOpenBlob(blob, filename);
+                } else {
+                    let downloadLink = document.createElement("a");
 
-                        document.body.appendChild(downloadLink);
+                    document.body.appendChild(downloadLink);
 
-                        downloadLink.href = 'data:' + dataType + ';base64,' + base64(tableExcel);
+                    downloadLink.href = 'data:' + dataType + ';base64,' + base64(tableExcel);
 
-                        downloadLink.download = filename;
+                    downloadLink.download = filename;
 
-                        downloadLink.click();
-                    }
+                    downloadLink.click();
                 }
+            }
 
 
         });

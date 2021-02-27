@@ -134,6 +134,7 @@
 
         $(document).ready(function(){
 
+            $("#filter_spinner").hide();
 
             Highcharts.chart('container_clients_line', {
                 chart: {
@@ -185,6 +186,8 @@
 
             $("#btn_filter").on("click", function () {
 
+                $("#filter_spinner").show();
+
                 var date_from = document.getElementById("id_date_from").value;
                 var date_to = document.getElementById("id_date_to").value;
                 var location_id = document.getElementById("selected_location_id").value;
@@ -198,88 +201,100 @@
 
                 else {
 
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: {
-                            date_from: date_from, date_to: date_to,location_id: location_id,
-                            'csrfmiddlewaretoken': '{{ csrf_token }}'
-                        },
+                    if (date_from > date_to)
+                    {
+                        swal("Date Error", "Date From greater than Date to", "error");
+                    }
+                    else
 
-                        success: function (data) {
+                    {
 
-                            data = $.parseJSON(data);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: {
+                                date_from: date_from, date_to: date_to, location_id: location_id,
+                                'csrfmiddlewaretoken': '{{ csrf_token }}'
+                            },
 
-                            var total_clients = data['total_clients'];
-                            var total_clients_categories = [];
-                            var total_clients_values = [];
+                            success: function (data) {
 
-                            var total_fp_methods = data['total_fp_methods'];
-                            var fp_methods_categories = [];
-                            var fp_methods_values = [];
+                                data = $.parseJSON(data);
 
-                            $.each(total_clients, function(k, v)
-                            {
-                                total_clients_categories.push(v.method_type);
-                                total_clients_values.push(v.clients);
-                            });
+                                var total_clients = data['total_clients'];
+                                var total_clients_categories = [];
+                                var total_clients_values = [];
 
-                            $.each(total_fp_methods, function(k, v)
-                            {
-                                fp_methods_categories.push(v.method_type);
-                                fp_methods_values.push(v.items);
-                            });
+                                var total_fp_methods = data['total_fp_methods'];
+                                var fp_methods_categories = [];
+                                var fp_methods_values = [];
 
-                            $('#id_card_anc_referral').text(data["card_anc_referrals"]);
-                            $('#id_card_fp_referrals').text(data["card_family_planning_referrals"]);
-                            $('#id_card_fp_initiations').text(data["card_family_planning_initiations"]);
-                            $('#id_card_fp_discontinuations').text(data["card_family_planning_discontinuations"]);
+                                $.each(total_clients, function (k, v) {
+                                    total_clients_categories.push(v.method_type);
+                                    total_clients_values.push(v.clients);
+                                });
 
-                            Highcharts.chart('container_clients_line', {
-                                chart: {
-                                    type: 'line'
-                                },
-                                title: {
-                                    text: 'NUMBER OF CLIENTS ENROLLED TO FAMILY PLANNING METHODS'
-                                },
-                                xAxis: {
-                                    categories: total_clients_categories
-                                },
-                                series: [{
-                                    name: 'Number of Clients',
-                                    data: total_clients_values,
-                                    color: 'DodgerBlue'
-                                }]
+                                $.each(total_fp_methods, function (k, v) {
+                                    fp_methods_categories.push(v.method_type);
+                                    fp_methods_values.push(v.items);
+                                });
 
+                                $('#id_card_anc_referral').text(data["card_anc_referrals"]);
+                                $('#id_card_fp_referrals').text(data["card_family_planning_referrals"]);
+                                $('#id_card_fp_initiations').text(data["card_family_planning_initiations"]);
+                                $('#id_card_fp_discontinuations').text(data["card_family_planning_discontinuations"]);
 
-                            });
-
-                            Highcharts.chart('container_methods_line', {
-                                chart: {
-                                    type: 'line'
-                                },
-                                title: {
-                                    text: 'NUMBER OF FAMILY PLANNING ITEMS ISSUED'
-                                },
-                                xAxis: {
-                                    categories: fp_methods_categories
-                                },
-                                series: [{
-                                    name: 'Number of Items issued',
-                                    data: fp_methods_values,
-                                    color: 'Olive'
-                                }]
+                                Highcharts.chart('container_clients_line', {
+                                    chart: {
+                                        type: 'column'
+                                    },
+                                    title: {
+                                        text: 'NUMBER OF CLIENTS ENROLLED TO FAMILY PLANNING METHODS'
+                                    },
+                                    xAxis: {
+                                        categories: total_clients_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of Clients',
+                                        data: total_clients_values,
+                                        color: 'DodgerBlue'
+                                    }]
 
 
-                            });
+                                });
 
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                Highcharts.chart('container_methods_line', {
+                                    chart: {
+                                        type: 'column'
+                                    },
+                                    title: {
+                                        text: 'NUMBER OF FAMILY PLANNING ITEMS ISSUED'
+                                    },
+                                    xAxis: {
+                                        categories: fp_methods_categories
+                                    },
+                                    series: [{
+                                        name: 'Number of Items issued',
+                                        data: fp_methods_values,
+                                        color: 'Olive'
+                                    }]
 
-                            swal("Error!", "Operation Failed.", "error");
 
-                        }
-                    });
+                                });
+
+                                $("#filter_spinner").hide();
+
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                $("#filter_spinner").hide();
+
+                                swal("Error!", "Operation Failed.", "error");
+
+                            }
+                        });
+
+                    }
                 }
 
 

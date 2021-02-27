@@ -138,6 +138,8 @@
 
         $(document).ready(function(){
 
+            $("#filter_spinner").hide();
+
             var locationData = localStorage.getItem('locationData');
 
             Highcharts.chart('container_area', {
@@ -213,6 +215,8 @@
             });
 
             $("#btn_filter").on("click", function () {
+
+                $("#filter_spinner").show();
 
                 var date_from = document.getElementById("id_date_from").value;
                 var date_to = document.getElementById("id_date_to").value;
@@ -330,9 +334,12 @@
 
                                 });
 
+                                $("#filter_spinner").hide();
 
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                $("#filter_spinner").hide();
 
                                 swal("Error!", "Operation Failed.", "error");
 

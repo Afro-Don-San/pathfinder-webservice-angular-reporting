@@ -89,7 +89,11 @@
 
             $(document).ready(function(){
 
+                $("#filter_spinner").hide();
+
                 $("#btn_filter").on("click", function () {
+
+                    $("#filter_spinner").show();
 
                     var date_from = document.getElementById("id_date_from").value;
                     var date_to = document.getElementById("id_date_to").value;
@@ -125,17 +129,19 @@
                                     $('#id_female_10_14').text(data["total_female_10_14"]);
                                     $('#id_female_15_19').text(data["total_female_15_19"]);
                                     $('#id_female_20_24').text(data["total_female_20_24"]);
-                                    $('#id_female_25').text(data["total_female_25_"]);
+                                    $('#id_female_25').text(data["total_female_25"]);
 
                                     $('#id_male_10_14').text(data["total_male_10_14"]);
                                     $('#id_male_15_19').text(data["total_male_15_19"]);
                                     $('#id_male_20_24').text(data["total_male_20_24"]);
-                                    $('#id_male_25').text(data["total_male_25_"]);
+                                    $('#id_male_25').text(data["total_male_25"]);
 
+                                    $("#filter_spinner").hide();
 
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
 
+                                    $("#filter_spinner").hide();
                                     swal("Error!", "Operation Failed.", "error");
 
                                 }
@@ -149,7 +155,7 @@
 
                 $("#id_export_xls").on("click", function () {
 
-                    downloadExcel('ClientSUmmary', 'table');
+                    downloadExcel('ClientSummary', 'table');
                     downloadExcel('Registrations', 'table_referrals');
 
                 });

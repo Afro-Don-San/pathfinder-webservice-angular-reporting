@@ -88,7 +88,11 @@
 
             $(document).ready(function(){
 
+                $("#filter_spinner").hide();
+
                 $("#btn_filter").on("click", function () {
+
+                    $("#filter_spinner").show();
 
                     var date_from = document.getElementById("id_date_from").value;
                     var date_to = document.getElementById("id_date_to").value;
@@ -119,19 +123,30 @@
 
                                     data = $.parseJSON(data);
 
+                                    var tb = document.getElementById('table_registrations');
+                                    while (tb.rows.length > 1) {
+                                        tb.deleteRow(1);
+                                    }
+
+                                    var tb = document.getElementById('table_referrals');
+                                    while (tb.rows.length > 1) {
+                                        tb.deleteRow(1);
+                                    }
+
                                     if (data["chw_array"] == '') {
 
-                                        var tb = document.getElementById('table_registrations');
-                                        while (tb.rows.length > 1) {
-                                            tb.deleteRow(1);
-                                        }
                                         swal("Empty!", "No records found.", "warning");
                                     }
                                     else {
+
                                         $.each(data["chw_array"], function (k, v) {
-                                            $('#cr_chw_name').text(v.chw_name);
-                                            $('#cr_chw_id').text(v.chw_id);
-                                            $('#cr_id_value').text(v.value);
+
+                                            var chwName = v.chw_name;
+                                            var chwId = v.chw_id;
+                                            var value = v.value;
+
+                                            $("#table_registrations > tbody").append("<tr><td align='center' id='cr_chw_name'>"+chwName+"</td><td align='center' id='cr_chw_id'>"+chwId+"</td><td align='center' id='cr_id_value'>"+value+"</td></tr>");
+
 
                                         });
                                     }
@@ -139,26 +154,29 @@
 
                                     if (data["json_array_chw"] == '') {
 
-                                        var tb = document.getElementById('table_referrals');
-                                        while (tb.rows.length > 1) {
-                                            tb.deleteRow(1);
-                                        }
                                         swal("Empty!", "No records found.", "warning");
                                     }
                                     else {
                                         $.each(data["json_array_chw"], function (k, v) {
 
-                                            $('#ri_chw_name').text(v.chw_name);
-                                            $('#ri_chw_id').text(v.chw_id);
-                                            $('#ri_issued').text(v.issued);
-                                            $('#ri_completed').text(v.completed);
+
+                                            var chwName = v.chw_name;
+                                            var chwId = v.chw_id;
+                                            var issued = v.issued;
+                                            var received = v.completed;
+
+                                            $("#table_referrals > tbody").append("<tr><td align='center' id='ri_chw_name'>"+chwName+"</td><td align='center' id='ri_chw_id'>"+chwId+"</td><td align='center' id='ri_issued'>"+issued+"</td><td align='center' id='ri_received'>"+received+"</td></tr>");
+
 
                                         });
                                     }
 
+                                    $("#filter_spinner").hide();
 
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                    $("#filter_spinner").hide();
 
                                     swal("Error!", "Operation Failed.", "error");
 
@@ -172,8 +190,8 @@
 
                 $("#id_export_xls").on("click", function () {
 
-                    downloadExcel('Registrations', 'table_registrations');
-                    downloadExcel('Registrations', 'table_referrals');
+                    downloadExcel('RegistrationsByCHWs', 'table_registrations');
+                    downloadExcel('ReferralsByChWS', 'table_referrals');
 
                 });
 

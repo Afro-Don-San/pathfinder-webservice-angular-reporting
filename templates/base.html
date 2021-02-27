@@ -183,6 +183,9 @@
 
                                 </div>
 
+                                <div class="loader" style="margin:0 auto;"  id="filter_spinner"></div>
+
+
                             </div>
 
                         </div>
@@ -196,11 +199,11 @@
                     <!-- Popup Modal -->
                     <div id="popModal" class="modal fade text-left" tabindex="-1" aria-hidden="true" aria-labelledby="myModalLabel70" role="dialog" data-keyboard="false" data-backdrop="static">
 
+
                     </div>
 
                 </div>
             </div>
-
 
 
             {% block content %}
@@ -235,10 +238,14 @@
 <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
 <script src="{% static "js/tree.jquery.js" %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static "app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js" %}"></script>
+<script src="{% static "app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js" %}"></script>
 
 <script>
 
     $(document).ready(function(){
+
+
 
         var now = new Date();
 

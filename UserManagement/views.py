@@ -286,14 +286,19 @@ def get_chw_performance_report(request):
     location_array = []
     locations = core_views.get_children_by_user(request.user)
 
+    date_from = date.today() - relativedelta(months=1)
+    date_to = date.today() - relativedelta(days=1)
+
     for x in locations:
         location_array.append(x.uuid)
 
     chw_array = []
 
-    client_registration_by_chw = core_models.Clients.objects.filter(location_id__in=location_array
+    client_registration_by_chw = core_models.Clients.objects.filter(location_id__in=location_array,
+                                                                    event_date__gte=date_from,
+                                                                    event_date__lte=date_to
                                                                     ).values('provider_id').annotate(value=Count('provider_id')) \
-                                     .order_by('-value')[: 10]
+                                     .order_by('-value')
 
     for client in client_registration_by_chw:
         chw_id = client['provider_id']
@@ -308,7 +313,7 @@ def get_chw_performance_report(request):
         chw_array.append(chw_object)
 
     referral_issued_by_chw = core_models.ReferralTask.objects.filter(
-        health_facility_location_id__in=location_array). \
+        health_facility_location_id__in=location_array, execution_start_date__gte=date_from, execution_start_date__lte=date_to). \
         values('chw_id', 'chw_name').annotate(value=Count('chw_id'))
 
     json_array_chw = []
@@ -1107,10 +1112,7 @@ def filter_initiations_summary(request):
                                                "total_male_15_19": total_male_15_19, "total_male_20_24": total_male_20_24,
                                                "total_male_25_": total_male_25_})
 
-        return render(request, 'UserManagement/Summary/Initiations.html', {
-            'fp_registrations_disaggregated':
-                fp_registrations_disaggregated
-        })
+        return HttpResponse(JsonResponse(fp_registrations_disaggregated, safe=False))
 
 
 def get_discontinuations_summary(request):
