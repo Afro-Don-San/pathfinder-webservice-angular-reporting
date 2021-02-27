@@ -31,5 +31,6 @@ urlpatterns = [
     path('export_clients_xls', views.export_clients_xls, name='export_clients_xls'),
     path('change_password', views.change_password, name='change_password'),
     path('save_changed_password/', views.set_changed_password, name='save_changed_password'),
+    path('export_chw_performance_xls', views.export_chw_performance_xls, name='export_chw_performance_xls'),
 
 ]

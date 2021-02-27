@@ -8,11 +8,10 @@
         <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Client Registrations</h4>
-                </div>
-
-                <div align="right">
-                    <a class="las la-file-excel" href="{% url 'export_clients_xls' %}">Export</a>
+                    <div align="right" style="padding-right: 50px">
+                        <a class="las la-file-excel la-3x" href="" id="id_export_xls"></a>
+                    </div>
+                    <h4 class="card-title">Client Summary</h4>
                 </div>
                 <div class="card-body">
 
@@ -20,38 +19,42 @@
                     <h6>TOTAL REGISTERED FEMALE CLIENTS: <span><b>{{ total_female }}</b></h6></span>
                     <h6>TOTAL REGISTERED MALE CLIENTS: <span><b>{{ total_male }}</b></h6></span>
 
-                    <table id = "table" class = "table table-bordered">
-                        <thead class = "alert-primary">
-                        <tr>
+                    <div class="table-responsive">
 
-                            <th>FEMALE 10-14</th>
-                            <th>FEMALE 15-19</th>
-                            <th>FEMALE 20-24</th>
-                            <th>FEMALE 25+</th>
-                            <th>MALE 10-14</th>
-                            <th>MALE 15-19</th>
-                            <th>MALE 20-24</th>
-                            <th>MALE 25+</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for x in clients_disaggregated %}
+                        <table id = "table" class = "table table-bordered">
+                            <thead class = "alert-primary">
                             <tr>
 
-                                <td align="center" id="id_female_10_14">{{ x.total_female_10_14 }}</td>
-                                <td align="center" id="id_female_15_19">{{ x.total_female_15_19 }}</td>
-                                <td align="center" id="id_female_20_24">{{ x.total_female_20_24 }}</td>
-                                <td align="center" id="id_female_25">{{ x.total_female_25_ }}</td>
-
-                                <td align="center" id="id_male_10_14">{{ x.total_male_10_14 }}</td>
-                                <td align="center" id="id_male_15_19">{{ x.total_male_15_19 }}</td>
-                                <td align="center" id="id_male_20_24">{{ x.total_male_20_24 }}</td>
-                                <td align="center" id="id_male_25">{{ x.total_male_25_ }}</td>
+                                <th>FEMALE 10-14</th>
+                                <th>FEMALE 15-19</th>
+                                <th>FEMALE 20-24</th>
+                                <th>FEMALE 25+</th>
+                                <th>MALE 10-14</th>
+                                <th>MALE 15-19</th>
+                                <th>MALE 20-24</th>
+                                <th>MALE 25+</th>
                             </tr>
-                        {% endfor %}
+                            </thead>
+                            <tbody>
+                            {% for x in clients_disaggregated %}
+                                <tr>
 
-                        </tbody>
-                    </table>
+                                    <td align="center" id="id_female_10_14">{{ x.total_female_10_14 }}</td>
+                                    <td align="center" id="id_female_15_19">{{ x.total_female_15_19 }}</td>
+                                    <td align="center" id="id_female_20_24">{{ x.total_female_20_24 }}</td>
+                                    <td align="center" id="id_female_25">{{ x.total_female_25_ }}</td>
+
+                                    <td align="center" id="id_male_10_14">{{ x.total_male_10_14 }}</td>
+                                    <td align="center" id="id_male_15_19">{{ x.total_male_15_19 }}</td>
+                                    <td align="center" id="id_male_20_24">{{ x.total_male_20_24 }}</td>
+                                    <td align="center" id="id_male_25">{{ x.total_male_25_ }}</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    </div>
 
                 </div>
 
@@ -67,7 +70,11 @@
                 </div>
                 <div class="card-body">
 
-                    {% render_table clients_table %}
+                    <div class="table-responsive">
+
+                        {% render_table clients_table %}
+
+                    </div>
 
                 </div>
 
@@ -139,6 +146,58 @@
 
 
                 });
+
+                $("#id_export_xls").on("click", function () {
+
+                    downloadExcel('ClientSUmmary', 'table');
+                    downloadExcel('Registrations', 'table_referrals');
+
+                });
+
+                function downloadExcel(fileName, tableId){
+
+                    let dataType = 'application/vnd.ms-excel';
+                    let extension = '.xls';
+                    let filename = fileName;
+
+                    let base64 = function(s) {
+                        return window.btoa(unescape(encodeURIComponent(s)))
+                    };
+
+                    let template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
+                    let render = function(template, content) {
+                        return template.replace(/{(\w+)}/g, function(m, p) { return content[p]; });
+                    };
+
+                    let tableElement = document.getElementById(''+tableId+'');
+
+                    let tableExcel = render(template, {
+                        worksheet: filename,
+                        table: tableElement.innerHTML
+                    });
+
+                    filename = filename + extension;
+
+                    if (navigator.msSaveOrOpenBlob)
+                    {
+                        let blob = new Blob(
+                                [ '\ufeff', tableExcel ],
+                                { type: dataType }
+                        );
+
+                        navigator.msSaveOrOpenBlob(blob, filename);
+                    } else {
+                        let downloadLink = document.createElement("a");
+
+                        document.body.appendChild(downloadLink);
+
+                        downloadLink.href = 'data:' + dataType + ';base64,' + base64(tableExcel);
+
+                        downloadLink.download = filename;
+
+                        downloadLink.click();
+                    }
+                }
 
 
             });

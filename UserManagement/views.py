@@ -381,6 +381,85 @@ def get_filtered_chw_performance_report(request):
         return HttpResponse(JsonResponse(content, safe=False))
 
 
+def export_chw_performance_xls(request):
+    if request.method == "POST":
+        date_from = request.POST["date_from"]
+        date_to = request.POST["date_to"]
+        parent_location_id = request.POST["location_id"]
+
+        children = core_views.get_facilities_by_location(parent_location_id)
+
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename="chw_performance.xls"'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Users')
+
+        # Sheet header, first row
+        row_num = 0
+
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['CHW Name', 'CHW ID','NUMBER OF CLIENTS REGISTERED' ]
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        # Sheet body, remaining rows
+        font_style = xlwt.XFStyle()
+
+        chw_array = []
+        json_array_chw = []
+
+        client_registration_by_chw = core_models.Clients.objects.filter(location_id__in=children,
+                                                                        event_date__gte=date_from,
+                                                                        event_date__lte=date_to
+
+                                                                        ).values('provider_id').annotate(
+            value=Count('provider_id')) \
+            .order_by('-value')
+
+        referral_issued_by_chw = core_models.ReferralTask.objects.filter(
+            health_facility_location_id__in=children, execution_start_date__gte=date_from,
+            execution_start_date__lte=date_to
+        ). \
+            values('chw_id', 'chw_name').annotate(value=Count('chw_id'))
+
+        for client in client_registration_by_chw:
+            chw_id = client['provider_id']
+            try:
+                instance_team_member = core_models.TeamMembers.objects.get(identifier=chw_id)
+                chw_name = instance_team_member.name
+            except:
+                chw_name = 'NIL'
+            chw_object = {"chw_name": chw_name, "chw_id": chw_id,
+                          "value": client['value']}
+
+            chw_array.append(chw_object)
+
+        for x in referral_issued_by_chw:
+            query_completed_referrals = core_models.ReferralTask.objects.filter(
+                health_facility_location_id__in=children, execution_start_date__gte=date_from,
+                execution_start_date__lte=date_to
+
+                , chw_id=x['chw_id'], businessstatus='Complete')
+            referral_object = {'chw_id': x['chw_id'], 'chw_name': x['chw_name'], 'issued': x['value'],
+                               'completed': query_completed_referrals.count()}
+
+            json_array_chw.append(referral_object)
+
+        for row in chw_array:
+            column_names = tuple(row)
+            row_num += 1
+            for col_num in range(len(column_names)):
+                print(col_num)
+                ws.write(row_num, col_num, row[col_num], font_style)
+
+        wb.save(response)
+        return response
+
+
 def get_health_education_report(request):
     locations = core_models.Location.objects.all().order_by('location_id')
 
@@ -631,6 +710,7 @@ def export_clients_xls(request):
     font_style = xlwt.XFStyle()
 
     rows = core_models.Clients.objects.all().values_list('first_name', 'middle_name', 'last_name', 'gender', 'birth_date', 'phone_number')
+
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
@@ -844,7 +924,7 @@ def get_filtered_referrals_summary(request):
 
 def get_visit_summary(request):
     location_array = []
-    locations = core_views.get_children_by_user(request)
+    locations = core_views.get_children_by_user(request.user)
 
     for x in locations:
         location_array.append(x.uuid)
@@ -1049,7 +1129,7 @@ def get_discontinuations_summary(request):
 
 def get_citizen_report_summary(request):
     location_array = []
-    locations = core_views.get_children_by_user(request)
+    locations = core_views.get_children_by_user(request.user)
 
     for x in locations:
         location_array.append(x.uuid)
@@ -1152,7 +1232,6 @@ def authenticate_user(request):
     else:
         messages.success(request, 'Something went wrong, please try again later')
         return render(request, 'UserManagement/Auth/Login.html')
-
 
 
 def get_dashboard(request, date_from, date_to, location_array):
@@ -1259,7 +1338,6 @@ def filter_dashboard(request):
         content = get_dashboard(request, date_from, date_to, location_array)
 
         return render(request, 'UserManagement/Dashboard/index.html', content)
-
 
 
 @login_required(login_url='/')

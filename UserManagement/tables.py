@@ -27,7 +27,7 @@ class LocationActions(tables.Column):
 
 
 class TeamTable(tables.Table):
-    Actions = TeamActions()
+    # Actions = TeamActions()
     class Meta:
         model = core_models.Team
         template_name = "django_tables2/bootstrap.html"
@@ -38,7 +38,7 @@ class TeamTable(tables.Table):
 
 
 class LocationTable(tables.Table):
-    Actions = LocationActions()
+    # Actions = LocationActions()
     class Meta:
         model = core_models.Location
         template_name = "django_tables2/bootstrap.html"

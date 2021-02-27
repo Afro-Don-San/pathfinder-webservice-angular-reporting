@@ -107,7 +107,7 @@
         <div class="card-body">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">TOTAL NUMBER OF FP ITEMS ISSUED LINE GRAPH</h4>
+                    <h4 class="card-title">TOTAL NUMBER OF FP ITEMS ISSUED BAR GRAPH</h4>
                 </div>
                 <div id="container_methods_line" class="col-md-12">
                     <div class="loader-wrapper" id="area_spinner">
@@ -137,10 +137,10 @@
 
             Highcharts.chart('container_clients_line', {
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 title: {
-                    text: 'NUMBER OF CLIENTS ENROLLED TO FAMILY PLANNING METHODS'
+                    text: 'TOTAL NUMBER OF CLIENTS ISSUED FP METHODS BAR GRAPH'
                 },
                 xAxis: {
                     categories: [
@@ -161,10 +161,10 @@
 
             Highcharts.chart('container_methods_line', {
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 title: {
-                    text: 'NUMBER OF FAMILY PLANNING ITEMS ISSUED'
+                    text: 'TOTAL NUMBER OF FP COMMODITIES ISSUED BAR GRAPH'
                 },
                 xAxis: {
                     categories: [

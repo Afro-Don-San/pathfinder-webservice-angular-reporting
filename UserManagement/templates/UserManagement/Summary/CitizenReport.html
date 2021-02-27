@@ -108,7 +108,7 @@
 
             Highcharts.chart('container_wait_time', {
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 title: {
                     text: 'WAIT TIME FOR SERVICE'
@@ -135,7 +135,7 @@
 
             Highcharts.chart('container_referral_attempts', {
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 title: {
                     text: 'REFERRAL COMPLETION ATTEMPTS BY CLIENTS'
@@ -163,7 +163,7 @@
 
             Highcharts.chart('container_reasons_not_getting_services', {
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 title: {
                     text: ''
@@ -179,7 +179,7 @@
                     data: [
                         {% for entry in query_reason_not_getting_service %}{{ entry.value }}{% if not forloop.last %}, {% endif %}{% endfor %}
                     ],
-                    color: 'Red'
+                    color: 'Purple'
                 }],
 
                 exporting: {
@@ -192,7 +192,7 @@
 
             Highcharts.chart('container_amount_asked_to_pay', {
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 title: {
                     text: ''
@@ -289,7 +289,7 @@
 
                                 Highcharts.chart('container_wait_time', {
                                     chart: {
-                                        type: 'line'
+                                        type: 'column'
                                     },
                                     title: {
                                         text: 'WAIT TIME FOR SERVICE'
@@ -311,7 +311,7 @@
 
                                 Highcharts.chart('container_referral_attempts', {
                                     chart: {
-                                        type: 'line'
+                                        type: 'column'
                                     },
                                     title: {
                                         text: 'REFERRAL COMPLETION ATTEMPTS BY CLIENTS'
@@ -334,7 +334,7 @@
 
                                 Highcharts.chart('container_reasons_not_getting_services', {
                                     chart: {
-                                        type: 'line'
+                                        type: 'column'
                                     },
                                     title: {
                                         text: ''
@@ -345,7 +345,7 @@
                                     series: [{
                                         name: 'Number of People waited',
                                         data: query_reason_not_getting_service_values,
-                                        color: 'Red'
+                                        color: 'Purple'
                                     }],
 
                                     exporting: {
@@ -357,7 +357,7 @@
 
                                 Highcharts.chart('container_amount_asked_to_pay', {
                                     chart: {
-                                        type: 'line'
+                                        type: 'column'
                                     },
                                     title: {
                                         text: ''
