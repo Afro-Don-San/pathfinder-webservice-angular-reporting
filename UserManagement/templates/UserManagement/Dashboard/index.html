@@ -196,6 +196,7 @@
 
                 if (date_from == "" || date_to == "" || location_id == "")
                 {
+                    $("#filter_spinner").hide();
                     swal("Empty Filter(s)!", "One or more filters are missing.", "warning");
                 }
 
@@ -203,7 +204,11 @@
 
                     if (date_from > date_to)
                     {
+                        $("#filter_spinner").hide();
+
                         swal("Date Error", "Date From greater than Date to", "error");
+
+
                     }
                     else
 

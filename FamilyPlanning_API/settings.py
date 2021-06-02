@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'xlwt',
     'crispy_forms',
     'django_tables2',
-    'django_datatables_view'
 
 ]
 
