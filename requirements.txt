@@ -23,7 +23,7 @@ psycopg2-binary==2.8.6
 pytz==2020.5
 requests==2.25.1
 six==1.15.0
-sqlparse==0.4.1
+sqlparse==0.4.2
 stevedore==3.3.0
 urllib3==1.26.2
 vine==5.0.0
