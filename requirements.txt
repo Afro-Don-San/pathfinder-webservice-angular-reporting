@@ -11,7 +11,7 @@ click-plugins==1.1.1
 click-repl==0.1.6
 configparser==5.0.1
 distlib==0.3.1
-Django==3.1.4
+Django==3.1.13
 django-rest-auth==0.9.5
 djangorestframework==3.12.1
 filelock==3.0.12
